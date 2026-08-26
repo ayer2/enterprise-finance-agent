@@ -38,15 +38,15 @@
 
 ### 1. 获取项目
 
-```powershell
+```bash
 git clone https://github.com/ayer2/enterprise-finance-agent.git
 cd enterprise-finance-agent
 ```
 
 ### 2. 准备环境变量
 
-```powershell
-Copy-Item .env.example .env
+```bash
+cp .env.example .env
 notepad .env
 ```
 
@@ -62,10 +62,10 @@ notepad .env
 
 ### 3. 构建并启动
 
-```powershell
+```bash
 docker compose up --build -d
 docker compose ps
-.\deploy\verify.ps1
+./deploy/verify.sh
 ```
 
 首次后端镜像构建需要下载较多上游依赖，耗时可能达到十几分钟；后续构建会复用缓存。三个服务显示 `healthy`，且验证脚本输出 `M7_DEPLOYMENT_VERIFICATION_PASSED`，表示部署层验收通过。
@@ -93,9 +93,9 @@ Compose 会自动完成以下工作：
 4. 选择 13 张业务表并初始化数据源。
 5. 导入并向量化版本化知识：
 
-```powershell
-python .\demo\enterprise-finance\knowledge\import_knowledge.py --agent-id <agent-id>
-python .\demo\enterprise-finance\knowledge\verify_recall.py --agent-id <agent-id>
+```bash
+python ./demo/enterprise-finance/knowledge/import_knowledge.py --agent-id <agent-id>
+python ./demo/enterprise-finance/knowledge/verify_recall.py --agent-id <agent-id>
 ```
 
 6. 发布 Agent，在经营分析首页执行演示问题。
@@ -106,13 +106,13 @@ python .\demo\enterprise-finance\knowledge\verify_recall.py --agent-id <agent-id
 
 停止服务但保留数据：
 
-```powershell
+```bash
 docker compose down
 ```
 
 删除 Compose 数据卷会清空本地管理配置和演示数据库，只有明确需要从头重建时才执行：
 
-```powershell
+```bash
 docker compose down --volumes
 ```
 
