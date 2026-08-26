@@ -161,4 +161,10 @@ public final class Constant {
 	// Langfuse 追踪：threadId 透传到 graph state，用于 token 累计
 	public static final String TRACE_THREAD_ID = "TRACE_THREAD_ID";
 
+	public static final String SECURITY_ACTOR_ID = "SECURITY_ACTOR_ID";
+
+	public static final String SECURITY_ROLE = "SECURITY_ROLE";
+
+	public static final String SECURITY_DEPARTMENT_IDS = "SECURITY_DEPARTMENT_IDS";
+
 }

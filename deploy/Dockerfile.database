@@ -1,0 +1,15 @@
+FROM python:3.12-slim AS generator
+
+WORKDIR /source/demo/enterprise-finance
+COPY demo/enterprise-finance/config.json ./config.json
+COPY demo/enterprise-finance/generator ./generator
+RUN python ./generator/generate.py
+
+FROM mysql:8.4
+
+COPY demo/enterprise-finance/sql/01_schema.sql /docker-entrypoint-initdb.d/10_enterprise_schema.sql
+COPY demo/enterprise-finance/sql/02_seed_reference_data.sql /docker-entrypoint-initdb.d/20_reference_data.sql
+COPY --from=generator /source/demo/enterprise-finance/generated/04_generated_data.sql /docker-entrypoint-initdb.d/30_generated_data.sql
+COPY --chmod=0755 demo/enterprise-finance/sql/04_create_readonly_user.sh /docker-entrypoint-initdb.d/40_create_readonly_user.sh
+COPY demo/enterprise-finance/sql/05_initialization_ready.sql /docker-entrypoint-initdb.d/50_initialization_ready.sql
+COPY demo/enterprise-finance/sql/03_validation_queries.sql /validation/03_validation_queries.sql

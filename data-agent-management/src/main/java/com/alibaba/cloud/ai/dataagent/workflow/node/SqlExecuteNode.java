@@ -35,6 +35,11 @@ import com.alibaba.cloud.ai.dataagent.dto.planner.ExecutionStep;
 import com.alibaba.cloud.ai.dataagent.enums.TextType;
 import com.alibaba.cloud.ai.dataagent.prompt.PromptHelper;
 import com.alibaba.cloud.ai.dataagent.properties.DataAgentProperties;
+import com.alibaba.cloud.ai.dataagent.security.sql.QuerySecurityContext;
+import com.alibaba.cloud.ai.dataagent.security.sql.SqlSecurityDecision;
+import com.alibaba.cloud.ai.dataagent.security.sql.SqlSecurityException;
+import com.alibaba.cloud.ai.dataagent.security.sql.SqlSecurityService;
+import com.alibaba.cloud.ai.dataagent.service.audit.SqlAuditService;
 import com.alibaba.cloud.ai.dataagent.service.llm.LlmService;
 import com.alibaba.cloud.ai.dataagent.service.nl2sql.Nl2SqlService;
 import com.alibaba.cloud.ai.dataagent.util.ChatResponseUtil;
@@ -49,6 +54,7 @@ import com.alibaba.cloud.ai.graph.action.NodeAction;
 import com.alibaba.cloud.ai.graph.streaming.StreamingOutput;
 import java.time.Duration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -83,6 +89,10 @@ public class SqlExecuteNode implements NodeAction {
 
 	private final DataAgentProperties properties;
 
+	private final SqlSecurityService sqlSecurityService;
+
+	private final SqlAuditService sqlAuditService;
+
 	private static final int SAMPLE_DATA_NUMBER = 20;
 
 	private static final BeanOutputConverter<DisplayStyleBO> DISPLAY_STYLE_CONVERTER = new BeanOutputConverter<>(
@@ -109,7 +119,23 @@ public class SqlExecuteNode implements NodeAction {
 		// Dynamically get the data source configuration for an agent
 		DbConfigBO dbConfig = databaseUtil.getAgentDbConfig(agentId);
 
-		return executeSqlQuery(state, currentStep, sqlQuery, dbConfig, agentId);
+		QuerySecurityContext securityContext = securityContext(state);
+		String threadId = state.value(Constant.TRACE_THREAD_ID, "");
+		String question = StateUtil.getCanonicalQuery(state);
+		long validationStarted = System.nanoTime();
+		SqlSecurityDecision securityDecision;
+		try {
+			securityDecision = sqlSecurityService.validateAndPrepare(agentId, sqlQuery, dbConfig.getDialectType(),
+					securityContext);
+		}
+		catch (SqlSecurityException ex) {
+			sqlAuditService.record(agentId, threadId, securityContext, question, sqlQuery,
+					elapsedMillis(validationStarted), null, "BLOCKED", ex.getMessage());
+			throw ex;
+		}
+
+		return executeSqlQuery(state, currentStep, securityDecision.sql(), dbConfig, agentId, securityContext, threadId,
+				question);
 	}
 
 	/**
@@ -128,11 +154,13 @@ public class SqlExecuteNode implements NodeAction {
 	 */
 	@SuppressWarnings("unchecked")
 	private Map<String, Object> executeSqlQuery(OverAllState state, Integer currentStep, String sqlQuery,
-			DbConfigBO dbConfig, Long agentId) {
+			DbConfigBO dbConfig, Long agentId, QuerySecurityContext securityContext, String threadId, String question) {
 		// Execute business logic first - actual SQL execution
 		DbQueryParameter dbQueryParameter = new DbQueryParameter();
 		dbQueryParameter.setSql(sqlQuery);
 		dbQueryParameter.setSchema(dbConfig.getSchema());
+		dbQueryParameter.setMaxRows(properties.getSqlSecurity().getMaxRows());
+		dbQueryParameter.setQueryTimeoutSeconds(properties.getSqlSecurity().getQueryTimeoutSeconds());
 
 		Accessor dbAccessor = databaseUtil.getAgentAccessor(agentId);
 		final Map<String, Object> result = new HashMap<>();
@@ -143,9 +171,10 @@ public class SqlExecuteNode implements NodeAction {
 				ChatResponseUtil.createResponse(sqlQuery),
 				ChatResponseUtil.createPureResponse(TextType.SQL.getEndSign()));
 
+		long executionStarted = System.nanoTime();
 		Mono<ExecutedSqlResult> sqlExecution = Mono
 			.fromCallable(() -> executeAndStoreResult(state, currentStep, sqlQuery, dbConfig, dbQueryParameter,
-					dbAccessor, result))
+					dbAccessor, result, agentId, securityContext, threadId, question, executionStarted))
 			.subscribeOn(Schedulers.boundedElastic());
 
 		Flux<ChatResponse> executionFlux = sqlExecution
@@ -154,6 +183,8 @@ public class SqlExecuteNode implements NodeAction {
 			.onErrorResume(e -> {
 				String errorMessage = e.getMessage();
 				log.error("SQL execution failed - SQL as follows: \n {} \n ", sqlQuery, e);
+				sqlAuditService.record(agentId, threadId, securityContext, question, sqlQuery,
+						elapsedMillis(executionStarted), null, "FAILED", errorMessage);
 				result.put(SQL_REGENERATE_REASON, SqlRetryDto.sqlExecute(errorMessage));
 				return Flux.just(ChatResponseUtil.createResponse("SQL执行失败: " + errorMessage));
 			});
@@ -173,9 +204,11 @@ public class SqlExecuteNode implements NodeAction {
 	 * @param resultSetBO SQL执行结果
 	 */
 	private ExecutedSqlResult executeAndStoreResult(OverAllState state, Integer currentStep, String sqlQuery,
-			DbConfigBO dbConfig, DbQueryParameter dbQueryParameter, Accessor dbAccessor, Map<String, Object> result)
+			DbConfigBO dbConfig, DbQueryParameter dbQueryParameter, Accessor dbAccessor, Map<String, Object> result,
+			Long agentId, QuerySecurityContext securityContext, String threadId, String question, long executionStarted)
 			throws Exception {
-		ResultSetBO resultSetBO = dbAccessor.executeSqlAndReturnObject(dbConfig, dbQueryParameter);
+		ResultSetBO resultSetBO = sqlSecurityService
+			.maskSensitiveData(dbAccessor.executeSqlAndReturnObject(dbConfig, dbQueryParameter));
 		String strResultSetJson = JsonUtil.getObjectMapper().writeValueAsString(resultSetBO);
 
 		result.put(SQL_REGENERATE_REASON, SqlRetryDto.empty());
@@ -200,7 +233,22 @@ public class SqlExecuteNode implements NodeAction {
 
 		log.info("SQL execution successful, result count: {}",
 				resultSetBO.getData() != null ? resultSetBO.getData().size() : 0);
+		sqlAuditService.record(agentId, threadId, securityContext, question, sqlQuery, elapsedMillis(executionStarted),
+				resultSetBO.getData() != null ? resultSetBO.getData().size() : 0, "SUCCESS", null);
 		return new ExecutedSqlResult(resultSetBO);
+	}
+
+	@SuppressWarnings("unchecked")
+	private QuerySecurityContext securityContext(OverAllState state) {
+		String actorId = state.value(Constant.SECURITY_ACTOR_ID, "anonymous");
+		String role = state.value(Constant.SECURITY_ROLE, "ANALYST");
+		List<Long> departmentIds = state.value(Constant.SECURITY_DEPARTMENT_IDS, List.of());
+		boolean humanReviewed = state.value(Constant.HUMAN_REVIEW_ENABLED, false);
+		return new QuerySecurityContext(actorId, role, departmentIds, humanReviewed);
+	}
+
+	private static long elapsedMillis(long startedAtNanos) {
+		return (System.nanoTime() - startedAtNanos) / 1_000_000L;
 	}
 
 	private Flux<ChatResponse> baseResultResponses(ResultSetBO resultSetBO) {

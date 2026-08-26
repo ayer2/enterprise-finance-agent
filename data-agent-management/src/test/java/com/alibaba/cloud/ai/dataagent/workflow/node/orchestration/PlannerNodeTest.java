@@ -227,7 +227,7 @@ class PlannerNodeTest {
 
 		assertEquals("查询所有用户信息", plan.getExecutionPlan().get(0).getToolParameters().getInstruction());
 		assertTrue(promptCaptor.getValue().contains("请不要使用Python分析，直接用SQL"));
-		assertTrue(promptCaptor.getValue().contains(VALID_PLAN_JSON.trim()));
+		assertTrue(normalizeLineEndings(promptCaptor.getValue()).contains(normalizeLineEndings(VALID_PLAN_JSON.trim())));
 	}
 
 	@Test
@@ -266,6 +266,10 @@ class PlannerNodeTest {
 		String planJson = (String) execution.finalResult().get(PLANNER_NODE_OUTPUT);
 		assertNotNull(planJson);
 		return JsonUtil.getObjectMapper().readValue(planJson, Plan.class);
+	}
+
+	private static String normalizeLineEndings(String value) {
+		return value.replace("\r\n", "\n").replace('\r', '\n');
 	}
 
 }

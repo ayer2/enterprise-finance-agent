@@ -30,6 +30,8 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Sinks;
 
+import java.util.List;
+
 import static com.alibaba.cloud.ai.dataagent.constant.Constant.STREAM_EVENT_COMPLETE;
 import static com.alibaba.cloud.ai.dataagent.constant.Constant.STREAM_EVENT_ERROR;
 
@@ -53,7 +55,11 @@ public class GraphController {
 			@RequestParam(value = "humanFeedback", required = false) boolean humanFeedback,
 			@RequestParam(value = "humanFeedbackContent", required = false) String humanFeedbackContent,
 			@RequestParam(value = "rejectedPlan", required = false) boolean rejectedPlan,
-			@RequestParam(value = "nl2sqlOnly", required = false) boolean nl2sqlOnly, ServerHttpResponse response) {
+			@RequestParam(value = "nl2sqlOnly", required = false) boolean nl2sqlOnly,
+			@RequestParam(value = "actorId", required = false, defaultValue = "anonymous") String actorId,
+			@RequestParam(value = "dataRole", required = false, defaultValue = "ANALYST") String dataRole,
+			@RequestParam(value = "departmentIds", required = false) List<Long> departmentIds,
+			ServerHttpResponse response) {
 		// Set SSE-related HTTP headers
 		response.getHeaders().add("Cache-Control", "no-cache");
 		response.getHeaders().add("Connection", "keep-alive");
@@ -70,6 +76,9 @@ public class GraphController {
 			.humanFeedbackContent(humanFeedbackContent)
 			.rejectedPlan(rejectedPlan)
 			.nl2sqlOnly(nl2sqlOnly)
+			.actorId(actorId)
+			.dataRole(dataRole)
+			.departmentIds(departmentIds != null ? List.copyOf(departmentIds) : List.of())
 			.build();
 		graphService.graphStreamProcess(sink, request);
 

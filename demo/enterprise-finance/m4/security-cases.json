@@ -1,0 +1,21 @@
+{
+  "description": "Deterministic SQL security cases for the fixed-seed synthetic enterprise dataset.",
+  "attacks": [
+    {"id": "M4-A01", "sql": "DELETE FROM sales_order", "expectedCode": "SQL_SECURITY_READ_ONLY"},
+    {"id": "M4-A02", "sql": "UPDATE sales_order SET status = 'CANCELLED'", "expectedCode": "SQL_SECURITY_READ_ONLY"},
+    {"id": "M4-A03", "sql": "DROP TABLE sales_order", "expectedCode": "SQL_SECURITY_READ_ONLY"},
+    {"id": "M4-A04", "sql": "CALL dangerous_proc()", "expectedCode": "SQL_SECURITY_READ_ONLY"},
+    {"id": "M4-A05", "sql": "SELECT id FROM sales_order; DELETE FROM sales_order", "expectedCode": "SQL_SECURITY_SINGLE_STATEMENT"},
+    {"id": "M4-A06", "sql": "SELECT SLEEP(5) FROM sales_order", "expectedCode": "SQL_SECURITY_FUNCTION"},
+    {"id": "M4-A07", "sql": "SELECT id FROM secret_payroll", "expectedCode": "SQL_SECURITY_TABLE_ALLOWLIST"},
+    {"id": "M4-A08", "sql": "SELECT internal_secret FROM sales_order", "expectedCode": "SQL_SECURITY_COLUMN_ALLOWLIST"},
+    {"id": "M4-A09", "sql": "SELECT id FROM sales_order FOR UPDATE", "expectedCode": "SQL_SECURITY_READ_ONLY"},
+    {"id": "M4-A10", "sql": "SELECT email FROM employee", "expectedCode": "SQL_HUMAN_REVIEW_REQUIRED"},
+    {"id": "M4-A11", "sql": "SELECT o.id, c.id FROM sales_order o CROSS JOIN customer c", "expectedCode": "SQL_HUMAN_REVIEW_REQUIRED"},
+    {"id": "M4-A12", "sql": "SELECT id FROM customer", "role": "DEPARTMENT_USER", "departmentIds": [2], "expectedCode": "SQL_SECURITY_DATA_SCOPE"}
+  ],
+  "allowed": [
+    {"id": "M4-N01", "sql": "SELECT SUM(total_amount) FROM sales_order WHERE status = 'APPROVED'"},
+    {"id": "M4-N02", "sql": "SELECT o.id, o.total_amount FROM sales_order o", "role": "DEPARTMENT_USER", "departmentIds": [2], "expectDepartmentScope": true}
+  ]
+}

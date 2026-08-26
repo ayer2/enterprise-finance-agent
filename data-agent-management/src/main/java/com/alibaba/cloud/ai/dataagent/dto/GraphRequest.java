@@ -20,6 +20,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -43,5 +45,11 @@ public class GraphRequest {
 	private boolean rejectedPlan;
 
 	private boolean nl2sqlOnly;
+
+	private String actorId;
+
+	private String dataRole;
+
+	private List<Long> departmentIds;
 
 }

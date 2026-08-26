@@ -33,6 +33,7 @@ import reactor.core.publisher.Sinks;
 import reactor.test.StepVerifier;
 
 import java.time.Duration;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -72,7 +73,7 @@ class GraphControllerTest {
 
 		StepVerifier
 			.create(graphController.streamSearch("agent-1", "conversation-1", "thread-1", "show me sales data", false,
-					null, false, false, serverHttpResponse))
+					null, false, false, "anonymous", "ANALYST", List.of(), serverHttpResponse))
 			.verifyComplete();
 
 		ArgumentCaptor<GraphRequest> requestCaptor = ArgumentCaptor.forClass(GraphRequest.class);
@@ -94,7 +95,7 @@ class GraphControllerTest {
 		stubResponseHeaders();
 
 		graphController.streamSearch("agent-1", "conversation-2", "thread-2", "approve this plan", true, "looks good",
-				false, false, serverHttpResponse);
+				false, false, "anonymous", "ANALYST", List.of(), serverHttpResponse);
 
 		ArgumentCaptor<GraphRequest> requestCaptor = ArgumentCaptor.forClass(GraphRequest.class);
 		verify(graphService).graphStreamProcess(any(Sinks.Many.class), requestCaptor.capture());
@@ -110,7 +111,7 @@ class GraphControllerTest {
 		stubResponseHeaders();
 
 		graphController.streamSearch("agent-1", "conversation-3", null, "SELECT query", false, null, false, true,
-				serverHttpResponse);
+				"anonymous", "ANALYST", List.of(), serverHttpResponse);
 
 		ArgumentCaptor<GraphRequest> requestCaptor = ArgumentCaptor.forClass(GraphRequest.class);
 		verify(graphService).graphStreamProcess(any(Sinks.Many.class), requestCaptor.capture());
@@ -139,7 +140,7 @@ class GraphControllerTest {
 
 		GraphNodeResponse response = graphController
 			.streamSearch("agent-1", "conversation-1", null, "review the plan", true, null, false, false,
-					serverHttpResponse)
+					"anonymous", "ANALYST", List.of(), serverHttpResponse)
 			.map(ServerSentEvent::data)
 			.blockFirst(Duration.ofSeconds(1));
 

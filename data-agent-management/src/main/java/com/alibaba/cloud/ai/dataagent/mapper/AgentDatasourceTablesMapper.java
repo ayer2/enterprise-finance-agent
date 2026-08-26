@@ -42,6 +42,15 @@ public interface AgentDatasourceTablesMapper {
 			""")
 	List<String> getSelectedTablesByDatasourceId(@Param("datasourceId") int datasourceId);
 
+	@Select("""
+			SELECT adt.table_name
+			FROM agent_datasource_tables adt
+			JOIN agent_datasource ad ON ad.id = adt.agent_datasource_id
+			WHERE ad.agent_id = #{agentId} AND ad.is_active = 1
+			ORDER BY adt.table_name
+			""")
+	List<String> getSelectedTablesByAgentId(@Param("agentId") long agentId);
+
 	// 删除当前列表中不存在的表
 	@Delete("<script>" + "DELETE FROM agent_datasource_tables WHERE agent_datasource_id = #{agentDatasourceId}"
 			+ "<if test='tables != null and tables.size() > 0'>" + " AND table_name NOT IN ("

@@ -35,6 +35,7 @@ import datasourceService, {
 } from '~/services/datasource/index';
 import { resolveActiveDatasource } from '~/utils/datasourceSelection';
 import { applyReportContent } from '~/utils/reportTimeline';
+import { isIncompleteAnalysisRun } from '~/utils/workflowCompletion';
 
 export type Datasource = BaseDatasource & { isActive?: boolean };
 
@@ -518,6 +519,30 @@ export const useChatStore = defineStore('chat', () => {
 						.catch((e) => console.error(e));
 				}
 
+				if (
+					isIncompleteAnalysisRun({
+						nl2sqlOnly: request.nl2sqlOnly,
+						awaitingHumanFeedback,
+						hasFinalReply: Boolean(finalReply),
+						hasReport: Boolean(
+							sessionState.markdownReportContent ||
+							sessionState.htmlReportContent,
+						),
+						hasNodeOutput: sessionState.nodeBlocks.length > 0,
+					})
+				) {
+					const incompleteMessage: ChatMessage = {
+						sessionId,
+						role: 'assistant',
+						content:
+							'本次工作流在生成 SQL 或报告前提前结束。已保留执行轨迹，可重新尝试；若重复出现，请检查当前模型的结构化输出兼容性。',
+						messageType: 'error',
+					};
+					await chatService
+						.saveMessage(sessionId, incompleteMessage)
+						.catch((e) => console.error(e));
+				}
+
 				if (awaitingHumanFeedback && !finalReply) {
 					showHumanFeedback.value = true;
 				} else {
@@ -591,6 +616,50 @@ export const useChatStore = defineStore('chat', () => {
 		await _sendGraphRequest(newRequest);
 	}
 
+	async function submitMessageFeedback(
+		messageId: number | undefined,
+		value: 'HELPFUL' | 'NOT_HELPFUL',
+	) {
+		if (!currentSession.value) return;
+		const targetMessageId =
+			messageId ??
+			[...currentMessages.value]
+				.reverse()
+				.find(
+					(message) =>
+						message.role === 'assistant' &&
+						['text', 'timeline', 'markdown-report'].includes(
+							message.messageType,
+						) &&
+						message.id,
+				)?.id;
+		if (!targetMessageId) throw new Error('找不到可反馈的回答');
+		const metadata = JSON.stringify({ targetMessageId, value });
+		const feedbackMessage: ChatMessage = {
+			sessionId: currentSession.value.id,
+			role: 'user',
+			content: value === 'HELPFUL' ? '回答反馈：有帮助' : '回答反馈：需要改进',
+			messageType: 'feedback',
+			metadata,
+		};
+		const saved = await chatService.saveMessage(
+			currentSession.value.id,
+			feedbackMessage,
+		);
+		currentMessages.value.push(saved);
+	}
+
+	async function retryLastQuery() {
+		if (isStreaming.value) return;
+		const lastQuestion = [...currentMessages.value]
+			.reverse()
+			.find(
+				(message) =>
+					message.role === 'user' && message.messageType !== 'feedback',
+			);
+		if (lastQuestion?.content) await sendMessage(lastQuestion.content);
+	}
+
 	// ── Report utils ────────────────────────────────────────────────────────────
 	function openReportFullscreen(content: string) {
 		fullscreenReportContent.value = content;
@@ -641,6 +710,8 @@ export const useChatStore = defineStore('chat', () => {
 		sendMessage,
 		stopStreaming,
 		submitFeedback,
+		submitMessageFeedback,
+		retryLastQuery,
 		openReportFullscreen,
 		downloadHtmlReport,
 		switchDatasource,

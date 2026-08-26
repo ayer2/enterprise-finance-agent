@@ -1,0 +1,77 @@
+{
+  "seed": 20260824,
+  "database": "enterprise_demo",
+  "period_start": "2024-01-01",
+  "months": 24,
+  "as_of_date": "2025-12-31",
+  "counts": {
+    "departments": 8,
+    "employees": 80,
+    "customers": 500,
+    "contracts": 800,
+    "orders": 20000,
+    "kpis": 10
+  },
+  "rules": {
+    "approved_order_ratio": "0.95",
+    "missing_receivable_ratio": "0.05",
+    "payment_split_ratio": "0.40",
+    "receivable_due_days": 30,
+    "long_overdue_days": 60,
+    "normal_recent_sales_base": "900000.00",
+    "normal_recent_sales_monthly_growth": "50000.00",
+    "normal_department_sales_step": "25000.00",
+    "normal_expense_min_ratio": "0.70",
+    "normal_expense_max_ratio": "0.95",
+    "expense_categories": [
+      "SALES",
+      "MARKETING",
+      "TRAVEL",
+      "OPERATIONS"
+    ]
+  },
+  "anomalies": {
+    "A01": {
+      "department_id": 1,
+      "periods": [
+        "2025-10",
+        "2025-11",
+        "2025-12"
+      ],
+      "monthly_sales": [
+        "1500000.00",
+        "1200000.00",
+        "900000.00"
+      ],
+      "expected_count": 1
+    },
+    "A02": {
+      "department_id": 3,
+      "period": "2025-12",
+      "category": "MARKETING",
+      "execution_ratio": "1.25",
+      "expected_count": 1
+    },
+    "A03": {
+      "ratio": "0.05"
+    },
+    "A04": {
+      "count": 120
+    },
+    "A05": {
+      "department_ids": [
+        3,
+        7
+      ],
+      "periods": [
+        "2025Q3",
+        "2025Q4"
+      ],
+      "actual_to_target_ratio": "0.80"
+    },
+    "A06": {
+      "count": 50,
+      "difference_amount": "100.00"
+    }
+  }
+}

@@ -243,13 +243,13 @@ class PromptHelperTest {
 	@Test
 	void buildBusinessKnowledgePrompt_blankContent_usesDefault() {
 		String result = PromptHelper.buildBusinessKnowledgePrompt("");
-		assertTrue(result.contains("<business_knowledge>\n无\n</business_knowledge>"));
+		assertTrue(normalizeLineEndings(result).contains("<business_knowledge>\n无\n</business_knowledge>"));
 	}
 
 	@Test
 	void buildBusinessKnowledgePrompt_nullContent_usesDefault() {
 		String result = PromptHelper.buildBusinessKnowledgePrompt(null);
-		assertTrue(result.contains("<business_knowledge>\n无\n</business_knowledge>"));
+		assertTrue(normalizeLineEndings(result).contains("<business_knowledge>\n无\n</business_knowledge>"));
 	}
 
 	@Test
@@ -262,13 +262,17 @@ class PromptHelperTest {
 	@Test
 	void buildAgentKnowledgePrompt_blankContent_usesDefault() {
 		String result = PromptHelper.buildAgentKnowledgePrompt("");
-		assertTrue(result.contains("<agent_knowledge>\n无\n</agent_knowledge>"));
+		assertTrue(normalizeLineEndings(result).contains("<agent_knowledge>\n无\n</agent_knowledge>"));
 	}
 
 	@Test
 	void buildAgentKnowledgePrompt_nullContent_usesDefault() {
 		String result = PromptHelper.buildAgentKnowledgePrompt(null);
-		assertTrue(result.contains("<agent_knowledge>\n无\n</agent_knowledge>"));
+		assertTrue(normalizeLineEndings(result).contains("<agent_knowledge>\n无\n</agent_knowledge>"));
+	}
+
+	private static String normalizeLineEndings(String value) {
+		return value.replace("\r\n", "\n").replace('\r', '\n');
 	}
 
 	@Test

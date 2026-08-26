@@ -18,6 +18,7 @@ package com.alibaba.cloud.ai.dataagent.integration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.alibaba.cloud.ai.dataagent.bo.DbConfigBO;
 import com.alibaba.cloud.ai.dataagent.bo.schema.ResultSetBO;
@@ -27,6 +28,9 @@ import com.alibaba.cloud.ai.dataagent.connector.accessor.Accessor;
 import com.alibaba.cloud.ai.dataagent.dto.datasource.SqlRetryDto;
 import com.alibaba.cloud.ai.dataagent.dto.prompt.SqlGenerationDTO;
 import com.alibaba.cloud.ai.dataagent.properties.DataAgentProperties;
+import com.alibaba.cloud.ai.dataagent.security.sql.SqlSecurityDecision;
+import com.alibaba.cloud.ai.dataagent.security.sql.SqlSecurityService;
+import com.alibaba.cloud.ai.dataagent.service.audit.SqlAuditService;
 import com.alibaba.cloud.ai.dataagent.service.llm.LlmService;
 import com.alibaba.cloud.ai.dataagent.service.nl2sql.Nl2SqlService;
 import com.alibaba.cloud.ai.dataagent.support.GraphNodeTestSupport.NodeExecution;
@@ -62,6 +66,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.lenient;
 
 @ExtendWith(MockitoExtension.class)
 class TextToSqlWorkflowComponentTest {
@@ -83,6 +88,12 @@ class TextToSqlWorkflowComponentTest {
 	@Mock
 	private Accessor accessor;
 
+	@Mock
+	private SqlSecurityService sqlSecurityService;
+
+	@Mock
+	private SqlAuditService sqlAuditService;
+
 	private SqlGenerateNode sqlGenerateNode;
 
 	private SqlExecuteNode sqlExecuteNode;
@@ -90,7 +101,12 @@ class TextToSqlWorkflowComponentTest {
 	@BeforeEach
 	void setUp() {
 		sqlGenerateNode = new SqlGenerateNode(nl2SqlService, properties);
-		sqlExecuteNode = new SqlExecuteNode(databaseUtil, nl2SqlService, llmService, properties);
+		sqlExecuteNode = new SqlExecuteNode(databaseUtil, nl2SqlService, llmService, properties, sqlSecurityService,
+				sqlAuditService);
+		lenient().when(properties.getSqlSecurity()).thenReturn(new DataAgentProperties.SqlSecurity());
+		lenient().when(sqlSecurityService.validateAndPrepare(any(Long.class), anyString(), any(), any()))
+			.thenAnswer(invocation -> new SqlSecurityDecision(invocation.getArgument(1), Set.of("users"), Set.of(), false));
+		lenient().when(sqlSecurityService.maskSensitiveData(any())).thenAnswer(invocation -> invocation.getArgument(0));
 	}
 
 	@Test

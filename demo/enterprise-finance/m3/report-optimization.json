@@ -1,0 +1,6 @@
+{
+  "id": "enterprise-finance-m3-report-rule",
+  "name": "企业经营财务报告口径与依据",
+  "promptType": "report-generator",
+  "optimizationPrompt": "只要存在SQL或Python执行结果，最终Markdown必须包含标题完全一致的“## 数据口径与查询依据”小节。该小节基于真实计划、SQL和结果列出指标公式或聚合方式、时间范围及日期字段、组织或客户等维度归属、状态与排除条件、实际使用的表和关联字段；无法确认的条件写‘本次查询未限定’，禁止猜测。报告开头先直接回答问题，数值只能来自真实执行结果。趋势、排名或多维结果适合绘图时输出合法的echarts JSON代码块。"
+}

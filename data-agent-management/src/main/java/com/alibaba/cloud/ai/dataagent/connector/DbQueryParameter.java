@@ -47,6 +47,10 @@ public class DbQueryParameter {
 
 	private String sql;
 
+	private Integer maxRows;
+
+	private Integer queryTimeoutSeconds;
+
 	public DbQueryParameter() {
 	}
 
@@ -172,6 +176,24 @@ public class DbQueryParameter {
 
 	public DbQueryParameter setSql(String sql) {
 		this.sql = sql;
+		return this;
+	}
+
+	public Integer getMaxRows() {
+		return maxRows;
+	}
+
+	public DbQueryParameter setMaxRows(Integer maxRows) {
+		this.maxRows = maxRows;
+		return this;
+	}
+
+	public Integer getQueryTimeoutSeconds() {
+		return queryTimeoutSeconds;
+	}
+
+	public DbQueryParameter setQueryTimeoutSeconds(Integer queryTimeoutSeconds) {
+		this.queryTimeoutSeconds = queryTimeoutSeconds;
 		return this;
 	}
 

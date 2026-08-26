@@ -35,6 +35,24 @@ spring:
       type: simple
     alibaba:
       data-agent:
+        sql-security:
+          enabled: ${DATAAGENT_SQL_SECURITY_ENABLED:true}
+          max-rows: ${DATAAGENT_SQL_MAX_ROWS:500}
+          query-timeout-seconds: ${DATAAGENT_SQL_QUERY_TIMEOUT_SECONDS:15}
+          allowed-columns:
+            org_department: [id, name, region, parent_id]
+            employee: [id, department_id, name, email]
+            customer: [id, name, industry, region, credit_level]
+            contract: [id, contract_no, customer_id, contract_amount, start_date, end_date, status]
+            sales_order: [id, order_no, contract_id, customer_id, department_id, salesperson_id, order_date, total_amount, status]
+            sales_order_item: [id, order_id, product_name, quantity, unit_price, amount]
+            receivable: [id, order_id, due_date, receivable_amount, received_amount, status]
+            payment: [id, receivable_id, payment_date, amount, channel]
+            budget: [id, department_id, period, category, budget_amount]
+            expense: [id, department_id, expense_date, category, amount, status]
+            kpi_definition: [id, code, name, formula_description, unit]
+            kpi_target: [id, kpi_id, department_id, period, target_value]
+            kpi_value: [id, kpi_id, department_id, period, actual_value]
         vector-store:
           table-topk-limit: 10
           table-similarity-threshold: 0.2

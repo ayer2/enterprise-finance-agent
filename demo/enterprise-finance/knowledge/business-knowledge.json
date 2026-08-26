@@ -1,0 +1,72 @@
+[
+  {
+    "businessTerm": "销售额",
+    "synonyms": "销售收入,订单销售额,成交额,营收",
+    "description": "销售额只汇总 sales_order.status='APPROVED' 的 total_amount，时间按 order_date，组织按 department_id。不要汇总合同金额，也不要在连接订单明细后重复汇总订单金额。"
+  },
+  {
+    "businessTerm": "回款金额",
+    "synonyms": "收款金额,到账金额,实收金额",
+    "description": "回款金额是指定 payment_date 区间内 payment.amount 的合计。它不同于 receivable.received_amount 快照，也不同于按订单期间圈定应收后的累计回款。"
+  },
+  {
+    "businessTerm": "回款率",
+    "synonyms": "收款率,应收回款率,回款完成率",
+    "description": "回款率=选定应收范围内累计 payment.amount / receivable.receivable_amount。默认按应收对应订单的 order_date 选择范围并累计截至查询日回款；回款先按 receivable_id 聚合，避免多次付款导致应收分母重复。分母为0返回NULL。"
+  },
+  {
+    "businessTerm": "预算执行率",
+    "synonyms": "预算使用率,预算消耗率,费用预算占用率",
+    "description": "预算执行率=已审核费用/预算金额。expense.status 必须为 APPROVED；预算和费用先按 department_id、月份、category 聚合后对齐。比率大于1表示超支，分母为0返回NULL。"
+  },
+  {
+    "businessTerm": "逾期应收",
+    "synonyms": "超期欠款,到期未回款,逾期欠款,逾期应收余额",
+    "description": "逾期应收余额=receivable_amount-received_amount，且 due_date 早于统计日期、余额大于0。演示统计日期固定为2025-12-31；逾期天数=DATEDIFF('2025-12-31', due_date)。"
+  },
+  {
+    "businessTerm": "KPI完成率",
+    "synonyms": "指标达成率,KPI达成率,目标完成率",
+    "description": "KPI完成率=kpi_value.actual_value/kpi_target.target_value，按相同 kpi_id、department_id、period 对齐。period 格式为 YYYYQn；目标为0时返回NULL，小于1表示未达标。"
+  },
+  {
+    "businessTerm": "应收余额",
+    "synonyms": "未收金额,未结应收,应收欠款",
+    "description": "应收余额=receivable.receivable_amount-receivable.received_amount。余额大于0表示未结清；部门和客户需通过 receivable.order_id 关联 sales_order 获取。"
+  },
+  {
+    "businessTerm": "已审核订单",
+    "synonyms": "有效订单,确认订单,approved订单",
+    "description": "已审核订单指 sales_order.status='APPROVED'。销售额和基于订单的经营指标默认排除其他状态。"
+  },
+  {
+    "businessTerm": "已审核费用",
+    "synonyms": "有效费用,确认费用,approved费用",
+    "description": "已审核费用指 expense.status='APPROVED'。预算执行率的费用分子只能使用已审核费用。"
+  },
+  {
+    "businessTerm": "统计日期",
+    "synonyms": "查询基准日,截至日期,as of date",
+    "description": "演示数据统计日期固定为2025-12-31。判断逾期使用 due_date<'2025-12-31'；包含统计日当天回款时 payment_date<'2026-01-01'。"
+  },
+  {
+    "businessTerm": "月份口径",
+    "synonyms": "按月,月度,自然月",
+    "description": "自然月查询使用左闭右开日期区间。budget.period 格式为YYYY-MM，费用月份由DATE_FORMAT(expense_date,'%Y-%m')得到。"
+  },
+  {
+    "businessTerm": "季度口径",
+    "synonyms": "按季,季度,自然季度",
+    "description": "KPI目标和实际的 period 使用YYYYQn，例如2025Q4；必须按完整季度值精确匹配。"
+  },
+  {
+    "businessTerm": "部门口径",
+    "synonyms": "组织口径,业务部门,所属部门",
+    "description": "销售按 sales_order.department_id，预算按 budget.department_id，费用按 expense.department_id，KPI按目标和实际的 department_id；部门名称通过 org_department.id 关联。"
+  },
+  {
+    "businessTerm": "客户口径",
+    "synonyms": "客户维度,客户归属,购货方",
+    "description": "订单客户以 sales_order.customer_id 关联 customer.id；应收客户需先经 receivable.order_id 关联 sales_order。不要用员工或合同字段代替订单客户。"
+  }
+]

@@ -17,6 +17,7 @@ package com.alibaba.cloud.ai.dataagent.workflow.node;
 
 import static com.alibaba.cloud.ai.dataagent.constant.Constant.*;
 import static com.alibaba.cloud.ai.dataagent.support.GraphNodeTestSupport.execute;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
@@ -94,7 +95,7 @@ class ReportGeneratorNodeTest {
 
 		NodeExecution execution = execute(reportGeneratorNode.apply(state), RESULT);
 
-		assertEquals(expectedReport("<h1>用户数据分析报告</h1>"), execution.finalResult().get(RESULT));
+		assertReportContains(execution, "<h1>用户数据分析报告</h1>");
 		assertTrue(execution.finalResult().containsKey(SQL_EXECUTE_NODE_OUTPUT));
 		assertNull(execution.finalResult().get(SQL_EXECUTE_NODE_OUTPUT));
 		assertNull(execution.finalResult().get(PLAN_CURRENT_STEP));
@@ -118,7 +119,7 @@ class ReportGeneratorNodeTest {
 
 		NodeExecution execution = execute(reportGeneratorNode.apply(state), RESULT);
 
-		assertEquals(expectedReport("暂无数据可分析"), execution.finalResult().get(RESULT));
+		assertReportContains(execution, "暂无数据可分析");
 		ArgumentCaptor<String> prompt = ArgumentCaptor.forClass(String.class);
 		verify(llmService).callUser(prompt.capture());
 		assertTrue(prompt.getValue().contains("暂无执行结果数据"));
@@ -146,7 +147,7 @@ class ReportGeneratorNodeTest {
 
 		NodeExecution execution = execute(reportGeneratorNode.apply(state), RESULT);
 
-		assertEquals(expectedReport("<h1>综合报告</h1>"), execution.finalResult().get(RESULT));
+		assertReportContains(execution, "<h1>综合报告</h1>");
 		ArgumentCaptor<String> prompt = ArgumentCaptor.forClass(String.class);
 		verify(llmService).callUser(prompt.capture());
 		assertTrue(prompt.getValue().contains("\"total\":1000"));
@@ -183,7 +184,7 @@ class ReportGeneratorNodeTest {
 
 		NodeExecution execution = execute(reportGeneratorNode.apply(state), RESULT);
 
-		assertEquals(expectedReport("report"), execution.finalResult().get(RESULT));
+		assertReportContains(execution, "report");
 		verify(promptConfigService).getOptimizationConfigs("report-generator", null);
 	}
 
@@ -234,14 +235,48 @@ class ReportGeneratorNodeTest {
 
 		NodeExecution execution = execute(reportGeneratorNode.apply(state), RESULT);
 
-		assertEquals(expectedReport("<p>分析完成</p>"), execution.finalResult().get(RESULT));
+		assertReportContains(execution, "<p>分析完成</p>");
 		ArgumentCaptor<String> prompt = ArgumentCaptor.forClass(String.class);
 		verify(llmService).callUser(prompt.capture());
 		assertTrue(prompt.getValue().contains("数据趋势上升"));
 	}
 
-	private String expectedReport(String content) {
-		return TextType.MARK_DOWN.getStartSign() + content + TextType.MARK_DOWN.getEndSign();
+	@Test
+	void apply_emptyModelStream_returnsDeterministicFallbackWithEvidence() throws Exception {
+		OverAllState state = createTestState();
+		setupBasicState(state);
+
+		when(promptConfigService.getOptimizationConfigs(eq("report-generator"), eq(1L)))
+			.thenReturn(Collections.emptyList());
+		when(llmService.callUser(anyString())).thenReturn(Flux.empty());
+
+		NodeExecution execution = execute(reportGeneratorNode.apply(state), RESULT);
+		String report = String.valueOf(execution.finalResult().get(RESULT));
+
+		assertThat(report).contains("# 查询结果", "张三", "## 数据口径与查询依据", "查询用户");
+	}
+
+	@Test
+	void apply_whitespaceOnlyChunks_preservesValidMarkdownHeading() throws Exception {
+		OverAllState state = createTestState();
+		setupBasicState(state);
+
+		when(promptConfigService.getOptimizationConfigs(eq("report-generator"), eq(1L)))
+			.thenReturn(Collections.emptyList());
+		when(llmService.callUser(anyString()))
+			.thenReturn(Flux.just(ChatResponseUtil.createPureResponse("# 报告\n\n##"),
+					ChatResponseUtil.createPureResponse(" "), ChatResponseUtil.createPureResponse("数据口径与查询依据")));
+
+		NodeExecution execution = execute(reportGeneratorNode.apply(state), RESULT);
+
+		assertReportContains(execution, "## 数据口径与查询依据");
+	}
+
+	private void assertReportContains(NodeExecution execution, String content) {
+		String report = String.valueOf(execution.finalResult().get(RESULT));
+		assertThat(report).startsWith(TextType.MARK_DOWN.getStartSign())
+			.contains(content, "## 数据口径与查询依据")
+			.endsWith(TextType.MARK_DOWN.getEndSign());
 	}
 
 }

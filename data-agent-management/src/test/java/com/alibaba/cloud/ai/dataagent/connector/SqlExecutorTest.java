@@ -316,8 +316,8 @@ class SqlExecutorTest {
 
 	@Test
 	void constants_areCorrect() {
-		assertEquals(1000, SqlExecutor.RESULT_SET_LIMIT);
-		assertEquals(30, SqlExecutor.STATEMENT_TIMEOUT);
+		assertEquals(500, SqlExecutor.RESULT_SET_LIMIT);
+		assertEquals(15, SqlExecutor.STATEMENT_TIMEOUT);
 	}
 
 }

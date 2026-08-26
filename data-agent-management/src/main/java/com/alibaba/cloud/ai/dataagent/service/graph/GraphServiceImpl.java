@@ -39,6 +39,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Sinks;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -189,9 +190,20 @@ public class GraphServiceImpl implements GraphService {
 
 		String multiTurnContext = multiTurnContextManager.buildContext(conversationId);
 		multiTurnContextManager.beginTurn(conversationId, query);
-		Flux<NodeOutput> nodeOutputFlux = compiledGraph.stream(
-				Map.of(IS_ONLY_NL2SQL, nl2sqlOnly, INPUT_KEY, query, AGENT_ID, agentId, HUMAN_REVIEW_ENABLED,
-						humanReviewEnabled, MULTI_TURN_CONTEXT, multiTurnContext, TRACE_THREAD_ID, threadId),
+		Map<String, Object> initialState = new HashMap<>();
+		initialState.put(IS_ONLY_NL2SQL, nl2sqlOnly);
+		initialState.put(INPUT_KEY, query);
+		initialState.put(AGENT_ID, agentId);
+		initialState.put(HUMAN_REVIEW_ENABLED, humanReviewEnabled);
+		initialState.put(MULTI_TURN_CONTEXT, multiTurnContext);
+		initialState.put(TRACE_THREAD_ID, threadId);
+		initialState.put(SECURITY_ACTOR_ID,
+				StringUtils.hasText(graphRequest.getActorId()) ? graphRequest.getActorId() : "anonymous");
+		initialState.put(SECURITY_ROLE,
+				StringUtils.hasText(graphRequest.getDataRole()) ? graphRequest.getDataRole() : "ANALYST");
+		initialState.put(SECURITY_DEPARTMENT_IDS,
+				graphRequest.getDepartmentIds() != null ? List.copyOf(graphRequest.getDepartmentIds()) : List.of());
+		Flux<NodeOutput> nodeOutputFlux = compiledGraph.stream(initialState,
 				RunnableConfig.builder().threadId(threadId).build());
 		subscribeToFlux(context, nodeOutputFlux, graphRequest, agentId, threadId);
 	}

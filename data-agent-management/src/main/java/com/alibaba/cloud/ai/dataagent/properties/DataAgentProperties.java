@@ -20,6 +20,11 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
+
 @Getter
 @Setter
 @ConfigurationProperties(prefix = Constant.PROJECT_PROPERTIES_PREFIX)
@@ -36,6 +41,8 @@ public class DataAgentProperties {
 	private VectorStoreProperties vectorStore = new VectorStoreProperties();
 
 	private ReportTemplate reportTemplate = new ReportTemplate();
+
+	private SqlSecurity sqlSecurity = new SqlSecurity();
 
 	/**
 	 * sql执行失败重试次数
@@ -76,6 +83,30 @@ public class DataAgentProperties {
 	 * 执行SQL结果图表化超时时间，默认15000ms。结构化输出可能触发 Spring AI 自动修复重试，过短的超时会取消仍在运行的模型请求。
 	 */
 	private Long enrichSqlResultTimeout = 15000L;
+
+	@Getter
+	@Setter
+	public static class SqlSecurity {
+
+		private boolean enabled = true;
+
+		private int maxRows = 500;
+
+		private int queryTimeoutSeconds = 15;
+
+		private Set<String> dangerousFunctions = new LinkedHashSet<>(
+				Set.of("sleep", "benchmark", "load_file", "pg_read_file", "pg_ls_dir", "dblink", "xp_cmdshell",
+						"sys_eval", "sys_exec"));
+
+		private Set<String> sensitiveColumns = new LinkedHashSet<>(
+				Set.of("email", "phone", "mobile", "mobile_phone", "contact_phone"));
+
+		private Set<String> departmentScopedTables = new LinkedHashSet<>(Set.of("employee", "sales_order", "budget",
+				"expense", "kpi_target", "kpi_value"));
+
+		private Map<String, Set<String>> allowedColumns = new LinkedHashMap<>();
+
+	}
 
 	@Getter
 	@Setter

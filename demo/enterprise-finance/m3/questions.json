@@ -1,0 +1,63 @@
+{
+  "additionalCoreQuestions": [
+    {
+      "id": "M3-Q19",
+      "question": "华东一部2025年10月至12月销售额是否连续下降？请按月列出。",
+      "metric": "销售额",
+      "category": "异常分析",
+      "expectChart": true
+    },
+    {
+      "id": "M3-Q20",
+      "question": "2025年12月哪些部门和费用类别预算执行率超过100%？",
+      "metric": "预算执行率",
+      "category": "异常分析",
+      "expectChart": true
+    }
+  ],
+  "multiTurnQuestions": [
+    {
+      "id": "M3-F01",
+      "baseQuestionId": "M2-Q03",
+      "question": "只看华东一部，再按月份展示。",
+      "category": "部门与月份下钻",
+      "expectChart": true
+    },
+    {
+      "id": "M3-F02",
+      "baseQuestionId": "M2-Q10",
+      "question": "再下钻到逾期应收余额最高的十个客户。",
+      "category": "客户下钻",
+      "expectChart": true
+    },
+    {
+      "id": "M3-F03",
+      "baseQuestionId": "M2-Q12",
+      "question": "只看未达标的指标，并按完成率从低到高排列。",
+      "category": "指标下钻",
+      "expectChart": true
+    }
+  ],
+  "intentQuestions": [
+    {
+      "id": "M3-I01",
+      "question": "你好，你是谁？",
+      "expected": "chat"
+    },
+    {
+      "id": "M3-I02",
+      "question": "请写一首关于秋天的诗。",
+      "expected": "unsupported"
+    },
+    {
+      "id": "M3-I03",
+      "question": "销售额按什么口径统计？",
+      "expected": "data"
+    },
+    {
+      "id": "M3-I04",
+      "question": "华东一部最近三个月表现异常吗？",
+      "expected": "data"
+    }
+  ]
+}

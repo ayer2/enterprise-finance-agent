@@ -1,0 +1,128 @@
+[
+  {
+    "id": "M2-Q01",
+    "question": "2025年全年销售额是多少？",
+    "metric": "销售额",
+    "sql": "SELECT COALESCE(SUM(so.total_amount), 0) AS sales_amount FROM sales_order so WHERE so.status = 'APPROVED' AND so.order_date >= '2025-01-01' AND so.order_date < '2026-01-01';",
+    "expectedColumns": ["sales_amount"]
+  },
+  {
+    "id": "M2-Q02",
+    "question": "2025年每个月的销售额趋势如何？",
+    "metric": "销售额",
+    "sql": "SELECT DATE_FORMAT(so.order_date, '%Y-%m') AS month, SUM(so.total_amount) AS sales_amount FROM sales_order so WHERE so.status = 'APPROVED' AND so.order_date >= '2025-01-01' AND so.order_date < '2026-01-01' GROUP BY DATE_FORMAT(so.order_date, '%Y-%m') ORDER BY month;",
+    "expectedColumns": ["month", "sales_amount"]
+  },
+  {
+    "id": "M2-Q03",
+    "question": "2025年各部门销售额排名是什么？",
+    "metric": "销售额",
+    "sql": "SELECT d.name AS department_name, SUM(so.total_amount) AS sales_amount FROM sales_order so JOIN org_department d ON d.id = so.department_id WHERE so.status = 'APPROVED' AND so.order_date >= '2025-01-01' AND so.order_date < '2026-01-01' GROUP BY d.id, d.name ORDER BY sales_amount DESC;",
+    "expectedColumns": ["department_name", "sales_amount"]
+  },
+  {
+    "id": "M2-Q04",
+    "question": "2025年销售额最高的十个客户是谁？",
+    "metric": "销售额",
+    "sql": "SELECT c.name AS customer_name, SUM(so.total_amount) AS sales_amount FROM sales_order so JOIN customer c ON c.id = so.customer_id WHERE so.status = 'APPROVED' AND so.order_date >= '2025-01-01' AND so.order_date < '2026-01-01' GROUP BY c.id, c.name ORDER BY sales_amount DESC LIMIT 10;",
+    "expectedColumns": ["customer_name", "sales_amount"]
+  },
+  {
+    "id": "M2-Q05",
+    "question": "2025年新产生应收的整体回款率是多少？",
+    "metric": "回款率",
+    "sql": "WITH payment_by_receivable AS (SELECT receivable_id, SUM(amount) AS paid_amount FROM payment WHERE payment_date < '2026-01-01' GROUP BY receivable_id) SELECT SUM(COALESCE(p.paid_amount, 0)) / NULLIF(SUM(r.receivable_amount), 0) AS collection_rate FROM receivable r JOIN sales_order so ON so.id = r.order_id LEFT JOIN payment_by_receivable p ON p.receivable_id = r.id WHERE so.status = 'APPROVED' AND so.order_date >= '2025-01-01' AND so.order_date < '2026-01-01';",
+    "expectedColumns": ["collection_rate"]
+  },
+  {
+    "id": "M2-Q06",
+    "question": "2025年各部门新产生应收的回款率排名是什么？",
+    "metric": "回款率",
+    "sql": "WITH payment_by_receivable AS (SELECT receivable_id, SUM(amount) AS paid_amount FROM payment WHERE payment_date < '2026-01-01' GROUP BY receivable_id) SELECT d.name AS department_name, SUM(COALESCE(p.paid_amount, 0)) / NULLIF(SUM(r.receivable_amount), 0) AS collection_rate FROM receivable r JOIN sales_order so ON so.id = r.order_id JOIN org_department d ON d.id = so.department_id LEFT JOIN payment_by_receivable p ON p.receivable_id = r.id WHERE so.status = 'APPROVED' AND so.order_date >= '2025-01-01' AND so.order_date < '2026-01-01' GROUP BY d.id, d.name ORDER BY collection_rate DESC;",
+    "expectedColumns": ["department_name", "collection_rate"]
+  },
+  {
+    "id": "M2-Q07",
+    "question": "2025年12月各部门预算执行率是多少？",
+    "metric": "预算执行率",
+    "sql": "WITH expense_monthly AS (SELECT department_id, DATE_FORMAT(expense_date, '%Y-%m') AS period, category, SUM(amount) AS expense_amount FROM expense WHERE status = 'APPROVED' GROUP BY department_id, DATE_FORMAT(expense_date, '%Y-%m'), category) SELECT d.name AS department_name, SUM(COALESCE(e.expense_amount, 0)) / NULLIF(SUM(b.budget_amount), 0) AS budget_execution_rate FROM budget b JOIN org_department d ON d.id = b.department_id LEFT JOIN expense_monthly e ON e.department_id = b.department_id AND e.period = b.period AND e.category = b.category WHERE b.period = '2025-12' GROUP BY d.id, d.name ORDER BY budget_execution_rate DESC;",
+    "expectedColumns": ["department_name", "budget_execution_rate"]
+  },
+  {
+    "id": "M2-Q08",
+    "question": "2025年12月哪些部门和费用类别超预算了？",
+    "metric": "预算执行率",
+    "sql": "WITH expense_monthly AS (SELECT department_id, DATE_FORMAT(expense_date, '%Y-%m') AS period, category, SUM(amount) AS expense_amount FROM expense WHERE status = 'APPROVED' GROUP BY department_id, DATE_FORMAT(expense_date, '%Y-%m'), category) SELECT d.name AS department_name, b.category, b.budget_amount, COALESCE(e.expense_amount, 0) AS expense_amount, COALESCE(e.expense_amount, 0) / NULLIF(b.budget_amount, 0) AS budget_execution_rate FROM budget b JOIN org_department d ON d.id = b.department_id LEFT JOIN expense_monthly e ON e.department_id = b.department_id AND e.period = b.period AND e.category = b.category WHERE b.period = '2025-12' AND COALESCE(e.expense_amount, 0) > b.budget_amount ORDER BY budget_execution_rate DESC;",
+    "expectedColumns": ["department_name", "category", "budget_amount", "expense_amount", "budget_execution_rate"]
+  },
+  {
+    "id": "M2-Q09",
+    "question": "截至2025年12月31日逾期应收余额是多少？",
+    "metric": "逾期应收",
+    "sql": "SELECT COALESCE(SUM(r.receivable_amount - r.received_amount), 0) AS overdue_receivable_balance FROM receivable r WHERE r.due_date < '2025-12-31' AND r.receivable_amount > r.received_amount;",
+    "expectedColumns": ["overdue_receivable_balance"]
+  },
+  {
+    "id": "M2-Q10",
+    "question": "截至2025年12月31日各部门逾期应收余额排名是什么？",
+    "metric": "逾期应收",
+    "sql": "SELECT d.name AS department_name, SUM(r.receivable_amount - r.received_amount) AS overdue_receivable_balance FROM receivable r JOIN sales_order so ON so.id = r.order_id JOIN org_department d ON d.id = so.department_id WHERE r.due_date < '2025-12-31' AND r.receivable_amount > r.received_amount GROUP BY d.id, d.name ORDER BY overdue_receivable_balance DESC;",
+    "expectedColumns": ["department_name", "overdue_receivable_balance"]
+  },
+  {
+    "id": "M2-Q11",
+    "question": "截至2025年12月31日逾期超过60天仍未结清的应收有哪些？",
+    "metric": "逾期应收",
+    "sql": "SELECT r.receivable_no, c.name AS customer_name, d.name AS department_name, r.due_date, DATEDIFF('2025-12-31', r.due_date) AS overdue_days, r.receivable_amount - r.received_amount AS outstanding_amount FROM receivable r JOIN sales_order so ON so.id = r.order_id JOIN customer c ON c.id = so.customer_id JOIN org_department d ON d.id = so.department_id WHERE r.receivable_amount > r.received_amount AND DATEDIFF('2025-12-31', r.due_date) > 60 ORDER BY overdue_days DESC, outstanding_amount DESC;",
+    "expectedColumns": ["receivable_no", "customer_name", "department_name", "due_date", "overdue_days", "outstanding_amount"]
+  },
+  {
+    "id": "M2-Q12",
+    "question": "2025年第四季度各部门各项KPI完成率是多少？",
+    "metric": "KPI完成率",
+    "sql": "SELECT d.name AS department_name, kd.name AS kpi_name, kt.target_value, kv.actual_value, kv.actual_value / NULLIF(kt.target_value, 0) AS kpi_completion_rate FROM kpi_value kv JOIN kpi_target kt ON kt.kpi_id = kv.kpi_id AND kt.department_id = kv.department_id AND kt.period = kv.period JOIN kpi_definition kd ON kd.id = kv.kpi_id JOIN org_department d ON d.id = kv.department_id WHERE kv.period = '2025Q4' ORDER BY department_name, kpi_name;",
+    "expectedColumns": ["department_name", "kpi_name", "target_value", "actual_value", "kpi_completion_rate"]
+  },
+  {
+    "id": "M2-Q13",
+    "question": "2025年第四季度哪些部门的KPI没有达标？",
+    "metric": "KPI完成率",
+    "sql": "SELECT d.name AS department_name, kd.name AS kpi_name, kt.target_value, kv.actual_value, kv.actual_value / NULLIF(kt.target_value, 0) AS kpi_completion_rate FROM kpi_value kv JOIN kpi_target kt ON kt.kpi_id = kv.kpi_id AND kt.department_id = kv.department_id AND kt.period = kv.period JOIN kpi_definition kd ON kd.id = kv.kpi_id JOIN org_department d ON d.id = kv.department_id WHERE kv.period = '2025Q4' AND kv.actual_value < kt.target_value ORDER BY kpi_completion_rate, department_name, kpi_name;",
+    "expectedColumns": ["department_name", "kpi_name", "target_value", "actual_value", "kpi_completion_rate"]
+  },
+  {
+    "id": "M2-Q14",
+    "question": "哪些部门在2025年第三和第四季度连续有KPI未达标？",
+    "metric": "KPI完成率",
+    "sql": "SELECT d.name AS department_name, kd.name AS kpi_name FROM kpi_value kv JOIN kpi_target kt ON kt.kpi_id = kv.kpi_id AND kt.department_id = kv.department_id AND kt.period = kv.period JOIN kpi_definition kd ON kd.id = kv.kpi_id JOIN org_department d ON d.id = kv.department_id WHERE kv.period IN ('2025Q3', '2025Q4') AND kv.actual_value < kt.target_value GROUP BY d.id, d.name, kd.id, kd.name HAVING COUNT(DISTINCT kv.period) = 2 ORDER BY department_name, kpi_name;",
+    "expectedColumns": ["department_name", "kpi_name"]
+  },
+  {
+    "id": "M2-Q15",
+    "question": "2025年第四季度销售额环比第三季度增长率是多少？",
+    "metric": "销售额",
+    "sql": "WITH quarterly_sales AS (SELECT QUARTER(order_date) AS quarter_no, SUM(total_amount) AS sales_amount FROM sales_order WHERE status = 'APPROVED' AND order_date >= '2025-07-01' AND order_date < '2026-01-01' GROUP BY QUARTER(order_date)) SELECT q4.sales_amount AS q4_sales_amount, q3.sales_amount AS q3_sales_amount, (q4.sales_amount - q3.sales_amount) / NULLIF(q3.sales_amount, 0) AS quarter_over_quarter_growth_rate FROM quarterly_sales q3 JOIN quarterly_sales q4 ON q3.quarter_no = 3 AND q4.quarter_no = 4;",
+    "expectedColumns": ["q4_sales_amount", "q3_sales_amount", "quarter_over_quarter_growth_rate"]
+  },
+  {
+    "id": "M2-Q16",
+    "question": "2025年各行业的销售额和客户数是多少？",
+    "metric": "销售额",
+    "sql": "SELECT c.industry, COUNT(DISTINCT c.id) AS customer_count, SUM(so.total_amount) AS sales_amount FROM sales_order so JOIN customer c ON c.id = so.customer_id WHERE so.status = 'APPROVED' AND so.order_date >= '2025-01-01' AND so.order_date < '2026-01-01' GROUP BY c.industry ORDER BY sales_amount DESC;",
+    "expectedColumns": ["industry", "customer_count", "sales_amount"]
+  },
+  {
+    "id": "M2-Q17",
+    "question": "2025年每个月实际收到的回款金额是多少？",
+    "metric": "回款金额",
+    "sql": "SELECT DATE_FORMAT(p.payment_date, '%Y-%m') AS month, SUM(p.amount) AS payment_amount FROM payment p WHERE p.payment_date >= '2025-01-01' AND p.payment_date < '2026-01-01' GROUP BY DATE_FORMAT(p.payment_date, '%Y-%m') ORDER BY month;",
+    "expectedColumns": ["month", "payment_amount"]
+  },
+  {
+    "id": "M2-Q18",
+    "question": "截至2025年12月31日逾期应收余额最高的十个客户是谁？",
+    "metric": "逾期应收",
+    "sql": "SELECT c.name AS customer_name, SUM(r.receivable_amount - r.received_amount) AS overdue_receivable_balance FROM receivable r JOIN sales_order so ON so.id = r.order_id JOIN customer c ON c.id = so.customer_id WHERE r.due_date < '2025-12-31' AND r.receivable_amount > r.received_amount GROUP BY c.id, c.name ORDER BY overdue_receivable_balance DESC LIMIT 10;",
+    "expectedColumns": ["customer_name", "overdue_receivable_balance"]
+  }
+]

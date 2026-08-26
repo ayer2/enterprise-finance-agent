@@ -34,6 +34,7 @@ import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.converter.BeanOutputConverter;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import reactor.core.publisher.Flux;
 
 import java.util.HashMap;
@@ -100,6 +101,7 @@ public class ReportGeneratorNode implements NodeAction {
 		// Generate report streaming flux
 		Flux<ChatResponse> reportGenerationFlux = generateReport(userInput, plan, executionResults,
 				summaryAndRecommendations, agentId);
+		reportGenerationFlux = ensureReportOutput(reportGenerationFlux, userInput, plan, executionResults);
 
 		TextType reportTextType = TextType.MARK_DOWN;
 
@@ -119,6 +121,58 @@ public class ReportGeneratorNode implements NodeAction {
 						Flux.just(ChatResponseUtil.createPureResponse(reportTextType.getEndSign()))));
 
 		return Map.of(RESULT, generator);
+	}
+
+	/**
+	 * Keep a successful SQL run from ending with an empty report when the model returns an
+	 * empty stream. Query evidence is appended from the actual execution plan unless the
+	 * generated report already contains the required section.
+	 */
+	private Flux<ChatResponse> ensureReportOutput(Flux<ChatResponse> reportFlux, String userInput, Plan plan,
+			HashMap<String, String> executionResults) {
+		StringBuilder generatedText = new StringBuilder();
+		Flux<ChatResponse> nonEmptyReport = reportFlux.doOnNext(response -> {
+			String text = ChatResponseUtil.getText(response);
+			if (text != null) {
+				generatedText.append(text);
+			}
+		}).filter(response -> StringUtils.hasLength(ChatResponseUtil.getText(response)));
+
+		Flux<ChatResponse> reportOrFallback = nonEmptyReport.switchIfEmpty(
+				Flux.just(ChatResponseUtil.createPureResponse(buildFallbackReport(userInput, executionResults))));
+
+		return reportOrFallback.concatWith(Flux.defer(() -> generatedText.indexOf("## 数据口径与查询依据") >= 0
+				? Flux.empty() : Flux.just(ChatResponseUtil.createPureResponse(buildQueryEvidenceSection(plan)))));
+	}
+
+	private String buildFallbackReport(String userInput, HashMap<String, String> executionResults) {
+		String resultText = executionResults.isEmpty() ? "暂无执行结果数据" : executionResults.toString();
+		return "# 查询结果\n\n已完成问题“" + userInput + "”的数据查询。模型未返回报告正文，以下保留真实执行结果：\n\n"
+				+ "```text\n" + resultText + "\n```\n";
+	}
+
+	private String buildQueryEvidenceSection(Plan plan) {
+		StringBuilder evidence = new StringBuilder("\n\n## 数据口径与查询依据\n\n");
+		evidence.append("以下内容由系统根据本次实际执行计划和 SQL 生成，不包含未查询的业务推断。\n\n");
+		for (ExecutionStep step : plan.getExecutionPlan()) {
+			if (step.getToolParameters() == null) {
+				continue;
+			}
+			String instruction = step.getToolParameters().getInstruction();
+			String sql = step.getToolParameters().getSqlQuery();
+			if (!StringUtils.hasText(instruction) && !StringUtils.hasText(sql)) {
+				continue;
+			}
+			evidence.append("- **步骤 ").append(step.getStep()).append("口径/聚合要求**：")
+				.append(StringUtils.hasText(instruction) ? instruction : "本次查询未限定").append("\n");
+			if (StringUtils.hasText(sql)) {
+				evidence.append("- **实际 SQL（表、关联字段、时间、组织、状态及排除条件依据）**：\n")
+					.append("```sql\n")
+					.append(sql)
+					.append("\n```\n");
+			}
+		}
+		return evidence.toString();
 	}
 
 	/**

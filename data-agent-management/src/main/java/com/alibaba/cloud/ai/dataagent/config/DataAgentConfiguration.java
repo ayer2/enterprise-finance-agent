@@ -207,6 +207,9 @@ public class DataAgentConfiguration implements DisposableBean {
 			keyStrategyHashMap.put(HUMAN_FEEDBACK_DATA, KeyStrategy.REPLACE);
 			// Langfuse 追踪：threadId 透传
 			keyStrategyHashMap.put(TRACE_THREAD_ID, KeyStrategy.REPLACE);
+			keyStrategyHashMap.put(SECURITY_ACTOR_ID, KeyStrategy.REPLACE);
+			keyStrategyHashMap.put(SECURITY_ROLE, KeyStrategy.REPLACE);
+			keyStrategyHashMap.put(SECURITY_DEPARTMENT_IDS, KeyStrategy.REPLACE);
 			// Final result
 			keyStrategyHashMap.put(RESULT, KeyStrategy.REPLACE);
 			keyStrategyHashMap.put(FINAL_ANSWER, KeyStrategy.REPLACE);

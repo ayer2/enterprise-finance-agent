@@ -19,16 +19,19 @@ import static com.alibaba.cloud.ai.dataagent.constant.Constant.*;
 import static com.alibaba.cloud.ai.dataagent.support.GraphNodeTestSupport.execute;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.lenient;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -59,6 +62,10 @@ import com.alibaba.cloud.ai.dataagent.util.DatabaseUtil;
 import com.alibaba.cloud.ai.dataagent.util.JsonUtil;
 import com.alibaba.cloud.ai.dataagent.workflow.node.SqlExecuteNode;
 import com.alibaba.cloud.ai.dataagent.properties.DataAgentProperties;
+import com.alibaba.cloud.ai.dataagent.security.sql.SqlSecurityDecision;
+import com.alibaba.cloud.ai.dataagent.security.sql.SqlSecurityException;
+import com.alibaba.cloud.ai.dataagent.security.sql.SqlSecurityService;
+import com.alibaba.cloud.ai.dataagent.service.audit.SqlAuditService;
 import com.alibaba.cloud.ai.graph.GraphResponse;
 import com.alibaba.cloud.ai.graph.OverAllState;
 import com.alibaba.cloud.ai.graph.state.strategy.ReplaceStrategy;
@@ -108,11 +115,18 @@ class SqlExecuteNodeTest {
 	@Mock
 	private Accessor accessor;
 
+	@Mock
+	private SqlSecurityService sqlSecurityService;
+
+	@Mock
+	private SqlAuditService sqlAuditService;
+
 	private SqlExecuteNode sqlExecuteNode;
 
 	@BeforeEach
 	void setUp() {
-		sqlExecuteNode = new SqlExecuteNode(databaseUtil, nl2SqlService, llmService, properties);
+		sqlExecuteNode = new SqlExecuteNode(databaseUtil, nl2SqlService, llmService, properties, sqlSecurityService,
+				sqlAuditService);
 	}
 
 	private OverAllState createTestState() {
@@ -141,6 +155,10 @@ class SqlExecuteNodeTest {
 		when(nl2SqlService.sqlTrim(any())).thenAnswer(inv -> inv.getArgument(0));
 		when(databaseUtil.getAgentDbConfig(1L)).thenReturn(dbConfig);
 		when(databaseUtil.getAgentAccessor(1L)).thenReturn(accessor);
+		when(properties.getSqlSecurity()).thenReturn(new DataAgentProperties.SqlSecurity());
+		when(sqlSecurityService.validateAndPrepare(eq(1L), anyString(), any(), any()))
+			.thenAnswer(inv -> new SqlSecurityDecision(inv.getArgument(1), Set.of("users"), Set.of(), false));
+		lenient().when(sqlSecurityService.maskSensitiveData(any())).thenAnswer(inv -> inv.getArgument(0));
 	}
 
 	private ResultBO extractResultSetPayload(String streamedText) throws Exception {
@@ -197,6 +215,27 @@ class SqlExecuteNodeTest {
 		verify(accessor).executeSqlAndReturnObject(any(DbConfigBO.class), query.capture());
 		assertEquals("SELECT * FROM users", query.getValue().getSql());
 		assertEquals("test_schema", query.getValue().getSchema());
+		assertEquals(500, query.getValue().getMaxRows());
+		assertEquals(15, query.getValue().getQueryTimeoutSeconds());
+		verify(sqlAuditService).record(eq(1L), anyString(), any(), anyString(), anyString(), anyLong(), eq(1),
+				eq("SUCCESS"), any());
+	}
+
+	@Test
+	void securityViolation_isBlockedBeforeDatabaseAccessAndAudited() {
+		OverAllState state = createTestState();
+		setupBasicState(state);
+		DbConfigBO dbConfig = new DbConfigBO();
+		when(nl2SqlService.sqlTrim(any())).thenAnswer(inv -> inv.getArgument(0));
+		when(databaseUtil.getAgentDbConfig(1L)).thenReturn(dbConfig);
+		when(sqlSecurityService.validateAndPrepare(eq(1L), anyString(), any(), any()))
+			.thenThrow(new SqlSecurityException("SQL_SECURITY_READ_ONLY"));
+
+		assertThrows(SqlSecurityException.class, () -> sqlExecuteNode.apply(state));
+
+		verifyNoInteractions(accessor);
+		verify(sqlAuditService).record(eq(1L), anyString(), any(), anyString(), anyString(), anyLong(), any(),
+				eq("BLOCKED"), eq("SQL_SECURITY_READ_ONLY"));
 	}
 
 	@Test

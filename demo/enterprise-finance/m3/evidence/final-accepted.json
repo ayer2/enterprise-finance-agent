@@ -1,0 +1,3431 @@
+{
+  "summary": {
+    "generatedAt": "2026-08-24T07:06:57.579309+00:00",
+    "agentId": 5,
+    "corePassed": 20,
+    "coreTotal": 20,
+    "followupPassed": 3,
+    "followupTotal": 3,
+    "intentPassed": 4,
+    "intentTotal": 4,
+    "chartRuns": 10,
+    "retryRuns": 0,
+    "htmlExport": {
+      "passed": true,
+      "contentType": "text/html;charset=UTF-8",
+      "bytes": 8911
+    },
+    "passed": true
+  },
+  "coreRuns": [
+    {
+      "id": "M2-Q01",
+      "question": "2025年全年销售额是多少？",
+      "category": "核心指标查询",
+      "conversationId": "m3-core-M2-Q01",
+      "passed": true,
+      "durationSeconds": 54.286,
+      "complete": true,
+      "streamError": null,
+      "errors": [],
+      "nodes": [
+        {
+          "stepId": "IntentRecognitionNode-1",
+          "nodeName": "IntentRecognitionNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "EvidenceRecallNode-2",
+          "nodeName": "EvidenceRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "QueryEnhanceNode-3",
+          "nodeName": "QueryEnhanceNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SchemaRecallNode-4",
+          "nodeName": "SchemaRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "TableRelationNode-5",
+          "nodeName": "TableRelationNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "FeasibilityAssessmentNode-6",
+          "nodeName": "FeasibilityAssessmentNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "PlannerNode-7",
+          "nodeName": "PlannerNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlGenerateNode-8",
+          "nodeName": "SqlGenerateNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SemanticConsistencyNode-9",
+          "nodeName": "SemanticConsistencyNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlExecuteNode-10",
+          "nodeName": "SqlExecuteNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "ReportGeneratorNode-11",
+          "nodeName": "ReportGeneratorNode",
+          "attempt": 1
+        }
+      ],
+      "evidence": [
+        "证据1: 2025年全年销售额是多少？",
+        "证据2: 2025年各部门销售额排名是什么？",
+        "证据3: 2025年各行业的销售额和客户数是多少？",
+        "证据4: 2025年每个月的销售额趋势如何？",
+        "证据5: 2025年销售额最高的十个客户是谁？",
+        "证据6: 2025年第四季度销售额环比第三季度增长率是多少？",
+        "证据7: 2025年每个月实际收到的回款金额是多少？",
+        "证据8: 2025年新产生应收的整体回款率是多少？"
+      ],
+      "sql": [
+        "SELECT COALESCE(SUM(total_amount), 0) AS sales_amount FROM sales_order WHERE status = 'APPROVED' AND order_date >= '2025-01-01' AND order_date < '2026-01-01'"
+      ],
+      "resultSets": [
+        {
+          "columns": [
+            "sales_amount"
+          ],
+          "rowCount": 1,
+          "sampleRows": [
+            {
+              "sales_amount": "95165908.34"
+            }
+          ],
+          "displayStyle": {
+            "type": "table",
+            "title": null,
+            "x": null,
+            "y": null
+          }
+        },
+        {
+          "columns": [
+            "sales_amount"
+          ],
+          "rowCount": 1,
+          "sampleRows": [
+            {
+              "sales_amount": "95165908.34"
+            }
+          ],
+          "displayStyle": {
+            "type": "table",
+            "title": "销售额合计",
+            "x": "",
+            "y": []
+          }
+        }
+      ],
+      "retryMessages": [],
+      "report": "#2025年全年已批准销售订单销售额统计2025年全年（2025-01-01至2025-12-31）已批准状态（status='APPROVED'）销售订单的销售额合计为 **95165908.34**。\n\n##结果表|指标 |数值 |\n| --- | --- |\n|销售额合计（sales_amount） |95165908.34 |\n\n##数据口径与查询依据- **指标公式或聚合方式**：对订单金额字段 `total_amount`求和，执行结果返回 `COALESCE(SUM(total_amount),0)`，即销售额合计 `sales_amount`。\n- **时间范围及日期字段**：2025-01-01至2025-12-31；按 `order_date`过滤，实际条件为 `order_date >= '2025-01-01' AND order_date < '2026-01-01'`。\n- **组织/客户等维度归属**：本次查询未限定。\n- **状态或排除条件**：仅统计 `status = 'APPROVED'`的订单；排除订单日期不在2025年范围内的记录。\n- **实际使用的表和关联字段**：使用 `sales_order`表；本次查询为单表聚合，未涉及关联字段。\n- **币种/单位**：本次查询未限定。",
+      "finalAnswer": "",
+      "hasChart": false
+    },
+    {
+      "id": "M2-Q02",
+      "question": "2025年每个月的销售额趋势如何？",
+      "category": "核心指标查询",
+      "conversationId": "m3-core-M2-Q02",
+      "passed": true,
+      "durationSeconds": 79.804,
+      "complete": true,
+      "streamError": null,
+      "errors": [],
+      "nodes": [
+        {
+          "stepId": "IntentRecognitionNode-1",
+          "nodeName": "IntentRecognitionNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "EvidenceRecallNode-2",
+          "nodeName": "EvidenceRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "QueryEnhanceNode-3",
+          "nodeName": "QueryEnhanceNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SchemaRecallNode-4",
+          "nodeName": "SchemaRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "TableRelationNode-5",
+          "nodeName": "TableRelationNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "FeasibilityAssessmentNode-6",
+          "nodeName": "FeasibilityAssessmentNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "PlannerNode-7",
+          "nodeName": "PlannerNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlGenerateNode-8",
+          "nodeName": "SqlGenerateNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SemanticConsistencyNode-9",
+          "nodeName": "SemanticConsistencyNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlExecuteNode-10",
+          "nodeName": "SqlExecuteNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "ReportGeneratorNode-11",
+          "nodeName": "ReportGeneratorNode",
+          "attempt": 1
+        }
+      ],
+      "evidence": [
+        "证据1: 2025年每个月的销售额趋势如何？",
+        "证据2: 2025年各部门销售额排名是什么？",
+        "证据3: 2025年全年销售额是多少？",
+        "证据4: 2025年各行业的销售额和客户数是多少？",
+        "证据5: 2025年第四季度销售额环比第三季度增长率是多少？",
+        "证据6: 2025年销售额最高的十个客户是谁？",
+        "证据7: 2025年每个月实际收到的回款金额是多少？",
+        "证据8: 2025年新产生应收的整体回款率是多少？"
+      ],
+      "sql": [
+        "SELECT DATE_FORMAT(order_date, '%Y-%m') AS month, SUM(total_amount) AS sales_amount FROM sales_order WHERE status = 'APPROVED' AND order_date >= '2025-01-01' AND order_date < '2026-01-01' GROUP BY DATE_FORMAT(order_date, '%Y-%m') ORDER BY month"
+      ],
+      "resultSets": [
+        {
+          "columns": [
+            "month",
+            "sales_amount"
+          ],
+          "rowCount": 12,
+          "sampleRows": [
+            {
+              "month": "2025-01",
+              "sales_amount": "7902939.62"
+            },
+            {
+              "month": "2025-02",
+              "sales_amount": "7485639.19"
+            },
+            {
+              "month": "2025-03",
+              "sales_amount": "7884470.31"
+            }
+          ],
+          "displayStyle": {
+            "type": "table",
+            "title": null,
+            "x": null,
+            "y": null
+          }
+        },
+        {
+          "columns": [
+            "month",
+            "sales_amount"
+          ],
+          "rowCount": 12,
+          "sampleRows": [
+            {
+              "month": "2025-01",
+              "sales_amount": "7902939.62"
+            },
+            {
+              "month": "2025-02",
+              "sales_amount": "7485639.19"
+            },
+            {
+              "month": "2025-03",
+              "sales_amount": "7884470.31"
+            }
+          ],
+          "displayStyle": {
+            "type": "line",
+            "title": "2025年各月销售额趋势",
+            "x": "month",
+            "y": [
+              "sales_amount"
+            ]
+          }
+        }
+      ],
+      "retryMessages": [],
+      "report": "# 查询结果\n\n已完成问题“按订单日期统计 2025 年 1 月 1 日至 2025 年 12 月 31 日期间每个月的销售额（仅统计状态为 APPROVED 的销售订单），并展示 2025 年各月销售额随月份变化的趋势”的数据查询。模型未返回报告正文，以下保留真实执行结果：\n\n```text\n{step_1={\"column\":[\"month\",\"sales_amount\"],\"data\":[{\"month\":\"2025-01\",\"sales_amount\":\"7902939.62\"},{\"month\":\"2025-02\",\"sales_amount\":\"7485639.19\"},{\"month\":\"2025-03\",\"sales_amount\":\"7884470.31\"},{\"month\":\"2025-04\",\"sales_amount\":\"7632909.07\"},{\"month\":\"2025-05\",\"sales_amount\":\"7576449.08\"},{\"month\":\"2025-06\",\"sales_amount\":\"7746832.87\"},{\"month\":\"2025-07\",\"sales_amount\":\"7669328.52\"},{\"month\":\"2025-08\",\"sales_amount\":\"7568145.10\"},{\"month\":\"2025-09\",\"sales_amount\":\"7524194.58\"},{\"month\":\"2025-10\",\"sales_amount\":\"8675000.00\"},{\"month\":\"2025-11\",\"sales_amount\":\"8725000.00\"},{\"month\":\"2025-12\",\"sales_amount\":\"8775000.00\"}],\"errorMsg\":null}}\n```\n\n\n## 数据口径与查询依据\n\n以下内容由系统根据本次实际执行计划和 SQL 生成，不包含未查询的业务推断。\n\n- **步骤 1口径/聚合要求**：使用 sales_order 表，筛选 status = 'APPROVED' 且 order_date >= '2025-01-01' AND order_date < '2026-01-01' 的订单；按订单日期的自然月分组：DATE_FORMAT(order_date, '%Y-%m') AS month；计算 SUM(total_amount) AS sales_amount；按 month 升序排序；期望输出列：month, sales_amount。",
+      "finalAnswer": "",
+      "hasChart": true
+    },
+    {
+      "id": "M2-Q03",
+      "question": "2025年各部门销售额排名是什么？",
+      "category": "核心指标查询",
+      "conversationId": "m3-drilldown-M2-Q03",
+      "passed": true,
+      "durationSeconds": 67.203,
+      "complete": true,
+      "streamError": null,
+      "errors": [],
+      "nodes": [
+        {
+          "stepId": "IntentRecognitionNode-1",
+          "nodeName": "IntentRecognitionNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "EvidenceRecallNode-2",
+          "nodeName": "EvidenceRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "QueryEnhanceNode-3",
+          "nodeName": "QueryEnhanceNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SchemaRecallNode-4",
+          "nodeName": "SchemaRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "TableRelationNode-5",
+          "nodeName": "TableRelationNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "FeasibilityAssessmentNode-6",
+          "nodeName": "FeasibilityAssessmentNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "PlannerNode-7",
+          "nodeName": "PlannerNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlGenerateNode-8",
+          "nodeName": "SqlGenerateNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SemanticConsistencyNode-9",
+          "nodeName": "SemanticConsistencyNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlExecuteNode-10",
+          "nodeName": "SqlExecuteNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "ReportGeneratorNode-11",
+          "nodeName": "ReportGeneratorNode",
+          "attempt": 1
+        }
+      ],
+      "evidence": [
+        "证据1: 2025年各部门销售额排名是什么？",
+        "证据2: 2025年各部门新产生应收的回款率排名是什么？",
+        "证据3: 2025年各行业的销售额和客户数是多少？",
+        "证据4: 2025年销售额最高的十个客户是谁？",
+        "证据5: 截至2025年12月31日各部门逾期应收余额排名是什么？",
+        "证据6: 2025年全年销售额是多少？",
+        "证据7: 2025年每个月的销售额趋势如何？",
+        "证据8: 2025年12月各部门预算执行率是多少？"
+      ],
+      "sql": [
+        "SELECT d.name AS department_name, SUM(so.total_amount) AS sales_amount FROM sales_order so JOIN org_department d ON d.id = so.department_id WHERE so.status = 'APPROVED' AND so.order_date >= '2025-01-01' AND so.order_date < '2026-01-01' GROUP BY d.id, d.name ORDER BY sales_amount DESC"
+      ],
+      "resultSets": [
+        {
+          "columns": [
+            "department_name",
+            "sales_amount"
+          ],
+          "rowCount": 8,
+          "sampleRows": [
+            {
+              "department_name": "è¥¿éƒ¨äºŒéƒ¨",
+              "sales_amount": "12330612.50"
+            },
+            {
+              "department_name": "åŽä¸œä¸€éƒ¨",
+              "sales_amount": "12074184.28"
+            },
+            {
+              "department_name": "åŽåŒ—äºŒéƒ¨",
+              "sales_amount": "12071067.90"
+            }
+          ],
+          "displayStyle": {
+            "type": "table",
+            "title": null,
+            "x": null,
+            "y": null
+          }
+        },
+        {
+          "columns": [
+            "department_name",
+            "sales_amount"
+          ],
+          "rowCount": 8,
+          "sampleRows": [
+            {
+              "department_name": "è¥¿éƒ¨äºŒéƒ¨",
+              "sales_amount": "12330612.50"
+            },
+            {
+              "department_name": "åŽä¸œä¸€éƒ¨",
+              "sales_amount": "12074184.28"
+            },
+            {
+              "department_name": "åŽåŒ—äºŒéƒ¨",
+              "sales_amount": "12071067.90"
+            }
+          ],
+          "displayStyle": {
+            "type": "bar",
+            "title": "各部门销售额排名",
+            "x": "department_name",
+            "y": [
+              "sales_amount"
+            ]
+          }
+        }
+      ],
+      "retryMessages": [],
+      "report": "# 查询结果\n\n已完成问题“统计2025年全年（2025-01-01至2025-12-31）各部门基于已批准销售订单的销售额，并按销售额从高到低进行排名”的数据查询。模型未返回报告正文，以下保留真实执行结果：\n\n```text\n{step_1={\"column\":[\"department_name\",\"sales_amount\"],\"data\":[{\"department_name\":\"è¥¿éƒ¨äºŒéƒ¨\",\"sales_amount\":\"12330612.50\"},{\"department_name\":\"åŽä¸œä¸€éƒ¨\",\"sales_amount\":\"12074184.28\"},{\"department_name\":\"åŽåŒ—äºŒéƒ¨\",\"sales_amount\":\"12071067.90\"},{\"department_name\":\"è¥¿éƒ¨ä¸€éƒ¨\",\"sales_amount\":\"11907986.25\"},{\"department_name\":\"åŽå—ä¸€éƒ¨\",\"sales_amount\":\"11899918.53\"},{\"department_name\":\"åŽå—äºŒéƒ¨\",\"sales_amount\":\"11665798.14\"},{\"department_name\":\"åŽåŒ—ä¸€éƒ¨\",\"sales_amount\":\"11619830.06\"},{\"department_name\":\"åŽä¸œäºŒéƒ¨\",\"sales_amount\":\"11596510.68\"}],\"errorMsg\":null}}\n```\n\n\n## 数据口径与查询依据\n\n以下内容由系统根据本次实际执行计划和 SQL 生成，不包含未查询的业务推断。\n\n- **步骤 1口径/聚合要求**：从 sales_order so JOIN org_department d ON d.id = so.department_id，筛选 so.status = 'APPROVED' 且 so.order_date >= '2025-01-01' 且 so.order_date < '2026-01-01'，按 d.id, d.name 分组，返回 d.name AS department_name，SUM(so.total_amount) AS sales_amount，并按 sales_amount DESC 排序。",
+      "finalAnswer": "",
+      "hasChart": true
+    },
+    {
+      "id": "M2-Q04",
+      "question": "2025年销售额最高的十个客户是谁？",
+      "category": "核心指标查询",
+      "conversationId": "m3-core-M2-Q04",
+      "passed": true,
+      "durationSeconds": 74.741,
+      "complete": true,
+      "streamError": null,
+      "errors": [],
+      "nodes": [
+        {
+          "stepId": "IntentRecognitionNode-1",
+          "nodeName": "IntentRecognitionNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "EvidenceRecallNode-2",
+          "nodeName": "EvidenceRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "QueryEnhanceNode-3",
+          "nodeName": "QueryEnhanceNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SchemaRecallNode-4",
+          "nodeName": "SchemaRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "TableRelationNode-5",
+          "nodeName": "TableRelationNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "FeasibilityAssessmentNode-6",
+          "nodeName": "FeasibilityAssessmentNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "PlannerNode-7",
+          "nodeName": "PlannerNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlGenerateNode-8",
+          "nodeName": "SqlGenerateNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SemanticConsistencyNode-9",
+          "nodeName": "SemanticConsistencyNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlExecuteNode-10",
+          "nodeName": "SqlExecuteNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "ReportGeneratorNode-11",
+          "nodeName": "ReportGeneratorNode",
+          "attempt": 1
+        }
+      ],
+      "evidence": [
+        "证据1: 2025年销售额最高的十个客户是谁？",
+        "证据2: 截至2025年12月31日逾期应收余额最高的十个客户是谁？",
+        "证据3: 2025年各部门销售额排名是什么？",
+        "证据4: 2025年各行业的销售额和客户数是多少？",
+        "证据5: 2025年全年销售额是多少？",
+        "证据6: 2025年各部门新产生应收的回款率排名是什么？",
+        "证据7: 2025年每个月的销售额趋势如何？",
+        "证据8: 2025年第四季度销售额环比第三季度增长率是多少？"
+      ],
+      "sql": [
+        "SELECT c.name AS customer_name, SUM(so.total_amount) AS sales_amount\nFROM sales_order so\nJOIN customer c ON c.id = so.customer_id\nWHERE so.status = 'APPROVED'\n  AND so.order_date >= '2025-01-01'\n  AND so.order_date < '2026-01-01'\nGROUP BY c.id, c.name\nORDER BY sales_amount DESC\nLIMIT 10"
+      ],
+      "resultSets": [
+        {
+          "columns": [
+            "customer_name",
+            "sales_amount"
+          ],
+          "rowCount": 10,
+          "sampleRows": [
+            {
+              "sales_amount": "320720.10",
+              "customer_name": "æ¼”ç¤ºå®¢æˆ·0077"
+            },
+            {
+              "sales_amount": "309335.81",
+              "customer_name": "æ¼”ç¤ºå®¢æˆ·0249"
+            },
+            {
+              "sales_amount": "308505.58",
+              "customer_name": "æ¼”ç¤ºå®¢æˆ·0266"
+            }
+          ],
+          "displayStyle": {
+            "type": "table",
+            "title": null,
+            "x": null,
+            "y": null
+          }
+        },
+        {
+          "columns": [
+            "customer_name",
+            "sales_amount"
+          ],
+          "rowCount": 10,
+          "sampleRows": [
+            {
+              "sales_amount": "320720.10",
+              "customer_name": "æ¼”ç¤ºå®¢æˆ·0077"
+            },
+            {
+              "sales_amount": "309335.81",
+              "customer_name": "æ¼”ç¤ºå®¢æˆ·0249"
+            },
+            {
+              "sales_amount": "308505.58",
+              "customer_name": "æ¼”ç¤ºå®¢æˆ·0266"
+            }
+          ],
+          "displayStyle": {
+            "type": "bar",
+            "title": "销售额最高的10个客户",
+            "x": "customer_name",
+            "y": [
+              "sales_amount"
+            ]
+          }
+        }
+      ],
+      "retryMessages": [],
+      "report": "# 查询结果\n\n已完成问题“查询2025年（2025-01-01至2025-12-31）销售额最高的10个客户，并按销售额从高到低排序”的数据查询。模型未返回报告正文，以下保留真实执行结果：\n\n```text\n{step_1={\"column\":[\"customer_name\",\"sales_amount\"],\"data\":[{\"sales_amount\":\"320720.10\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0077\"},{\"sales_amount\":\"309335.81\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0249\"},{\"sales_amount\":\"308505.58\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0266\"},{\"sales_amount\":\"307393.70\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0174\"},{\"sales_amount\":\"306697.81\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0202\"},{\"sales_amount\":\"303824.93\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0239\"},{\"sales_amount\":\"301575.08\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0257\"},{\"sales_amount\":\"291788.20\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0068\"},{\"sales_amount\":\"290641.56\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0243\"},{\"sales_amount\":\"289797.35\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0106\"}],\"errorMsg\":null}}\n```\n\n\n## 数据口径与查询依据\n\n以下内容由系统根据本次实际执行计划和 SQL 生成，不包含未查询的业务推断。\n\n- **步骤 1口径/聚合要求**：查询 2025 年销售额最高的 10 个客户。使用 enterprise_demo Schema 中的 sales_order 表和 customer 表，关联条件为 customer.id = sales_order.customer_id。仅保留 status = 'APPROVED'、order_date >= '2025-01-01' 且 order_date < '2026-01-01' 的订单。按 customer.id、customer.name 分组，计算 SUM(sales_order.total_amount) AS sales_amount。返回 customer_name 和 sales_amount 两列，按 sales_amount 降序排列，并使用 LIMIT 10。",
+      "finalAnswer": "",
+      "hasChart": true
+    },
+    {
+      "id": "M2-Q05",
+      "question": "2025年新产生应收的整体回款率是多少？",
+      "category": "核心指标查询",
+      "conversationId": "m3-core-M2-Q05",
+      "passed": true,
+      "durationSeconds": 149.241,
+      "complete": true,
+      "streamError": null,
+      "errors": [],
+      "nodes": [
+        {
+          "stepId": "IntentRecognitionNode-1",
+          "nodeName": "IntentRecognitionNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "EvidenceRecallNode-2",
+          "nodeName": "EvidenceRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "QueryEnhanceNode-3",
+          "nodeName": "QueryEnhanceNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SchemaRecallNode-4",
+          "nodeName": "SchemaRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "TableRelationNode-5",
+          "nodeName": "TableRelationNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "FeasibilityAssessmentNode-6",
+          "nodeName": "FeasibilityAssessmentNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "PlannerNode-7",
+          "nodeName": "PlannerNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlGenerateNode-8",
+          "nodeName": "SqlGenerateNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SemanticConsistencyNode-9",
+          "nodeName": "SemanticConsistencyNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlExecuteNode-10",
+          "nodeName": "SqlExecuteNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "ReportGeneratorNode-11",
+          "nodeName": "ReportGeneratorNode",
+          "attempt": 1
+        }
+      ],
+      "evidence": [
+        "证据1: 2025年新产生应收的整体回款率是多少？",
+        "证据2: 2025年各部门新产生应收的回款率排名是什么？",
+        "证据3: 2025年每个月实际收到的回款金额是多少？",
+        "证据4: 截至2025年12月31日逾期应收余额是多少？",
+        "证据5: 截至2025年12月31日逾期应收余额最高的十个客户是谁？",
+        "证据6: 截至2025年12月31日各部门逾期应收余额排名是什么？",
+        "证据7: 截至2025年12月31日逾期超过60天仍未结清的应收有哪些？",
+        "证据8: 2025年12月各部门预算执行率是多少？"
+      ],
+      "sql": [
+        "WITH payment_by_receivable AS (\n    SELECT receivable_id, SUM(amount) AS paid_amount\n    FROM payment\n    WHERE payment_date < '2026-01-01'\n    GROUP BY receivable_id\n)\nSELECT\n    SUM(COALESCE(p.paid_amount, 0)) / NULLIF(SUM(r.receivable_amount), 0) AS collection_rate\nFROM receivable r\nJOIN sales_order so ON so.id = r.order_id\nLEFT JOIN payment_by_receivable p ON p.receivable_id = r.id\nWHERE so.status = 'APPROVED'\n  AND so.order_date >= '2025-01-01'\n  AND so.order_date < '2026-01-01'"
+      ],
+      "resultSets": [
+        {
+          "columns": [
+            "collection_rate"
+          ],
+          "rowCount": 1,
+          "sampleRows": [
+            {
+              "collection_rate": "0.881730"
+            }
+          ],
+          "displayStyle": {
+            "type": "table",
+            "title": null,
+            "x": null,
+            "y": null
+          }
+        },
+        {
+          "columns": [
+            "collection_rate"
+          ],
+          "rowCount": 1,
+          "sampleRows": [
+            {
+              "collection_rate": "0.881730"
+            }
+          ],
+          "displayStyle": {
+            "type": "table",
+            "title": "2025年新产生应收整体回款率",
+            "x": "",
+            "y": []
+          }
+        }
+      ],
+      "retryMessages": [],
+      "report": "2025年新产生应收的整体回款率为 **88.1730%**（0.881730）。\n\n该比率表示：2025年已审批（APPROVED）销售订单对应的应收账款中，截至2026-01-01之前已收到的回款金额占应收账款总额的比例。\n\n##数据口径与查询依据- **指标公式**：整体回款率 =截至2026-01-01前已收回应收金额合计 ÷2025年 APPROVED订单的应收金额合计其中已收回应收金额按 `receivable_id`汇总 `payment.amount`，未匹配到回款时按0计入分子。\n- **时间范围**：\n -销售订单订单日期：`order_date >= '2025-01-01'`且 `order_date < '2026-01-01'`\n -回款统计截止：`payment_date < '2026-01-01'`\n- **状态与排除条件**：仅统计销售订单状态为 `'APPROVED'`的订单对应应收。\n- **维度归属**：本次查询未限定组织/客户等维度。\n- **实际使用的表和关联字段**：\n - `sales_order`：通过 `id`关联 `receivable.order_id`\n - `receivable`：通过 `id`关联 `payment.receivable_id`\n - `payment`：按 `receivable_id`汇总 `amount`，并筛选 `payment_date < '2026-01-01'`\n\n**真实执行结果**：`collection_rate =0.881730`。",
+      "finalAnswer": "",
+      "hasChart": false
+    },
+    {
+      "id": "M2-Q06",
+      "question": "2025年各部门新产生应收的回款率排名是什么？",
+      "category": "核心指标查询",
+      "conversationId": "m3-core-M2-Q06",
+      "passed": true,
+      "durationSeconds": 95.304,
+      "complete": true,
+      "streamError": null,
+      "errors": [],
+      "nodes": [
+        {
+          "stepId": "IntentRecognitionNode-1",
+          "nodeName": "IntentRecognitionNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "EvidenceRecallNode-2",
+          "nodeName": "EvidenceRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "QueryEnhanceNode-3",
+          "nodeName": "QueryEnhanceNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SchemaRecallNode-4",
+          "nodeName": "SchemaRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "TableRelationNode-5",
+          "nodeName": "TableRelationNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "FeasibilityAssessmentNode-6",
+          "nodeName": "FeasibilityAssessmentNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "PlannerNode-7",
+          "nodeName": "PlannerNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlGenerateNode-8",
+          "nodeName": "SqlGenerateNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SemanticConsistencyNode-9",
+          "nodeName": "SemanticConsistencyNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlExecuteNode-10",
+          "nodeName": "SqlExecuteNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "ReportGeneratorNode-11",
+          "nodeName": "ReportGeneratorNode",
+          "attempt": 1
+        }
+      ],
+      "evidence": [
+        "证据1: 2025年各部门新产生应收的回款率排名是什么？",
+        "证据2: 2025年新产生应收的整体回款率是多少？",
+        "证据3: 截至2025年12月31日各部门逾期应收余额排名是什么？",
+        "证据4: 截至2025年12月31日逾期应收余额最高的十个客户是谁？",
+        "证据5: 2025年每个月实际收到的回款金额是多少？",
+        "证据6: 截至2025年12月31日逾期应收余额是多少？",
+        "证据7: 2025年12月各部门预算执行率是多少？",
+        "证据8: 2025年各部门销售额排名是什么？"
+      ],
+      "sql": [
+        "WITH payment_by_receivable AS (\n  SELECT receivable_id, SUM(amount) AS paid_amount\n  FROM payment\n  WHERE payment_date < '2026-01-01'\n  GROUP BY receivable_id\n)\nSELECT d.name AS department_name,\n       SUM(COALESCE(p.paid_amount, 0)) / NULLIF(SUM(r.receivable_amount), 0) AS collection_rate\nFROM receivable r\nJOIN sales_order so ON so.id = r.order_id\nJOIN org_department d ON d.id = so.department_id\nLEFT JOIN payment_by_receivable p ON p.receivable_id = r.id\nWHERE so.status = 'APPROVED'\n  AND so.order_date >= '2025-01-01'\n  AND so.order_date < '2026-01-01'\nGROUP BY d.id, d.name\nORDER BY collection_rate DESC"
+      ],
+      "resultSets": [
+        {
+          "columns": [
+            "department_name",
+            "collection_rate"
+          ],
+          "rowCount": 8,
+          "sampleRows": [
+            {
+              "collection_rate": "0.894236",
+              "department_name": "åŽä¸œä¸€éƒ¨"
+            },
+            {
+              "collection_rate": "0.888077",
+              "department_name": "åŽä¸œäºŒéƒ¨"
+            },
+            {
+              "collection_rate": "0.883163",
+              "department_name": "åŽåŒ—äºŒéƒ¨"
+            }
+          ],
+          "displayStyle": {
+            "type": "table",
+            "title": null,
+            "x": null,
+            "y": null
+          }
+        },
+        {
+          "columns": [
+            "department_name",
+            "collection_rate"
+          ],
+          "rowCount": 8,
+          "sampleRows": [
+            {
+              "collection_rate": "0.894236",
+              "department_name": "åŽä¸œä¸€éƒ¨"
+            },
+            {
+              "collection_rate": "0.888077",
+              "department_name": "åŽä¸œäºŒéƒ¨"
+            },
+            {
+              "collection_rate": "0.883163",
+              "department_name": "åŽåŒ—äºŒéƒ¨"
+            }
+          ],
+          "displayStyle": {
+            "type": "bar",
+            "title": "2025年各部门回款率",
+            "x": "department_name",
+            "y": [
+              "collection_rate"
+            ]
+          }
+        }
+      ],
+      "retryMessages": [],
+      "report": "# 查询结果\n\n已完成问题“统计2025年各部门新产生应收的回款率，并按回款率降序排名”的数据查询。模型未返回报告正文，以下保留真实执行结果：\n\n```text\n{step_1={\"column\":[\"department_name\",\"collection_rate\"],\"data\":[{\"collection_rate\":\"0.894236\",\"department_name\":\"åŽä¸œä¸€éƒ¨\"},{\"collection_rate\":\"0.888077\",\"department_name\":\"åŽä¸œäºŒéƒ¨\"},{\"collection_rate\":\"0.883163\",\"department_name\":\"åŽåŒ—äºŒéƒ¨\"},{\"collection_rate\":\"0.882243\",\"department_name\":\"åŽåŒ—ä¸€éƒ¨\"},{\"collection_rate\":\"0.882155\",\"department_name\":\"åŽå—äºŒéƒ¨\"},{\"collection_rate\":\"0.878814\",\"department_name\":\"åŽå—ä¸€éƒ¨\"},{\"collection_rate\":\"0.875507\",\"department_name\":\"è¥¿éƒ¨äºŒéƒ¨\"},{\"collection_rate\":\"0.869706\",\"department_name\":\"è¥¿éƒ¨ä¸€éƒ¨\"}],\"errorMsg\":null}}\n```\n\n\n## 数据口径与查询依据\n\n以下内容由系统根据本次实际执行计划和 SQL 生成，不包含未查询的业务推断。\n\n- **步骤 1口径/聚合要求**：基于 enterprise_demo 中 payment、receivable、sales_order、org_department 四张表统计 2025 年各部门新产生应收的回款率。先以 CTE payment_by_receivable 从 payment 表按 receivable_id 分组，筛选 payment_date < '2026-01-01'，计算 SUM(amount) AS paid_amount。然后从 receivable r JOIN sales_order so ON so.id = r.order_id JOIN org_department d ON d.id = so.department_id，LEFT JOIN payment_by_receivable p ON p.receivable_id = r.id，筛选 so.status = 'APPROVED' 且 so.order_date >= '2025-01-01' 且 so.order_date < '2026-01-01'，按 d.id, d.name 分组，计算 SUM(COALESCE(p.paid_amount, 0)) / NULLIF(SUM(r.receivable_amount), 0) AS collection_rate，按 collection_rate DESC 排序。期望输出列为 department_name、collection_rate。",
+      "finalAnswer": "",
+      "hasChart": true
+    },
+    {
+      "id": "M2-Q07",
+      "question": "2025年12月各部门预算执行率是多少？",
+      "category": "核心指标查询",
+      "conversationId": "m3-core-M2-Q07",
+      "passed": true,
+      "durationSeconds": 100.718,
+      "complete": true,
+      "streamError": null,
+      "errors": [],
+      "nodes": [
+        {
+          "stepId": "IntentRecognitionNode-1",
+          "nodeName": "IntentRecognitionNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "EvidenceRecallNode-2",
+          "nodeName": "EvidenceRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "QueryEnhanceNode-3",
+          "nodeName": "QueryEnhanceNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SchemaRecallNode-4",
+          "nodeName": "SchemaRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "TableRelationNode-5",
+          "nodeName": "TableRelationNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "FeasibilityAssessmentNode-6",
+          "nodeName": "FeasibilityAssessmentNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "PlannerNode-7",
+          "nodeName": "PlannerNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlGenerateNode-8",
+          "nodeName": "SqlGenerateNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SemanticConsistencyNode-9",
+          "nodeName": "SemanticConsistencyNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlExecuteNode-10",
+          "nodeName": "SqlExecuteNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "ReportGeneratorNode-11",
+          "nodeName": "ReportGeneratorNode",
+          "attempt": 1
+        }
+      ],
+      "evidence": [
+        "证据1: 2025年12月各部门预算执行率是多少？",
+        "证据2: 截至2025年12月31日各部门逾期应收余额排名是什么？",
+        "证据3: 2025年第四季度各部门各项KPI完成率是多少？",
+        "证据4: 2025年各部门新产生应收的回款率排名是什么？",
+        "证据5: 2025年12月哪些部门和费用类别超预算了？",
+        "证据6: 2025年新产生应收的整体回款率是多少？",
+        "证据7: 2025年各部门销售额排名是什么？",
+        "证据8: 截至2025年12月31日逾期应收余额是多少？"
+      ],
+      "sql": [
+        "WITH expense_monthly AS (\n  SELECT department_id,\n         DATE_FORMAT(expense_date, '%Y-%m') AS period,\n         category,\n         SUM(amount) AS expense_amount\n  FROM expense\n  WHERE status = 'APPROVED'\n  GROUP BY department_id, DATE_FORMAT(expense_date, '%Y-%m'), category\n)\nSELECT d.name AS department_name,\n       SUM(b.budget_amount) AS budget_amount,\n       SUM(COALESCE(e.expense_amount, 0)) AS expense_amount,\n       SUM(COALESCE(e.expense_amount, 0)) / NULLIF(SUM(b.budget_amount), 0) AS budget_execution_rate\nFROM budget b\nJOIN org_department d ON d.id = b.department_id\nLEFT JOIN expense_monthly e ON e.department_id = b.department_id AND e.period = b.period AND e.category = b.category\nWHERE b.period = '2025-12'\nGROUP BY d.id, d.name\nORDER BY budget_execution_rate DESC"
+      ],
+      "resultSets": [
+        {
+          "columns": [
+            "department_name",
+            "budget_amount",
+            "expense_amount",
+            "budget_execution_rate"
+          ],
+          "rowCount": 8,
+          "sampleRows": [
+            {
+              "expense_amount": "569251.95",
+              "department_name": "åŽå—ä¸€éƒ¨",
+              "budget_execution_rate": "0.930150",
+              "budget_amount": "612000.00"
+            },
+            {
+              "expense_amount": "658275.87",
+              "department_name": "è¥¿éƒ¨äºŒéƒ¨",
+              "budget_execution_rate": "0.924545",
+              "budget_amount": "712000.00"
+            },
+            {
+              "expense_amount": "541934.53",
+              "department_name": "åŽåŒ—ä¸€éƒ¨",
+              "budget_execution_rate": "0.831188",
+              "budget_amount": "652000.00"
+            }
+          ],
+          "displayStyle": {
+            "type": "table",
+            "title": null,
+            "x": null,
+            "y": null
+          }
+        },
+        {
+          "columns": [
+            "department_name",
+            "budget_amount",
+            "expense_amount",
+            "budget_execution_rate"
+          ],
+          "rowCount": 8,
+          "sampleRows": [
+            {
+              "expense_amount": "569251.95",
+              "department_name": "åŽå—ä¸€éƒ¨",
+              "budget_execution_rate": "0.930150",
+              "budget_amount": "612000.00"
+            },
+            {
+              "expense_amount": "658275.87",
+              "department_name": "è¥¿éƒ¨äºŒéƒ¨",
+              "budget_execution_rate": "0.924545",
+              "budget_amount": "712000.00"
+            },
+            {
+              "expense_amount": "541934.53",
+              "department_name": "åŽåŒ—ä¸€éƒ¨",
+              "budget_execution_rate": "0.831188",
+              "budget_amount": "652000.00"
+            }
+          ],
+          "displayStyle": {
+            "type": "column",
+            "title": "2025年12月各部门预算执行率",
+            "x": "department_name",
+            "y": [
+              "budget_execution_rate"
+            ]
+          }
+        }
+      ],
+      "retryMessages": [],
+      "report": "# 查询结果\n\n已完成问题“查询2025年12月各部门的预算执行率”的数据查询。模型未返回报告正文，以下保留真实执行结果：\n\n```text\n{step_1={\"column\":[\"department_name\",\"budget_amount\",\"expense_amount\",\"budget_execution_rate\"],\"data\":[{\"expense_amount\":\"569251.95\",\"department_name\":\"åŽå—ä¸€éƒ¨\",\"budget_execution_rate\":\"0.930150\",\"budget_amount\":\"612000.00\"},{\"expense_amount\":\"658275.87\",\"department_name\":\"è¥¿éƒ¨äºŒéƒ¨\",\"budget_execution_rate\":\"0.924545\",\"budget_amount\":\"712000.00\"},{\"expense_amount\":\"541934.53\",\"department_name\":\"åŽåŒ—ä¸€éƒ¨\",\"budget_execution_rate\":\"0.831188\",\"budget_amount\":\"652000.00\"},{\"expense_amount\":\"522679.03\",\"department_name\":\"åŽå—äºŒéƒ¨\",\"budget_execution_rate\":\"0.827024\",\"budget_amount\":\"632000.00\"},{\"expense_amount\":\"476956.56\",\"department_name\":\"åŽä¸œäºŒéƒ¨\",\"budget_execution_rate\":\"0.805670\",\"budget_amount\":\"592000.00\"},{\"expense_amount\":\"542614.72\",\"department_name\":\"è¥¿éƒ¨ä¸€éƒ¨\",\"budget_execution_rate\":\"0.784125\",\"budget_amount\":\"692000.00\"},{\"expense_amount\":\"444417.01\",\"department_name\":\"åŽä¸œä¸€éƒ¨\",\"budget_execution_rate\":\"0.776953\",\"budget_amount\":\"572000.00\"},{\"expense_amount\":\"505840.18\",\"department_name\":\"åŽåŒ—äºŒéƒ¨\",\"budget_execution_rate\":\"0.752738\",\"budget_amount\":\"672000.00\"}],\"errorMsg\":null}}\n```\n\n\n## 数据口径与查询依据\n\n以下内容由系统根据本次实际执行计划和 SQL 生成，不包含未查询的业务推断。\n\n- **步骤 1口径/聚合要求**：使用 budget、expense、org_department 三张表。先将 expense 中 status='APPROVED' 的记录按 department_id、DATE_FORMAT(expense_date, '%Y-%m') AS period、category 汇总 SUM(amount) AS expense_amount；再用 budget 表关联 org_department（budget.department_id=org_department.id）并 LEFT JOIN 上述费用汇总，关联条件为 e.department_id=b.department_id AND e.period=b.period AND e.category=b.category。筛选 b.period='2025-12'。按 d.id、d.name 分组，输出 d.name AS department_name、SUM(b.budget_amount) AS budget_amount、SUM(COALESCE(e.expense_amount,0)) AS expense_amount、SUM(COALESCE(e.expense_amount,0))/NULLIF(SUM(b.budget_amount),0) AS budget_execution_rate，按 budget_execution_rate 降序排列。",
+      "finalAnswer": "",
+      "hasChart": true
+    },
+    {
+      "id": "M2-Q08",
+      "question": "2025年12月哪些部门和费用类别超预算了？",
+      "category": "核心指标查询",
+      "conversationId": "m3-core-M2-Q08",
+      "passed": true,
+      "durationSeconds": 107.016,
+      "complete": true,
+      "streamError": null,
+      "errors": [],
+      "nodes": [
+        {
+          "stepId": "IntentRecognitionNode-1",
+          "nodeName": "IntentRecognitionNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "EvidenceRecallNode-2",
+          "nodeName": "EvidenceRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "QueryEnhanceNode-3",
+          "nodeName": "QueryEnhanceNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SchemaRecallNode-4",
+          "nodeName": "SchemaRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "TableRelationNode-5",
+          "nodeName": "TableRelationNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "FeasibilityAssessmentNode-6",
+          "nodeName": "FeasibilityAssessmentNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "PlannerNode-7",
+          "nodeName": "PlannerNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlGenerateNode-8",
+          "nodeName": "SqlGenerateNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SemanticConsistencyNode-9",
+          "nodeName": "SemanticConsistencyNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlExecuteNode-10",
+          "nodeName": "SqlExecuteNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "ReportGeneratorNode-11",
+          "nodeName": "ReportGeneratorNode",
+          "attempt": 1
+        }
+      ],
+      "evidence": [
+        "证据1: 2025年12月哪些部门和费用类别超预算了？",
+        "证据2: 2025年12月各部门预算执行率是多少？",
+        "证据3: 截至2025年12月31日各部门逾期应收余额排名是什么？",
+        "证据4: 哪些部门在2025年第三和第四季度连续有KPI未达标？",
+        "证据5: 截至2025年12月31日逾期应收余额最高的十个客户是谁？",
+        "证据6: 截至2025年12月31日逾期应收余额是多少？",
+        "证据7: 2025年第四季度哪些部门的KPI没有达标？",
+        "证据8: 2025年各部门新产生应收的回款率排名是什么？"
+      ],
+      "sql": [
+        "WITH expense_monthly AS (\n  SELECT department_id, DATE_FORMAT(expense_date, '%Y-%m') AS period, category, SUM(amount) AS expense_amount\n  FROM expense\n  WHERE status = 'APPROVED'\n  GROUP BY department_id, DATE_FORMAT(expense_date, '%Y-%m'), category\n)\nSELECT\n  d.name AS department_name,\n  b.category,\n  b.budget_amount,\n  COALESCE(e.expense_amount, 0) AS expense_amount,\n  COALESCE(e.expense_amount, 0) / NULLIF(b.budget_amount, 0) AS budget_execution_rate\nFROM budget b\nJOIN org_department d ON d.id = b.department_id\nLEFT JOIN expense_monthly e ON e.department_id = b.department_id AND e.period = b.period AND e.category = b.category\nWHERE b.period = '2025-12'\n  AND COALESCE(e.expense_amount, 0) > b.budget_amount\nORDER BY budget_execution_rate DESC"
+      ],
+      "resultSets": [
+        {
+          "columns": [
+            "department_name",
+            "category",
+            "budget_amount",
+            "expense_amount",
+            "budget_execution_rate"
+          ],
+          "rowCount": 1,
+          "sampleRows": [
+            {
+              "expense_amount": "185000.00",
+              "department_name": "åŽå—ä¸€éƒ¨",
+              "budget_execution_rate": "1.250000",
+              "category": "MARKETING",
+              "budget_amount": "148000.00"
+            }
+          ],
+          "displayStyle": {
+            "type": "table",
+            "title": null,
+            "x": null,
+            "y": null
+          }
+        },
+        {
+          "columns": [
+            "department_name",
+            "category",
+            "budget_amount",
+            "expense_amount",
+            "budget_execution_rate"
+          ],
+          "rowCount": 1,
+          "sampleRows": [
+            {
+              "expense_amount": "185000.00",
+              "department_name": "åŽå—ä¸€éƒ¨",
+              "budget_execution_rate": "1.250000",
+              "category": "MARKETING",
+              "budget_amount": "148000.00"
+            }
+          ],
+          "displayStyle": {
+            "type": "table",
+            "title": "2025年12月超预算部门与费用类别明细",
+            "x": "",
+            "y": []
+          }
+        }
+      ],
+      "retryMessages": [],
+      "report": "# 查询结果\n\n已完成问题“查询 2025 年 12 月哪些部门和费用类别出现了实际支出超过预算金额的情况（即超预算）”的数据查询。模型未返回报告正文，以下保留真实执行结果：\n\n```text\n{step_1={\"column\":[\"department_name\",\"category\",\"budget_amount\",\"expense_amount\",\"budget_execution_rate\"],\"data\":[{\"expense_amount\":\"185000.00\",\"department_name\":\"åŽå—ä¸€éƒ¨\",\"budget_execution_rate\":\"1.250000\",\"category\":\"MARKETING\",\"budget_amount\":\"148000.00\"}],\"errorMsg\":null}}\n```\n\n\n## 数据口径与查询依据\n\n以下内容由系统根据本次实际执行计划和 SQL 生成，不包含未查询的业务推断。\n\n- **步骤 1口径/聚合要求**：查询2025年12月实际支出超过预算金额的部门和费用类别。使用 budget、expense、org_department 三张表：以 expense_monthly CTE 按 department_id、DATE_FORMAT(expense_date, '%Y-%m') AS period、category 汇总 expense 表中 status = 'APPROVED' 的 SUM(amount) AS expense_amount；再 SELECT d.name AS department_name、b.category、b.budget_amount、COALESCE(e.expense_amount, 0) AS expense_amount、COALESCE(e.expense_amount, 0) / NULLIF(b.budget_amount, 0) AS budget_execution_rate，从 budget b JOIN org_department d ON d.id = b.department_id，LEFT JOIN expense_monthly e ON e.department_id = b.department_id AND e.period = b.period AND e.category = b.category，WHERE b.period = '2025-12' 且 COALESCE(e.expense_amount, 0) > b.budget_amount，ORDER BY budget_execution_rate DESC。期望输出列：department_name、category、budget_amount、expense_amount、budget_execution_rate。",
+      "finalAnswer": "",
+      "hasChart": false
+    },
+    {
+      "id": "M2-Q09",
+      "question": "截至2025年12月31日逾期应收余额是多少？",
+      "category": "核心指标查询",
+      "conversationId": "m3-core-M2-Q09",
+      "passed": true,
+      "durationSeconds": 35.234,
+      "complete": true,
+      "streamError": null,
+      "errors": [],
+      "nodes": [
+        {
+          "stepId": "IntentRecognitionNode-1",
+          "nodeName": "IntentRecognitionNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "EvidenceRecallNode-2",
+          "nodeName": "EvidenceRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "QueryEnhanceNode-3",
+          "nodeName": "QueryEnhanceNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SchemaRecallNode-4",
+          "nodeName": "SchemaRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "TableRelationNode-5",
+          "nodeName": "TableRelationNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "FeasibilityAssessmentNode-6",
+          "nodeName": "FeasibilityAssessmentNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "PlannerNode-7",
+          "nodeName": "PlannerNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlGenerateNode-8",
+          "nodeName": "SqlGenerateNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SemanticConsistencyNode-9",
+          "nodeName": "SemanticConsistencyNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlExecuteNode-10",
+          "nodeName": "SqlExecuteNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "ReportGeneratorNode-11",
+          "nodeName": "ReportGeneratorNode",
+          "attempt": 1
+        }
+      ],
+      "evidence": [
+        "证据1: 截至2025年12月31日逾期应收余额是多少？",
+        "证据2: 截至2025年12月31日逾期应收余额最高的十个客户是谁？",
+        "证据3: 截至2025年12月31日各部门逾期应收余额排名是什么？",
+        "证据4: 截至2025年12月31日逾期超过60天仍未结清的应收有哪些？",
+        "证据5: 2025年新产生应收的整体回款率是多少？",
+        "证据6: 2025年各部门新产生应收的回款率排名是什么？",
+        "证据7: 2025年每个月实际收到的回款金额是多少？",
+        "证据8: 2025年12月各部门预算执行率是多少？"
+      ],
+      "sql": [
+        "SELECT COALESCE(SUM(receivable_amount - received_amount), 0) AS overdue_receivable_balance FROM receivable WHERE due_date < '2025-12-31' AND receivable_amount > received_amount"
+      ],
+      "resultSets": [
+        {
+          "columns": [
+            "overdue_receivable_balance"
+          ],
+          "rowCount": 1,
+          "sampleRows": [
+            {
+              "overdue_receivable_balance": "2941084.66"
+            }
+          ],
+          "displayStyle": {
+            "type": "table",
+            "title": null,
+            "x": null,
+            "y": null
+          }
+        },
+        {
+          "columns": [
+            "overdue_receivable_balance"
+          ],
+          "rowCount": 1,
+          "sampleRows": [
+            {
+              "overdue_receivable_balance": "2941084.66"
+            }
+          ],
+          "displayStyle": {
+            "type": "table",
+            "title": "逾期应收余额汇总",
+            "x": "",
+            "y": []
+          }
+        }
+      ],
+      "retryMessages": [],
+      "report": "截至2025年12月31日，到期日早于2025年12月31日且应收金额大于已收金额的逾期应收余额为 **2,941,084.66**。\n\n|指标 |数值 |\n| --- | --- |\n|逾期应收余额（应收金额 -已收金额） |2,941,084.66 |\n\n##数据口径与查询依据- **指标公式**：逾期应收余额 = SUM(receivable_amount - received_amount)，仅统计满足筛选条件的记录。\n- **筛选条件**：\n -到期日（due_date）早于2025-12-31，即 `due_date < '2025-12-31'`；\n -应收金额大于已收金额，即 `receivable_amount > received_amount`。\n- **聚合方式**：对满足条件的记录计算 `receivable_amount - received_amount`的总和，结果使用 `COALESCE(...,0)`处理空值。\n- **时间范围**：截至2025-12-31；日期字段为 `due_date`。\n- **维度归属**：本次查询未限定组织、客户等维度。\n- **状态/排除条件**：除上述筛选条件外，未限定其他状态或排除条件。\n- **实际使用表及字段**：`receivable`表，字段为 `due_date`、`receivable_amount`、`received_amount`。\n- **真实执行结果**：步骤1返回 `overdue_receivable_balance =2941084.66`。\n\n>说明：本次仅返回单一汇总值，未进行缺失值、异常值或数据完整性校验；上述结论仅基于该条 SQL执行结果。",
+      "finalAnswer": "",
+      "hasChart": false
+    },
+    {
+      "id": "M2-Q10",
+      "question": "截至2025年12月31日各部门逾期应收余额排名是什么？",
+      "category": "核心指标查询",
+      "conversationId": "m3-drilldown-M2-Q10",
+      "passed": true,
+      "durationSeconds": 85.339,
+      "complete": true,
+      "streamError": null,
+      "errors": [],
+      "nodes": [
+        {
+          "stepId": "IntentRecognitionNode-1",
+          "nodeName": "IntentRecognitionNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "EvidenceRecallNode-2",
+          "nodeName": "EvidenceRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "QueryEnhanceNode-3",
+          "nodeName": "QueryEnhanceNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SchemaRecallNode-4",
+          "nodeName": "SchemaRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "TableRelationNode-5",
+          "nodeName": "TableRelationNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "FeasibilityAssessmentNode-6",
+          "nodeName": "FeasibilityAssessmentNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "PlannerNode-7",
+          "nodeName": "PlannerNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlGenerateNode-8",
+          "nodeName": "SqlGenerateNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SemanticConsistencyNode-9",
+          "nodeName": "SemanticConsistencyNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlExecuteNode-10",
+          "nodeName": "SqlExecuteNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "ReportGeneratorNode-11",
+          "nodeName": "ReportGeneratorNode",
+          "attempt": 1
+        }
+      ],
+      "evidence": [
+        "证据1: 截至2025年12月31日各部门逾期应收余额排名是什么？",
+        "证据2: 截至2025年12月31日逾期应收余额最高的十个客户是谁？",
+        "证据3: 截至2025年12月31日逾期应收余额是多少？",
+        "证据4: 截至2025年12月31日逾期超过60天仍未结清的应收有哪些？",
+        "证据5: 2025年各部门新产生应收的回款率排名是什么？",
+        "证据6: 2025年12月各部门预算执行率是多少？",
+        "证据7: 2025年新产生应收的整体回款率是多少？",
+        "证据8: 哪些部门在2025年第三和第四季度连续有KPI未达标？"
+      ],
+      "sql": [
+        "SELECT d.name AS department_name, SUM(r.receivable_amount - r.received_amount) AS overdue_receivable_balance FROM receivable r JOIN sales_order so ON so.id = r.order_id JOIN org_department d ON d.id = so.department_id WHERE r.due_date < '2025-12-31' AND r.receivable_amount > r.received_amount GROUP BY d.id, d.name ORDER BY overdue_receivable_balance DESC"
+      ],
+      "resultSets": [
+        {
+          "columns": [
+            "department_name",
+            "overdue_receivable_balance"
+          ],
+          "rowCount": 8,
+          "sampleRows": [
+            {
+              "overdue_receivable_balance": "405285.96",
+              "department_name": "åŽä¸œä¸€éƒ¨"
+            },
+            {
+              "overdue_receivable_balance": "400819.80",
+              "department_name": "è¥¿éƒ¨ä¸€éƒ¨"
+            },
+            {
+              "overdue_receivable_balance": "391238.70",
+              "department_name": "è¥¿éƒ¨äºŒéƒ¨"
+            }
+          ],
+          "displayStyle": {
+            "type": "table",
+            "title": null,
+            "x": null,
+            "y": null
+          }
+        },
+        {
+          "columns": [
+            "department_name",
+            "overdue_receivable_balance"
+          ],
+          "rowCount": 8,
+          "sampleRows": [
+            {
+              "overdue_receivable_balance": "405285.96",
+              "department_name": "åŽä¸œä¸€éƒ¨"
+            },
+            {
+              "overdue_receivable_balance": "400819.80",
+              "department_name": "è¥¿éƒ¨ä¸€éƒ¨"
+            },
+            {
+              "overdue_receivable_balance": "391238.70",
+              "department_name": "è¥¿éƒ¨äºŒéƒ¨"
+            }
+          ],
+          "displayStyle": {
+            "type": "bar",
+            "title": "各部门逾期应收余额排名",
+            "x": "department_name",
+            "y": [
+              "overdue_receivable_balance"
+            ]
+          }
+        }
+      ],
+      "retryMessages": [],
+      "report": "# 查询结果\n\n已完成问题“统计截至2025年12月31日（到期日早于2025年12月31日，且应收金额大于已收金额）各部门的逾期应收余额（应收金额减去已收金额的合计），并按逾期应收余额从高到低排名”的数据查询。模型未返回报告正文，以下保留真实执行结果：\n\n```text\n{step_1={\"column\":[\"department_name\",\"overdue_receivable_balance\"],\"data\":[{\"overdue_receivable_balance\":\"405285.96\",\"department_name\":\"åŽä¸œä¸€éƒ¨\"},{\"overdue_receivable_balance\":\"400819.80\",\"department_name\":\"è¥¿éƒ¨ä¸€éƒ¨\"},{\"overdue_receivable_balance\":\"391238.70\",\"department_name\":\"è¥¿éƒ¨äºŒéƒ¨\"},{\"overdue_receivable_balance\":\"372108.71\",\"department_name\":\"åŽåŒ—ä¸€éƒ¨\"},{\"overdue_receivable_balance\":\"365738.46\",\"department_name\":\"åŽå—äºŒéƒ¨\"},{\"overdue_receivable_balance\":\"365556.97\",\"department_name\":\"åŽåŒ—äºŒéƒ¨\"},{\"overdue_receivable_balance\":\"361825.75\",\"department_name\":\"åŽå—ä¸€éƒ¨\"},{\"overdue_receivable_balance\":\"278510.31\",\"department_name\":\"åŽä¸œäºŒéƒ¨\"}],\"errorMsg\":null}}\n```\n\n\n## 数据口径与查询依据\n\n以下内容由系统根据本次实际执行计划和 SQL 生成，不包含未查询的业务推断。\n\n- **步骤 1口径/聚合要求**：从 receivable r JOIN sales_order so ON so.id = r.order_id JOIN org_department d ON d.id = so.department_id，筛选 r.due_date < '2025-12-31' 且 r.receivable_amount > r.received_amount，按 d.id, d.name 分组，计算 SUM(r.receivable_amount - r.received_amount) AS overdue_receivable_balance，按 overdue_receivable_balance DESC 排序。期望输出列：department_name, overdue_receivable_balance。",
+      "finalAnswer": "",
+      "hasChart": true
+    },
+    {
+      "id": "M2-Q11",
+      "question": "截至2025年12月31日逾期超过60天仍未结清的应收有哪些？",
+      "category": "核心指标查询",
+      "conversationId": "m3-core-M2-Q11",
+      "passed": true,
+      "durationSeconds": 77.767,
+      "complete": true,
+      "streamError": null,
+      "errors": [],
+      "nodes": [
+        {
+          "stepId": "IntentRecognitionNode-1",
+          "nodeName": "IntentRecognitionNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "EvidenceRecallNode-2",
+          "nodeName": "EvidenceRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "QueryEnhanceNode-3",
+          "nodeName": "QueryEnhanceNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SchemaRecallNode-4",
+          "nodeName": "SchemaRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "TableRelationNode-5",
+          "nodeName": "TableRelationNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "FeasibilityAssessmentNode-6",
+          "nodeName": "FeasibilityAssessmentNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "PlannerNode-7",
+          "nodeName": "PlannerNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlGenerateNode-8",
+          "nodeName": "SqlGenerateNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SemanticConsistencyNode-9",
+          "nodeName": "SemanticConsistencyNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlExecuteNode-10",
+          "nodeName": "SqlExecuteNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "ReportGeneratorNode-11",
+          "nodeName": "ReportGeneratorNode",
+          "attempt": 1
+        }
+      ],
+      "evidence": [
+        "证据1: 截至2025年12月31日逾期超过60天仍未结清的应收有哪些？",
+        "证据2: 截至2025年12月31日逾期应收余额最高的十个客户是谁？",
+        "证据3: 截至2025年12月31日各部门逾期应收余额排名是什么？",
+        "证据4: 截至2025年12月31日逾期应收余额是多少？",
+        "证据5: 2025年各部门新产生应收的回款率排名是什么？",
+        "证据6: 2025年新产生应收的整体回款率是多少？",
+        "证据7: 哪些部门在2025年第三和第四季度连续有KPI未达标？",
+        "证据8: 2025年第四季度哪些部门的KPI没有达标？"
+      ],
+      "sql": [
+        "SELECT r.receivable_no AS receivable_no, c.name AS customer_name, d.name AS department_name, r.due_date AS due_date, DATEDIFF('2025-12-31', r.due_date) AS overdue_days, r.receivable_amount - r.received_amount AS outstanding_amount FROM receivable r JOIN sales_order so ON so.id = r.order_id JOIN customer c ON c.id = so.customer_id JOIN org_department d ON d.id = so.department_id WHERE r.due_date < '2025-12-31' AND r.receivable_amount > r.received_amount AND DATEDIFF('2025-12-31', r.due_date) > 60 ORDER BY overdue_days DESC, outstanding_amount DESC"
+      ],
+      "resultSets": [
+        {
+          "columns": [
+            "receivable_no",
+            "customer_name",
+            "department_name",
+            "due_date",
+            "overdue_days",
+            "outstanding_amount"
+          ],
+          "rowCount": 120,
+          "sampleRows": [
+            {
+              "overdue_days": "699",
+              "department_name": "åŽå—ä¸€éƒ¨",
+              "due_date": "2024-02-01",
+              "receivable_no": "DEMO-AR-0000240",
+              "customer_name": "æ¼”ç¤ºå®¢æˆ·0205",
+              "outstanding_amount": "9480.90"
+            },
+            {
+              "overdue_days": "692",
+              "department_name": "åŽåŒ—ä¸€éƒ¨",
+              "due_date": "2024-02-08",
+              "receivable_no": "DEMO-AR-0000400",
+              "customer_name": "æ¼”ç¤ºå®¢æˆ·0113",
+              "outstanding_amount": "3482.81"
+            },
+            {
+              "overdue_days": "691",
+              "department_name": "åŽå—äºŒéƒ¨",
+              "due_date": "2024-02-09",
+              "receivable_no": "DEMO-AR-0000359",
+              "customer_name": "æ¼”ç¤ºå®¢æˆ·0437",
+              "outstanding_amount": "4940.14"
+            }
+          ],
+          "displayStyle": {
+            "type": "table",
+            "title": null,
+            "x": null,
+            "y": null
+          }
+        }
+      ],
+      "retryMessages": [],
+      "report": "# 查询结果\n\n已完成问题“查询截至2025年12月31日逾期超过60天且仍未结清的应收款项，列出应收单号、客户名称、部门名称、到期日、逾期天数及未结清金额”的数据查询。模型未返回报告正文，以下保留真实执行结果：\n\n```text\n{step_1={\"column\":[\"receivable_no\",\"customer_name\",\"department_name\",\"due_date\",\"overdue_days\",\"outstanding_amount\"],\"data\":[{\"overdue_days\":\"699\",\"department_name\":\"åŽå—ä¸€éƒ¨\",\"due_date\":\"2024-02-01\",\"receivable_no\":\"DEMO-AR-0000240\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0205\",\"outstanding_amount\":\"9480.90\"},{\"overdue_days\":\"692\",\"department_name\":\"åŽåŒ—ä¸€éƒ¨\",\"due_date\":\"2024-02-08\",\"receivable_no\":\"DEMO-AR-0000400\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0113\",\"outstanding_amount\":\"3482.81\"},{\"overdue_days\":\"691\",\"department_name\":\"åŽå—äºŒéƒ¨\",\"due_date\":\"2024-02-09\",\"receivable_no\":\"DEMO-AR-0000359\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0437\",\"outstanding_amount\":\"4940.14\"},{\"overdue_days\":\"679\",\"department_name\":\"åŽä¸œäºŒéƒ¨\",\"due_date\":\"2024-02-21\",\"receivable_no\":\"DEMO-AR-0000145\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0431\",\"outstanding_amount\":\"9114.54\"},{\"overdue_days\":\"678\",\"department_name\":\"åŽå—ä¸€éƒ¨\",\"due_date\":\"2024-02-22\",\"receivable_no\":\"DEMO-AR-0000236\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0020\",\"outstanding_amount\":\"11539.56\"},{\"overdue_days\":\"668\",\"department_name\":\"åŽåŒ—ä¸€éƒ¨\",\"due_date\":\"2024-03-03\",\"receivable_no\":\"DEMO-AR-0001184\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0003\",\"outstanding_amount\":\"5383.03\"},{\"overdue_days\":\"667\",\"department_name\":\"åŽå—äºŒéƒ¨\",\"due_date\":\"2024-03-04\",\"receivable_no\":\"DEMO-AR-0001105\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0284\",\"outstanding_amount\":\"16126.89\"},{\"overdue_days\":\"654\",\"department_name\":\"åŽä¸œä¸€éƒ¨\",\"due_date\":\"2024-03-17\",\"receivable_no\":\"DEMO-AR-0000844\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0028\",\"outstanding_amount\":\"7246.39\"},{\"overdue_days\":\"647\",\"department_name\":\"åŽåŒ—ä¸€éƒ¨\",\"due_date\":\"2024-03-24\",\"receivable_no\":\"DEMO-AR-0001182\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0229\",\"outstanding_amount\":\"11968.60\"},{\"overdue_days\":\"646\",\"department_name\":\"åŽå—äºŒéƒ¨\",\"due_date\":\"2024-03-25\",\"receivable_no\":\"DEMO-AR-0001040\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0057\",\"outstanding_amount\":\"4182.49\"},{\"overdue_days\":\"642\",\"department_name\":\"åŽä¸œä¸€éƒ¨\",\"due_date\":\"2024-03-29\",\"receivable_no\":\"DEMO-AR-0000763\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0287\",\"outstanding_amount\":\"2144.63\"},{\"overdue_days\":\"640\",\"department_name\":\"è¥¿éƒ¨ä¸€éƒ¨\",\"due_date\":\"2024-03-31\",\"receivable_no\":\"DEMO-AR-0002097\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0069\",\"outstanding_amount\":\"4330.61\"},{\"overdue_days\":\"638\",\"department_name\":\"åŽå—äºŒéƒ¨\",\"due_date\":\"2024-04-02\",\"receivable_no\":\"DEMO-AR-0001880\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0215\",\"outstanding_amount\":\"2198.01\"},{\"overdue_days\":\"634\",\"department_name\":\"åŽä¸œäºŒéƒ¨\",\"due_date\":\"2024-04-06\",\"receivable_no\":\"DEMO-AR-0001619\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0237\",\"outstanding_amount\":\"13921.34\"},{\"overdue_days\":\"634\",\"department_name\":\"åŽå—äºŒéƒ¨\",\"due_date\":\"2024-04-06\",\"receivable_no\":\"DEMO-AR-0001793\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0363\",\"outstanding_amount\":\"1608.95\"},{\"overdue_days\":\"624\",\"department_name\":\"åŽå—ä¸€éƒ¨\",\"due_date\":\"2024-04-16\",\"receivable_no\":\"DEMO-AR-0001742\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0043\",\"outstanding_amount\":\"1208.39\"},{\"overdue_days\":\"618\",\"department_name\":\"åŽåŒ—äºŒéƒ¨\",\"due_date\":\"2024-04-22\",\"receivable_no\":\"DEMO-AR-0001986\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0318\",\"outstanding_amount\":\"1532.17\"},{\"overdue_days\":\"613\",\"department_name\":\"è¥¿éƒ¨äºŒéƒ¨\",\"due_date\":\"2024-04-27\",\"receivable_no\":\"DEMO-AR-0002178\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0236\",\"outstanding_amount\":\"4606.65\"},{\"overdue_days\":\"608\",\"department_name\":\"åŽåŒ—äºŒéƒ¨\",\"due_date\":\"2024-05-02\",\"receivable_no\":\"DEMO-AR-0002761\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0286\",\"outstanding_amount\":\"14718.54\"},{\"overdue_days\":\"603\",\"department_name\":\"è¥¿éƒ¨ä¸€éƒ¨\",\"due_date\":\"2024-05-07\",\"receivable_no\":\"DEMO-AR-0002878\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0333\",\"outstanding_amount\":\"951.58\"},{\"overdue_days\":\"602\",\"department_name\":\"è¥¿éƒ¨äºŒéƒ¨\",\"due_date\":\"2024-05-08\",\"receivable_no\":\"DEMO-AR-0003002\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0417\",\"outstanding_amount\":\"3682.82\"},{\"overdue_days\":\"589\",\"department_name\":\"åŽå—ä¸€éƒ¨\",\"due_date\":\"2024-05-21\",\"receivable_no\":\"DEMO-AR-0002491\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0127\",\"outstanding_amount\":\"8396.19\"},{\"overdue_days\":\"586\",\"department_name\":\"åŽå—äºŒéƒ¨\",\"due_date\":\"2024-05-24\",\"receivable_no\":\"DEMO-AR-0002628\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0151\",\"outstanding_amount\":\"12187.22\"},{\"overdue_days\":\"584\",\"department_name\":\"åŽåŒ—äºŒéƒ¨\",\"due_date\":\"2024-05-26\",\"receivable_no\":\"DEMO-AR-0002765\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0434\",\"outstanding_amount\":\"10334.98\"},{\"overdue_days\":\"579\",\"department_name\":\"åŽåŒ—ä¸€éƒ¨\",\"due_date\":\"2024-05-31\",\"receivable_no\":\"DEMO-AR-0003437\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0466\",\"outstanding_amount\":\"1400.15\"},{\"overdue_days\":\"578\",\"department_name\":\"è¥¿éƒ¨ä¸€éƒ¨\",\"due_date\":\"2024-06-01\",\"receivable_no\":\"DEMO-AR-0003588\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0430\",\"outstanding_amount\":\"9745.43\"},{\"overdue_days\":\"567\",\"department_name\":\"åŽä¸œä¸€éƒ¨\",\"due_date\":\"2024-06-12\",\"receivable_no\":\"DEMO-AR-0003057\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0200\",\"outstanding_amount\":\"6509.78\"},{\"overdue_days\":\"567\",\"department_name\":\"åŽåŒ—ä¸€éƒ¨\",\"due_date\":\"2024-06-12\",\"receivable_no\":\"DEMO-AR-0003469\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0198\",\"outstanding_amount\":\"5437.83\"},{\"overdue_days\":\"566\",\"department_name\":\"è¥¿éƒ¨äºŒéƒ¨\",\"due_date\":\"2024-06-13\",\"receivable_no\":\"DEMO-AR-0003705\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0292\",\"outstanding_amount\":\"9620.71\"},{\"overdue_days\":\"565\",\"department_name\":\"åŽå—ä¸€éƒ¨\",\"due_date\":\"2024-06-14\",\"receivable_no\":\"DEMO-AR-0003262\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0136\",\"outstanding_amount\":\"1737.60\"},{\"overdue_days\":\"564\",\"department_name\":\"åŽä¸œäºŒéƒ¨\",\"due_date\":\"2024-06-15\",\"receivable_no\":\"DEMO-AR-0003195\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0298\",\"outstanding_amount\":\"10014.95\"},{\"overdue_days\":\"563\",\"department_name\":\"åŽå—äºŒéƒ¨\",\"due_date\":\"2024-06-16\",\"receivable_no\":\"DEMO-AR-0003364\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0169\",\"outstanding_amount\":\"5239.66\"},{\"overdue_days\":\"562\",\"department_name\":\"åŽä¸œä¸€éƒ¨\",\"due_date\":\"2024-06-17\",\"receivable_no\":\"DEMO-AR-0003058\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0237\",\"outstanding_amount\":\"3307.79\"},{\"overdue_days\":\"558\",\"department_name\":\"åŽåŒ—ä¸€éƒ¨\",\"due_date\":\"2024-06-21\",\"receivable_no\":\"DEMO-AR-0003409\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0008\",\"outstanding_amount\":\"7237.13\"},{\"overdue_days\":\"555\",\"department_name\":\"è¥¿éƒ¨ä¸€éƒ¨\",\"due_date\":\"2024-06-24\",\"receivable_no\":\"DEMO-AR-0003648\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0398\",\"outstanding_amount\":\"7783.60\"},{\"overdue_days\":\"552\",\"department_name\":\"åŽåŒ—äºŒéƒ¨\",\"due_date\":\"2024-06-27\",\"receivable_no\":\"DEMO-AR-0003547\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0254\",\"outstanding_amount\":\"17787.87\"},{\"overdue_days\":\"546\",\"department_name\":\"åŽå—ä¸€éƒ¨\",\"due_date\":\"2024-07-03\",\"receivable_no\":\"DEMO-AR-0003975\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0303\",\"outstanding_amount\":\"5789.38\"},{\"overdue_days\":\"541\",\"department_name\":\"åŽåŒ—ä¸€éƒ¨\",\"due_date\":\"2024-07-08\",\"receivable_no\":\"DEMO-AR-0004225\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0226\",\"outstanding_amount\":\"14625.05\"},{\"overdue_days\":\"541\",\"department_name\":\"åŽå—ä¸€éƒ¨\",\"due_date\":\"2024-07-08\",\"receivable_no\":\"DEMO-AR-0003959\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0437\",\"outstanding_amount\":\"10897.22\"},{\"overdue_days\":\"538\",\"department_name\":\"è¥¿éƒ¨äºŒéƒ¨\",\"due_date\":\"2024-07-11\",\"receivable_no\":\"DEMO-AR-0004444\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0232\",\"outstanding_amount\":\"10116.83\"},{\"overdue_days\":\"538\",\"department_name\":\"åŽä¸œä¸€éƒ¨\",\"due_date\":\"2024-07-11\",\"receivable_no\":\"DEMO-AR-0003797\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0292\",\"outstanding_amount\":\"5937.85\"},{\"overdue_days\":\"533\",\"department_name\":\"åŽåŒ—äºŒéƒ¨\",\"due_date\":\"2024-07-16\",\"receivable_no\":\"DEMO-AR-0004308\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0319\",\"outstanding_amount\":\"3857.48\"},{\"overdue_days\":\"533\",\"department_name\":\"åŽåŒ—ä¸€éƒ¨\",\"due_date\":\"2024-07-16\",\"receivable_no\":\"DEMO-AR-0004154\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0225\",\"outstanding_amount\":\"2627.60\"},{\"overdue_days\":\"526\",\"department_name\":\"åŽå—ä¸€éƒ¨\",\"due_date\":\"2024-07-23\",\"receivable_no\":\"DEMO-AR-0004010\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0257\",\"outstanding_amount\":\"1037.13\"},{\"overdue_days\":\"502\",\"department_name\":\"è¥¿éƒ¨äºŒéƒ¨\",\"due_date\":\"2024-08-16\",\"receivable_no\":\"DEMO-AR-0005226\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0445\",\"outstanding_amount\":\"7964.26\"},{\"overdue_days\":\"500\",\"department_name\":\"åŽåŒ—ä¸€éƒ¨\",\"due_date\":\"2024-08-18\",\"receivable_no\":\"DEMO-AR-0004969\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0096\",\"outstanding_amount\":\"10709.86\"},{\"overdue_days\":\"492\",\"department_name\":\"åŽåŒ—ä¸€éƒ¨\",\"due_date\":\"2024-08-26\",\"receivable_no\":\"DEMO-AR-0004995\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0143\",\"outstanding_amount\":\"12068.16\"},{\"overdue_days\":\"486\",\"department_name\":\"åŽå—äºŒéƒ¨\",\"due_date\":\"2024-09-01\",\"receivable_no\":\"DEMO-AR-0005632\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0239\",\"outstanding_amount\":\"9038.25\"},{\"overdue_days\":\"479\",\"department_name\":\"è¥¿éƒ¨äºŒéƒ¨\",\"due_date\":\"2024-09-08\",\"receivable_no\":\"DEMO-AR-0005955\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0029\",\"outstanding_amount\":\"11199.31\"},{\"overdue_days\":\"475\",\"department_name\":\"åŽä¸œä¸€éƒ¨\",\"due_date\":\"2024-09-12\",\"receivable_no\":\"DEMO-AR-0005360\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0006\",\"outstanding_amount\":\"8782.76\"},{\"overdue_days\":\"472\",\"department_name\":\"åŽä¸œäºŒéƒ¨\",\"due_date\":\"2024-09-15\",\"receivable_no\":\"DEMO-AR-0005422\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0122\",\"outstanding_amount\":\"1291.65\"},{\"overdue_days\":\"469\",\"department_name\":\"åŽåŒ—äºŒéƒ¨\",\"due_date\":\"2024-09-18\",\"receivable_no\":\"DEMO-AR-0005766\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0226\",\"outstanding_amount\":\"1319.68\"},{\"overdue_days\":\"450\",\"department_name\":\"è¥¿éƒ¨ä¸€éƒ¨\",\"due_date\":\"2024-10-07\",\"receivable_no\":\"DEMO-AR-0006620\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0102\",\"outstanding_amount\":\"8680.21\"},{\"overdue_days\":\"446\",\"department_name\":\"è¥¿éƒ¨äºŒéƒ¨\",\"due_date\":\"2024-10-11\",\"receivable_no\":\"DEMO-AR-0006703\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0158\",\"outstanding_amount\":\"2041.50\"},{\"overdue_days\":\"442\",\"department_name\":\"è¥¿éƒ¨ä¸€éƒ¨\",\"due_date\":\"2024-10-15\",\"receivable_no\":\"DEMO-AR-0006676\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0348\",\"outstanding_amount\":\"7836.59\"},{\"overdue_days\":\"419\",\"department_name\":\"åŽåŒ—äºŒéƒ¨\",\"due_date\":\"2024-11-07\",\"receivable_no\":\"DEMO-AR-0007250\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0009\",\"outstanding_amount\":\"5197.67\"},{\"overdue_days\":\"408\",\"department_name\":\"è¥¿éƒ¨ä¸€éƒ¨\",\"due_date\":\"2024-11-18\",\"receivable_no\":\"DEMO-AR-0007400\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0325\",\"outstanding_amount\":\"4036.69\"},{\"overdue_days\":\"393\",\"department_name\":\"è¥¿éƒ¨äºŒéƒ¨\",\"due_date\":\"2024-12-03\",\"receivable_no\":\"DEMO-AR-0008276\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0349\",\"outstanding_amount\":\"7114.17\"},{\"overdue_days\":\"391\",\"department_name\":\"è¥¿éƒ¨ä¸€éƒ¨\",\"due_date\":\"2024-12-05\",\"receivable_no\":\"DEMO-AR-0008127\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0066\",\"outstanding_amount\":\"2167.07\"},{\"overdue_days\":\"384\",\"department_name\":\"åŽå—äºŒéƒ¨\",\"due_date\":\"2024-12-12\",\"receivable_no\":\"DEMO-AR-0007885\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0083\",\"outstanding_amount\":\"12146.36\"},{\"overdue_days\":\"377\",\"department_name\":\"åŽä¸œä¸€éƒ¨\",\"due_date\":\"2024-12-19\",\"receivable_no\":\"DEMO-AR-0007552\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0104\",\"outstanding_amount\":\"7578.00\"},{\"overdue_days\":\"375\",\"department_name\":\"è¥¿éƒ¨ä¸€éƒ¨\",\"due_date\":\"2024-12-21\",\"receivable_no\":\"DEMO-AR-0008124\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0255\",\"outstanding_amount\":\"12004.25\"},{\"overdue_days\":\"370\",\"department_name\":\"åŽåŒ—äºŒéƒ¨\",\"due_date\":\"2024-12-26\",\"receivable_no\":\"DEMO-AR-0008028\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0107\",\"outstanding_amount\":\"11094.76\"},{\"overdue_days\":\"363\",\"department_name\":\"åŽåŒ—äºŒéƒ¨\",\"due_date\":\"2025-01-02\",\"receivable_no\":\"DEMO-AR-0008822\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0445\",\"outstanding_amount\":\"6472.07\"},{\"overdue_days\":\"363\",\"department_name\":\"åŽå—ä¸€éƒ¨\",\"due_date\":\"2025-01-02\",\"receivable_no\":\"DEMO-AR-0008486\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0285\",\"outstanding_amount\":\"3017.20\"},{\"overdue_days\":\"348\",\"department_name\":\"è¥¿éƒ¨äºŒéƒ¨\",\"due_date\":\"2025-01-17\",\"receivable_no\":\"DEMO-AR-0008982\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0090\",\"outstanding_amount\":\"12525.32\"},{\"overdue_days\":\"345\",\"department_name\":\"åŽåŒ—äºŒéƒ¨\",\"due_date\":\"2025-01-20\",\"receivable_no\":\"DEMO-AR-0008786\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0102\",\"outstanding_amount\":\"7221.99\"},{\"overdue_days\":\"321\",\"department_name\":\"è¥¿éƒ¨ä¸€éƒ¨\",\"due_date\":\"2025-02-13\",\"receivable_no\":\"DEMO-AR-0009620\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0186\",\"outstanding_amount\":\"8902.58\"},{\"overdue_days\":\"297\",\"department_name\":\"è¥¿éƒ¨ä¸€éƒ¨\",\"due_date\":\"2025-03-09\",\"receivable_no\":\"DEMO-AR-0010345\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0071\",\"outstanding_amount\":\"16001.04\"},{\"overdue_days\":\"297\",\"department_name\":\"åŽåŒ—ä¸€éƒ¨\",\"due_date\":\"2025-03-09\",\"receivable_no\":\"DEMO-AR-0010180\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0037\",\"outstanding_amount\":\"5110.33\"},{\"overdue_days\":\"296\",\"department_name\":\"åŽå—ä¸€éƒ¨\",\"due_date\":\"2025-03-10\",\"receivable_no\":\"DEMO-AR-0009978\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0253\",\"outstanding_amount\":\"11345.66\"},{\"overdue_days\":\"294\",\"department_name\":\"åŽä¸œäºŒéƒ¨\",\"due_date\":\"2025-03-12\",\"receivable_no\":\"DEMO-AR-0009871\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0498\",\"outstanding_amount\":\"13004.87\"},{\"overdue_days\":\"294\",\"department_name\":\"åŽåŒ—äºŒéƒ¨\",\"due_date\":\"2025-03-12\",\"receivable_no\":\"DEMO-AR-0010302\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0043\",\"outstanding_amount\":\"8021.54\"},{\"overdue_days\":\"286\",\"department_name\":\"åŽå—ä¸€éƒ¨\",\"due_date\":\"2025-03-20\",\"receivable_no\":\"DEMO-AR-0010031\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0295\",\"outstanding_amount\":\"10923.23\"},{\"overdue_days\":\"281\",\"department_name\":\"åŽä¸œäºŒéƒ¨\",\"due_date\":\"2025-03-25\",\"receivable_no\":\"DEMO-AR-0009927\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0318\",\"outstanding_amount\":\"15208.46\"},{\"overdue_days\":\"279\",\"department_name\":\"åŽå—äºŒéƒ¨\",\"due_date\":\"2025-03-27\",\"receivable_no\":\"DEMO-AR-0010075\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0245\",\"outstanding_amount\":\"11107.76\"},{\"overdue_days\":\"278\",\"department_name\":\"åŽåŒ—ä¸€éƒ¨\",\"due_date\":\"2025-03-28\",\"receivable_no\":\"DEMO-AR-0010168\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0245\",\"outstanding_amount\":\"5959.22\"},{\"overdue_days\":\"276\",\"department_name\":\"è¥¿éƒ¨äºŒéƒ¨\",\"due_date\":\"2025-03-30\",\"receivable_no\":\"DEMO-AR-0010463\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0155\",\"outstanding_amount\":\"11820.73\"},{\"overdue_days\":\"265\",\"department_name\":\"åŽå—äºŒéƒ¨\",\"due_date\":\"2025-04-10\",\"receivable_no\":\"DEMO-AR-0010862\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0231\",\"outstanding_amount\":\"10917.72\"},{\"overdue_days\":\"265\",\"department_name\":\"åŽå—äºŒéƒ¨\",\"due_date\":\"2025-04-10\",\"receivable_no\":\"DEMO-AR-0010826\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0088\",\"outstanding_amount\":\"9759.08\"},{\"overdue_days\":\"262\",\"department_name\":\"åŽå—ä¸€éƒ¨\",\"due_date\":\"2025-04-13\",\"receivable_no\":\"DEMO-AR-0010730\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0166\",\"outstanding_amount\":\"4005.22\"},{\"overdue_days\":\"259\",\"department_name\":\"åŽä¸œä¸€éƒ¨\",\"due_date\":\"2025-04-16\",\"receivable_no\":\"DEMO-AR-0010520\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0382\",\"outstanding_amount\":\"6004.25\"},{\"overdue_days\":\"241\",\"department_name\":\"åŽä¸œäºŒéƒ¨\",\"due_date\":\"2025-05-04\",\"receivable_no\":\"DEMO-AR-0011374\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0429\",\"outstanding_amount\":\"9089.05\"},{\"overdue_days\":\"235\",\"department_name\":\"åŽä¸œä¸€éƒ¨\",\"due_date\":\"2025-05-10\",\"receivable_no\":\"DEMO-AR-0011276\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0081\",\"outstanding_amount\":\"2378.77\"},{\"overdue_days\":\"231\",\"department_name\":\"åŽä¸œäºŒéƒ¨\",\"due_date\":\"2025-05-14\",\"receivable_no\":\"DEMO-AR-0011431\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0175\",\"outstanding_amount\":\"5062.23\"},{\"overdue_days\":\"224\",\"department_name\":\"åŽåŒ—ä¸€éƒ¨\",\"due_date\":\"2025-05-21\",\"receivable_no\":\"DEMO-AR-0011662\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0084\",\"outstanding_amount\":\"9668.95\"},{\"overdue_days\":\"209\",\"department_name\":\"è¥¿éƒ¨ä¸€éƒ¨\",\"due_date\":\"2025-06-05\",\"receivable_no\":\"DEMO-AR-0012659\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0377\",\"outstanding_amount\":\"12040.43\"},{\"overdue_days\":\"208\",\"department_name\":\"è¥¿éƒ¨ä¸€éƒ¨\",\"due_date\":\"2025-06-06\",\"receivable_no\":\"DEMO-AR-0012693\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0072\",\"outstanding_amount\":\"15678.64\"},{\"overdue_days\":\"206\",\"department_name\":\"åŽåŒ—äºŒéƒ¨\",\"due_date\":\"2025-06-08\",\"receivable_no\":\"DEMO-AR-0012519\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0390\",\"outstanding_amount\":\"4339.75\"},{\"overdue_days\":\"205\",\"department_name\":\"åŽä¸œä¸€éƒ¨\",\"due_date\":\"2025-06-09\",\"receivable_no\":\"DEMO-AR-0012099\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0318\",\"outstanding_amount\":\"11939.68\"},{\"overdue_days\":\"202\",\"department_name\":\"åŽå—ä¸€éƒ¨\",\"due_date\":\"2025-06-12\",\"receivable_no\":\"DEMO-AR-0012251\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0023\",\"outstanding_amount\":\"3962.01\"},{\"overdue_days\":\"199\",\"department_name\":\"è¥¿éƒ¨äºŒéƒ¨\",\"due_date\":\"2025-06-15\",\"receivable_no\":\"DEMO-AR-0012778\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0165\",\"outstanding_amount\":\"11578.85\"},{\"overdue_days\":\"194\",\"department_name\":\"åŽå—äºŒéƒ¨\",\"due_date\":\"2025-06-20\",\"receivable_no\":\"DEMO-AR-0012358\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0315\",\"outstanding_amount\":\"4049.88\"},{\"overdue_days\":\"193\",\"department_name\":\"åŽå—ä¸€éƒ¨\",\"due_date\":\"2025-06-21\",\"receivable_no\":\"DEMO-AR-0012235\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0157\",\"outstanding_amount\":\"7982.70\"},{\"overdue_days\":\"192\",\"department_name\":\"åŽåŒ—äºŒéƒ¨\",\"due_date\":\"2025-06-22\",\"receivable_no\":\"DEMO-AR-0012609\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0205\",\"outstanding_amount\":\"8858.21\"},{\"overdue_days\":\"190\",\"department_name\":\"åŽä¸œä¸€éƒ¨\",\"due_date\":\"2025-06-24\",\"receivable_no\":\"DEMO-AR-0012045\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0461\",\"outstanding_amount\":\"7645.42\"},{\"overdue_days\":\"180\",\"department_name\":\"è¥¿éƒ¨ä¸€éƒ¨\",\"due_date\":\"2025-07-04\",\"receivable_no\":\"DEMO-AR-0013464\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0248\",\"outstanding_amount\":\"6438.89\"},{\"overdue_days\":\"178\",\"department_name\":\"åŽå—ä¸€éƒ¨\",\"due_date\":\"2025-07-06\",\"receivable_no\":\"DEMO-AR-0013008\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0263\",\"outstanding_amount\":\"5699.89\"},{\"overdue_days\":\"173\",\"department_name\":\"è¥¿éƒ¨äºŒéƒ¨\",\"due_date\":\"2025-07-11\",\"receivable_no\":\"DEMO-AR-0013523\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0290\",\"outstanding_amount\":\"10612.76\"},{\"overdue_days\":\"162\",\"department_name\":\"è¥¿éƒ¨äºŒéƒ¨\",\"due_date\":\"2025-07-22\",\"receivable_no\":\"DEMO-AR-0013521\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0216\",\"outstanding_amount\":\"15154.82\"},{\"overdue_days\":\"137\",\"department_name\":\"åŽä¸œä¸€éƒ¨\",\"due_date\":\"2025-08-16\",\"receivable_no\":\"DEMO-AR-0013586\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0017\",\"outstanding_amount\":\"3210.44\"},{\"overdue_days\":\"135\",\"department_name\":\"åŽä¸œä¸€éƒ¨\",\"due_date\":\"2025-08-18\",\"receivable_no\":\"DEMO-AR-0013625\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0008\",\"outstanding_amount\":\"14939.72\"},{\"overdue_days\":\"130\",\"department_name\":\"åŽå—äºŒéƒ¨\",\"due_date\":\"2025-08-23\",\"receivable_no\":\"DEMO-AR-0013840\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0010\",\"outstanding_amount\":\"5292.13\"},{\"overdue_days\":\"130\",\"department_name\":\"åŽåŒ—ä¸€éƒ¨\",\"due_date\":\"2025-08-23\",\"receivable_no\":\"DEMO-AR-0013957\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0172\",\"outstanding_amount\":\"1903.60\"},{\"overdue_days\":\"115\",\"department_name\":\"åŽåŒ—äºŒéƒ¨\",\"due_date\":\"2025-09-07\",\"receivable_no\":\"DEMO-AR-0014837\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0099\",\"outstanding_amount\":\"4529.48\"},{\"overdue_days\":\"105\",\"department_name\":\"åŽå—äºŒéƒ¨\",\"due_date\":\"2025-09-17\",\"receivable_no\":\"DEMO-AR-0014628\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0167\",\"outstanding_amount\":\"7206.31\"},{\"overdue_days\":\"102\",\"department_name\":\"åŽåŒ—äºŒéƒ¨\",\"due_date\":\"2025-09-20\",\"receivable_no\":\"DEMO-AR-0014797\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0497\",\"outstanding_amount\":\"9768.06\"},{\"overdue_days\":\"98\",\"department_name\":\"åŽå—ä¸€éƒ¨\",\"due_date\":\"2025-09-24\",\"receivable_no\":\"DEMO-AR-0014527\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0023\",\"outstanding_amount\":\"15287.83\"},{\"overdue_days\":\"95\",\"department_name\":\"è¥¿éƒ¨ä¸€éƒ¨\",\"due_date\":\"2025-09-27\",\"receivable_no\":\"DEMO-AR-0014959\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0068\",\"outstanding_amount\":\"7937.42\"},{\"overdue_days\":\"90\",\"department_name\":\"è¥¿éƒ¨äºŒéƒ¨\",\"due_date\":\"2025-10-02\",\"receivable_no\":\"DEMO-AR-0015728\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0073\",\"outstanding_amount\":\"7105.24\"},{\"overdue_days\":\"88\",\"department_name\":\"åŽåŒ—ä¸€éƒ¨\",\"due_date\":\"2025-10-04\",\"receivable_no\":\"DEMO-AR-0015469\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0228\",\"outstanding_amount\":\"8483.10\"},{\"overdue_days\":\"87\",\"department_name\":\"åŽä¸œä¸€éƒ¨\",\"due_date\":\"2025-10-05\",\"receivable_no\":\"DEMO-AR-0015075\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0263\",\"outstanding_amount\":\"2278.30\"},{\"overdue_days\":\"84\",\"department_name\":\"åŽå—ä¸€éƒ¨\",\"due_date\":\"2025-10-08\",\"receivable_no\":\"DEMO-AR-0015305\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0172\",\"outstanding_amount\":\"6158.33\"},{\"overdue_days\":\"75\",\"department_name\":\"è¥¿éƒ¨ä¸€éƒ¨\",\"due_date\":\"2025-10-17\",\"receivable_no\":\"DEMO-AR-0015623\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0003\",\"outstanding_amount\":\"13775.02\"},{\"overdue_days\":\"72\",\"department_name\":\"åŽåŒ—ä¸€éƒ¨\",\"due_date\":\"2025-10-20\",\"receivable_no\":\"DEMO-AR-0015421\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0330\",\"outstanding_amount\":\"13826.99\"},{\"overdue_days\":\"71\",\"department_name\":\"è¥¿éƒ¨ä¸€éƒ¨\",\"due_date\":\"2025-10-21\",\"receivable_no\":\"DEMO-AR-0015680\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0123\",\"outstanding_amount\":\"9717.46\"},{\"overdue_days\":\"70\",\"department_name\":\"åŽå—äºŒéƒ¨\",\"due_date\":\"2025-10-22\",\"receivable_no\":\"DEMO-AR-0015335\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0204\",\"outstanding_amount\":\"16101.08\"},{\"overdue_days\":\"67\",\"department_name\":\"åŽåŒ—ä¸€éƒ¨\",\"due_date\":\"2025-10-25\",\"receivable_no\":\"DEMO-AR-0015437\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0196\",\"outstanding_amount\":\"7266.49\"},{\"overdue_days\":\"64\",\"department_name\":\"åŽåŒ—ä¸€éƒ¨\",\"due_date\":\"2025-10-28\",\"receivable_no\":\"DEMO-AR-0015448\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0177\",\"outstanding_amount\":\"8291.60\"},{\"overdue_days\":\"61\",\"department_name\":\"åŽåŒ—ä¸€éƒ¨\",\"due_date\":\"2025-10-31\",\"receivable_no\":\"DEMO-AR-0016189\",\"customer_name\":\"æ¼”ç¤ºå®¢æˆ·0265\",\"outstanding_amount\":\"9033.08\"}],\"errorMsg\":null}}\n```\n\n\n## 数据口径与查询依据\n\n以下内容由系统根据本次实际执行计划和 SQL 生成，不包含未查询的业务推断。\n\n- **步骤 1口径/聚合要求**：查询 receivable 表，关联 sales_order 表（receivable.order_id = sales_order.id）、customer 表（sales_order.customer_id = customer.id）、org_department 表（sales_order.department_id = org_department.id），筛选 receivable.due_date < '2025-12-31' 且 receivable.receivable_amount > receivable.received_amount 且 DATEDIFF('2025-12-31', receivable.due_date) > 60，返回列：receivable.receivable_no AS receivable_no、customer.name AS customer_name、org_department.name AS department_name、receivable.due_date AS due_date、DATEDIFF('2025-12-31', receivable.due_date) AS overdue_days、receivable.receivable_amount - receivable.received_amount AS outstanding_amount，并按 overdue_days DESC、outstanding_amount DESC 排序。",
+      "finalAnswer": "",
+      "hasChart": false
+    },
+    {
+      "id": "M2-Q12",
+      "question": "2025年第四季度各部门各项KPI完成率是多少？",
+      "category": "核心指标查询",
+      "conversationId": "m3-drilldown-M2-Q12",
+      "passed": true,
+      "durationSeconds": 52.927,
+      "complete": true,
+      "streamError": null,
+      "errors": [],
+      "nodes": [
+        {
+          "stepId": "IntentRecognitionNode-1",
+          "nodeName": "IntentRecognitionNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "EvidenceRecallNode-2",
+          "nodeName": "EvidenceRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "QueryEnhanceNode-3",
+          "nodeName": "QueryEnhanceNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SchemaRecallNode-4",
+          "nodeName": "SchemaRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "TableRelationNode-5",
+          "nodeName": "TableRelationNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "FeasibilityAssessmentNode-6",
+          "nodeName": "FeasibilityAssessmentNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "PlannerNode-7",
+          "nodeName": "PlannerNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlGenerateNode-8",
+          "nodeName": "SqlGenerateNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SemanticConsistencyNode-9",
+          "nodeName": "SemanticConsistencyNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlExecuteNode-10",
+          "nodeName": "SqlExecuteNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "ReportGeneratorNode-11",
+          "nodeName": "ReportGeneratorNode",
+          "attempt": 1
+        }
+      ],
+      "evidence": [
+        "证据1: 2025年第四季度各部门各项KPI完成率是多少？",
+        "证据2: 2025年第四季度哪些部门的KPI没有达标？",
+        "证据3: 哪些部门在2025年第三和第四季度连续有KPI未达标？",
+        "证据4: 2025年12月各部门预算执行率是多少？",
+        "证据5: 2025年第四季度销售额环比第三季度增长率是多少？",
+        "证据6: 2025年各部门销售额排名是什么？",
+        "证据7: 2025年各部门新产生应收的回款率排名是什么？",
+        "证据8: 截至2025年12月31日各部门逾期应收余额排名是什么？"
+      ],
+      "sql": [
+        "SELECT d.name AS department_name, kd.name AS kpi_name, kt.target_value, kv.actual_value, kv.actual_value / NULLIF(kt.target_value, 0) AS kpi_completion_rate FROM kpi_value kv JOIN kpi_target kt ON kt.kpi_id = kv.kpi_id AND kt.department_id = kv.department_id AND kt.period = kv.period JOIN kpi_definition kd ON kd.id = kv.kpi_id JOIN org_department d ON d.id = kv.department_id WHERE kv.period = '2025Q4' ORDER BY department_name ASC, kpi_name ASC"
+      ],
+      "resultSets": [
+        {
+          "columns": [
+            "department_name",
+            "kpi_name",
+            "target_value",
+            "actual_value",
+            "kpi_completion_rate"
+          ],
+          "rowCount": 80,
+          "sampleRows": [
+            {
+              "kpi_completion_rate": "0.800000",
+              "kpi_name": "å›žæ¬¾çŽ‡",
+              "target_value": "105.30",
+              "department_name": "åŽå—ä¸€éƒ¨",
+              "actual_value": "84.24"
+            },
+            {
+              "kpi_completion_rate": "0.800000",
+              "kpi_name": "åˆ©æ¶¦çŽ‡",
+              "target_value": "29.25",
+              "department_name": "åŽå—ä¸€éƒ¨",
+              "actual_value": "23.40"
+            },
+            {
+              "kpi_completion_rate": "0.800000",
+              "kpi_name": "åˆåŒé‡‘é¢",
+              "target_value": "2340000.00",
+              "department_name": "åŽå—ä¸€éƒ¨",
+              "actual_value": "1872000.00"
+            }
+          ],
+          "displayStyle": {
+            "type": "table",
+            "title": null,
+            "x": null,
+            "y": null
+          }
+        },
+        {
+          "columns": [
+            "department_name",
+            "kpi_name",
+            "target_value",
+            "actual_value",
+            "kpi_completion_rate"
+          ],
+          "rowCount": 80,
+          "sampleRows": [
+            {
+              "kpi_completion_rate": "0.800000",
+              "kpi_name": "å›žæ¬¾çŽ‡",
+              "target_value": "105.30",
+              "department_name": "åŽå—ä¸€éƒ¨",
+              "actual_value": "84.24"
+            },
+            {
+              "kpi_completion_rate": "0.800000",
+              "kpi_name": "åˆ©æ¶¦çŽ‡",
+              "target_value": "29.25",
+              "department_name": "åŽå—ä¸€éƒ¨",
+              "actual_value": "23.40"
+            },
+            {
+              "kpi_completion_rate": "0.800000",
+              "kpi_name": "åˆåŒé‡‘é¢",
+              "target_value": "2340000.00",
+              "department_name": "åŽå—ä¸€éƒ¨",
+              "actual_value": "1872000.00"
+            }
+          ],
+          "displayStyle": {
+            "type": "table",
+            "title": "2025年第四季度各部门各项KPI完成率",
+            "x": "",
+            "y": []
+          }
+        }
+      ],
+      "retryMessages": [],
+      "report": "2025年第四季度各部门各项KPI完成率如下表所示。完成率由实际值除以目标值计算得出，所有数值均来自查询结果。\n\n|部门名称 | KPI名称 |目标值 |实际值 |完成率 |\n|---|---|---|---|---|\n|华南一部 |回款率 |105.30 |84.24 |0.800000 |\n|华南一部 |利润率 |29.25 |23.40 |0.800000 |\n|华南一部 |合同金额 |2340000.00 |1872000.00 |0.800000 |\n|华南一部 |客单价 |5850.00 |4680.00 |0.800000 |\n|华南一部 |成交客户数 |234.00 |187.20 |0.800000 |\n|华南一部 |应收余额 |234000.00 |187200.00 |0.800000 |\n|华南一部 |销售额 |1170000.00 |936000.00 |0.800000 |\n|华南一部 |订单数 |585.00 |468.00 |0.800000 |\n|华南一部 |预算执行率 |99.45 |79.56 |0.800000 |\n|华南一部 |逾期率 |5.85 |4.68 |0.800000 |\n|华南二部 |回款率 |106.20 |126.80 |1.193974 |\n|华南二部 |利润率 |29.50 |33.69 |1.142034 |\n|华南二部 |合同金额 |2360000.00 |2631400.00 |1.115000 |\n|华南二部 |客单价 |5900.00 |6608.00 |1.120000 |\n|华南二部 |成交客户数 |236.00 |255.12 |1.081017 |\n|华南二部 |应收余额 |236000.00 |245676.00 |1.041000 |\n|华南二部 |销售额 |1180000.00 |1426620.00 |1.209000 |\n|华南二部 |订单数 |590.00 |658.44 |1.116000 |\n|华南二部 |预算执行率 |100.30 |119.36 |1.190030 |\n|华南二部 |逾期率 |5.90 |6.16 |1.044068 |\n|华东一部 |回款率 |103.50 |116.02 |1.120966 |\n|华东一部 |利润率 |28.75 |31.14 |1.083130 |\n|华东一部 |合同金额 |2300000.00 |2559900.00 |1.113000 |\n|华东一部 |客单价 |5750.00 |6054.75 |1.053000 |\n|华东一部 |成交客户数 |230.00 |247.02 |1.074000 |\n|华东一部 |应收余额 |230000.00 |254610.00 |1.107000 |\n|华东一部 |销售额 |1150000.00 |1251200.00 |1.088000 |\n|华东一部 |订单数 |575.00 |649.18 |1.129009 |\n|华东一部 |预算执行率 |97.75 |103.42 |1.058005 |\n|华东一部 |逾期率 |5.75 |6.14 |1.067826 |\n|华东二部 |回款率 |104.40 |124.24 |1.190038 |\n|华东二部 |利润率 |29.00 |31.15 |1.074138 |\n|华东二部 |合同金额 |2320000.00 |2538080.00 |1.094000 |\n|华东二部 |客单价 |5800.00 |6438.00 |1.110000 |\n|华东二部 |成交客户数 |232.00 |269.35 |1.160991 |\n|华东二部 |应收余额 |232000.00 |270976.00 |1.168000 |\n|华东二部 |销售额 |1160000.00 |1402440.00 |1.209000 |\n|华东二部 |订单数 |580.00 |613.64 |1.058000 |\n|华东二部 |预算执行率 |98.60 |106.19 |1.076978 |\n|华东二部 |逾期率 |5.80 |6.08 |1.048276 |\n|华北一部 |回款率 |107.10 |118.02 |1.101961 |\n|华北一部 |利润率 |29.75 |31.98 |1.074958 |\n|华北一部 |合同金额 |2380000.00 |2541840.00 |1.068000 |\n|华北一部 |客单价 |5950.00 |7151.90 |1.202000 |\n|华北一部 |成交客户数 |238.00 |277.98 |1.167983 |\n|华北一部 |应收余额 |238000.00 |258944.00 |1.088000 |\n|华北一部 |销售额 |1190000.00 |1433950.00 |1.205000 |\n|华北一部 |订单数 |595.00 |695.56 |1.169008 |\n|华北一部 |预算执行率 |101.15 |122.09 |1.207019 |\n|华北一部 |逾期率 |5.95 |6.97 |1.171429 |\n|华北二部 |回款率 |108.00 |124.42 |1.152037 |\n|华北二部 |利润率 |30.00 |31.44 |1.048000 |\n|华北二部 |合同金额 |2400000.00 |2484000.00 |1.035000 |\n|华北二部 |客单价 |6000.00 |6564.00 |1.094000 |\n|华北二部 |成交客户数 |240.00 |273.12 |1.138000 |\n|华北二部 |应收余额 |240000.00 |280800.00 |1.170000 |\n|华北二部 |销售额 |1200000.00 |1386000.00 |1.155000 |\n|华北二部 |订单数 |600.00 |612.60 |1.021000 |\n|华北二部 |预算执行率 |102.00 |111.49 |1.093039 |\n|华北二部 |逾期率 |6.00 |7.04 |1.173333 |\n|西部一部 |回款率 |108.90 |87.12 |0.800000 |\n|西部一部 |利润率 |30.25 |24.20 |0.800000 |\n|西部一部 |合同金额 |2420000.00 |1936000.00 |0.800000 |\n|西部一部 |客单价 |6050.00 |4840.00 |0.800000 |\n|西部一部 |成交客户数 |242.00 |193.60 |0.800000 |\n|西部一部 |应收余额 |242000.00 |193600.00 |0.800000 |\n|西部一部 |销售额 |1210000.00 |968000.00 |0.800000 |\n|西部一部 |订单数 |605.00 |484.00 |0.800000 |\n|西部一部 |预算执行率 |102.85 |82.28 |0.800000 |\n|西部一部 |逾期率 |6.05 |4.84 |0.800000 |\n|西部二部 |回款率 |109.80 |123.31 |1.123042 |\n|西部二部 |利润率 |30.50 |31.51 |1.033115 |\n|西部二部 |合同金额 |2440000.00 |2720600.00 |1.115000 |\n|西部二部 |客单价 |6100.00 |6581.90 |1.079000 |\n|西部二部 |成交客户数 |244.00 |288.90 |1.184016 |\n|西部二部 |应收余额 |244000.00 |272304.00 |1.116000 |\n|西部二部 |销售额 |1220000.00 |1394460.00 |1.143000 |\n|西部二部 |订单数 |610.00 |658.19 |1.079000 |\n|西部二部 |预算执行率 |103.70 |121.23 |1.169045 |\n|西部二部 |逾期率 |6.10 |6.79 |1.113115 |\n\n##数据口径与查询依据-指标公式：`kpi_completion_rate = actual_value / target_value`；使用 `NULLIF(target_value,0)`避免除零，目标值为0时完成率为 NULL。\n-时间范围：`kpi_value.period = '2025Q4'`。\n-维度归属：按 `org_department.name`（部门）、`kpi_definition.name`（KPI）分组展示，未额外限定组织层级。\n-状态与排除条件：本次查询未限定其他状态条件。\n-实际使用的表及关联字段：\n - `kpi_value`：KPI实际值表；\n - `kpi_target`：KPI目标值表，与 `kpi_value`通过 `kpi_id`、`department_id`、`period`关联；\n - `kpi_definition`：KPI定义表，关联字段 `kpi_value.kpi_id = kpi_definition.id`；\n - `org_department`：部门表，关联字段 `kpi_value.department_id = org_department.id`。\n-排序方式：查询结果按 `department_name`升序、`kpi_name`升序排列，报告表格顺序与查询结果一致。",
+      "finalAnswer": "",
+      "hasChart": false
+    },
+    {
+      "id": "M2-Q13",
+      "question": "2025年第四季度哪些部门的KPI没有达标？",
+      "category": "核心指标查询",
+      "conversationId": "m3-core-M2-Q13",
+      "passed": true,
+      "durationSeconds": 87.657,
+      "complete": true,
+      "streamError": null,
+      "errors": [],
+      "nodes": [
+        {
+          "stepId": "IntentRecognitionNode-1",
+          "nodeName": "IntentRecognitionNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "EvidenceRecallNode-2",
+          "nodeName": "EvidenceRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "QueryEnhanceNode-3",
+          "nodeName": "QueryEnhanceNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SchemaRecallNode-4",
+          "nodeName": "SchemaRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "TableRelationNode-5",
+          "nodeName": "TableRelationNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "FeasibilityAssessmentNode-6",
+          "nodeName": "FeasibilityAssessmentNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "PlannerNode-7",
+          "nodeName": "PlannerNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlGenerateNode-8",
+          "nodeName": "SqlGenerateNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SemanticConsistencyNode-9",
+          "nodeName": "SemanticConsistencyNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlExecuteNode-10",
+          "nodeName": "SqlExecuteNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "ReportGeneratorNode-11",
+          "nodeName": "ReportGeneratorNode",
+          "attempt": 1
+        }
+      ],
+      "evidence": [
+        "证据1: 2025年第四季度哪些部门的KPI没有达标？",
+        "证据2: 哪些部门在2025年第三和第四季度连续有KPI未达标？",
+        "证据3: 2025年第四季度各部门各项KPI完成率是多少？",
+        "证据4: 2025年12月哪些部门和费用类别超预算了？",
+        "证据5: 2025年第四季度销售额环比第三季度增长率是多少？",
+        "证据6: 2025年12月各部门预算执行率是多少？",
+        "证据7: 截至2025年12月31日各部门逾期应收余额排名是什么？",
+        "证据8: 2025年各部门销售额排名是什么？"
+      ],
+      "sql": [
+        "SELECT d.name AS department_name, kd.name AS kpi_name, kt.target_value, kv.actual_value, kv.actual_value / NULLIF(kt.target_value, 0) AS kpi_completion_rate FROM kpi_value kv JOIN kpi_target kt ON kt.kpi_id = kv.kpi_id AND kt.department_id = kv.department_id AND kt.period = kv.period JOIN kpi_definition kd ON kd.id = kv.kpi_id JOIN org_department d ON d.id = kv.department_id WHERE kv.period = '2025Q4' AND kv.actual_value < kt.target_value ORDER BY department_name, kpi_name"
+      ],
+      "resultSets": [
+        {
+          "columns": [
+            "department_name",
+            "kpi_name",
+            "target_value",
+            "actual_value",
+            "kpi_completion_rate"
+          ],
+          "rowCount": 20,
+          "sampleRows": [
+            {
+              "kpi_completion_rate": "0.800000",
+              "kpi_name": "å›žæ¬¾çŽ‡",
+              "target_value": "105.30",
+              "department_name": "åŽå—ä¸€éƒ¨",
+              "actual_value": "84.24"
+            },
+            {
+              "kpi_completion_rate": "0.800000",
+              "kpi_name": "åˆ©æ¶¦çŽ‡",
+              "target_value": "29.25",
+              "department_name": "åŽå—ä¸€éƒ¨",
+              "actual_value": "23.40"
+            },
+            {
+              "kpi_completion_rate": "0.800000",
+              "kpi_name": "åˆåŒé‡‘é¢",
+              "target_value": "2340000.00",
+              "department_name": "åŽå—ä¸€éƒ¨",
+              "actual_value": "1872000.00"
+            }
+          ],
+          "displayStyle": {
+            "type": "table",
+            "title": null,
+            "x": null,
+            "y": null
+          }
+        },
+        {
+          "columns": [
+            "department_name",
+            "kpi_name",
+            "target_value",
+            "actual_value",
+            "kpi_completion_rate"
+          ],
+          "rowCount": 20,
+          "sampleRows": [
+            {
+              "kpi_completion_rate": "0.800000",
+              "kpi_name": "å›žæ¬¾çŽ‡",
+              "target_value": "105.30",
+              "department_name": "åŽå—ä¸€éƒ¨",
+              "actual_value": "84.24"
+            },
+            {
+              "kpi_completion_rate": "0.800000",
+              "kpi_name": "åˆ©æ¶¦çŽ‡",
+              "target_value": "29.25",
+              "department_name": "åŽå—ä¸€éƒ¨",
+              "actual_value": "23.40"
+            },
+            {
+              "kpi_completion_rate": "0.800000",
+              "kpi_name": "åˆåŒé‡‘é¢",
+              "target_value": "2340000.00",
+              "department_name": "åŽå—ä¸€éƒ¨",
+              "actual_value": "1872000.00"
+            }
+          ],
+          "displayStyle": {
+            "type": "table",
+            "title": "2025年第四季度KPI未达标部门明细",
+            "x": "",
+            "y": []
+          }
+        }
+      ],
+      "retryMessages": [],
+      "report": "##2025Q4 KPI未达标部门及指标报告2025年第四季度（period='2025Q4'）共有 **2个部门**存在KPI未达标（实际值低于目标值）：**华南一部**和 **西部一部**，每个部门各有 **10项** KPI未达标，合计 **20项**。所有未达标KPI的完成率均为 **0.800000**（实际值/目标值）。\n\n###未达标明细|部门 | KPI |目标值 |实际值 |完成率 |\n|---|---|---|---|---|\n|华南一部 |回款率 |105.30 |84.24 |0.800000 |\n|华南一部 |利润率 |29.25 |23.40 |0.800000 |\n|华南一部 |合同金额 |2340000.00 |1872000.00 |0.800000 |\n|华南一部 |客单价 |5850.00 |4680.00 |0.800000 |\n|华南一部 |成交客户数 |234.00 |187.20 |0.800000 |\n|华南一部 |应收余额 |234000.00 |187200.00 |0.800000 |\n|华南一部 |销售额 |1170000.00 |936000.00 |0.800000 |\n|华南一部 |订单数 |585.00 |468.00 |0.800000 |\n|华南一部 |预算执行率 |99.45 |79.56 |0.800000 |\n|华南一部 |逾期率 |5.85 |4.68 |0.800000 |\n|西部一部 |回款率 |108.90 |87.12 |0.800000 |\n|西部一部 |利润率 |30.25 |24.20 |0.800000 |\n|西部一部 |合同金额 |2420000.00 |1936000.00 |0.800000 |\n|西部一部 |客单价 |6050.00 |4840.00 |0.800000 |\n|西部一部 |成交客户数 |242.00 |193.60 |0.800000 |\n|西部一部 |应收余额 |242000.00 |193600.00 |0.800000 |\n|西部一部 |销售额 |1210000.00 |968000.00 |0.800000 |\n|西部一部 |订单数 |605.00 |484.00 |0.800000 |\n|西部一部 |预算执行率 |102.85 |82.28 |0.800000 |\n|西部一部 |逾期率 |6.05 |4.84 |0.800000 |\n\n由于两个部门的未达标KPI完成率均为 **80%**，需同等关注 **华南一部**和 **西部一部**的上述未达标指标，优先分析并改善其达成情况。\n\n##数据口径与查询依据- **指标公式/聚合方式**：完成率 = `actual_value / target_value`（`target_value`为0时使用 `NULLIF`避免除零）；未达标判定为 `actual_value < target_value`。本次查询无聚合操作。\n- **时间范围**：`period = '2025Q4'`，对应2025年第四季度（2025-10-01至2025-12-31）。查询使用期间字段 `period`，未使用具体日期字段。\n- **维度归属**：部门维度，部门名称来自 `org_department.name`；KPI名称来自 `kpi_definition.name`。\n- **状态/排除条件**：仅筛选 `actual_value < target_value`的记录，无其他排除条件。\n- **实际使用的表和关联字段**：\n - `kpi_value kv`（含 `kpi_id`、`department_id`、`period`、`actual_value`）\n - `kpi_target kt`（含 `kpi_id`、`department_id`、`period`、`target_value`）\n -关联条件：`kt.kpi_id = kv.kpi_id AND kt.department_id = kv.department_id AND kt.period = kv.period`\n -关联 `kpi_definition kd ON kd.id = kv.kpi_id`获取 KPI名称 -关联 `org_department d ON d.id = kv.department_id`获取部门名称- **排序**：按 `department_name, kpi_name`排序。",
+      "finalAnswer": "",
+      "hasChart": false
+    },
+    {
+      "id": "M2-Q14",
+      "question": "哪些部门在2025年第三和第四季度连续有KPI未达标？",
+      "category": "核心指标查询",
+      "conversationId": "m3-core-M2-Q14",
+      "passed": true,
+      "durationSeconds": 100.22,
+      "complete": true,
+      "streamError": null,
+      "errors": [],
+      "nodes": [
+        {
+          "stepId": "IntentRecognitionNode-1",
+          "nodeName": "IntentRecognitionNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "EvidenceRecallNode-2",
+          "nodeName": "EvidenceRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "QueryEnhanceNode-3",
+          "nodeName": "QueryEnhanceNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SchemaRecallNode-4",
+          "nodeName": "SchemaRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "TableRelationNode-5",
+          "nodeName": "TableRelationNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "FeasibilityAssessmentNode-6",
+          "nodeName": "FeasibilityAssessmentNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "PlannerNode-7",
+          "nodeName": "PlannerNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlGenerateNode-8",
+          "nodeName": "SqlGenerateNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SemanticConsistencyNode-9",
+          "nodeName": "SemanticConsistencyNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlExecuteNode-10",
+          "nodeName": "SqlExecuteNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "ReportGeneratorNode-11",
+          "nodeName": "ReportGeneratorNode",
+          "attempt": 1
+        }
+      ],
+      "evidence": [
+        "证据1: 哪些部门在2025年第三和第四季度连续有KPI未达标？",
+        "证据2: 2025年第四季度哪些部门的KPI没有达标？",
+        "证据3: 2025年第四季度各部门各项KPI完成率是多少？",
+        "证据4: 2025年12月哪些部门和费用类别超预算了？",
+        "证据5: 2025年第四季度销售额环比第三季度增长率是多少？",
+        "证据6: 截至2025年12月31日各部门逾期应收余额排名是什么？",
+        "证据7: 2025年12月各部门预算执行率是多少？",
+        "证据8: 2025年各部门销售额排名是什么？"
+      ],
+      "sql": [
+        "SELECT d.name AS department_name, kd.name AS kpi_name\nFROM kpi_value kv\nJOIN kpi_target kt\n  ON kt.kpi_id = kv.kpi_id\n AND kt.department_id = kv.department_id\n AND kt.period = kv.period\nJOIN kpi_definition kd\n  ON kd.id = kv.kpi_id\nJOIN org_department d\n  ON d.id = kv.department_id\nWHERE kv.period IN ('2025Q3', '2025Q4')\n  AND kv.actual_value < kt.target_value\nGROUP BY d.id, d.name, kd.id, kd.name\nHAVING COUNT(DISTINCT kv.period) = 2\nORDER BY department_name, kpi_name"
+      ],
+      "resultSets": [
+        {
+          "columns": [
+            "department_name",
+            "kpi_name"
+          ],
+          "rowCount": 20,
+          "sampleRows": [
+            {
+              "kpi_name": "å›žæ¬¾çŽ‡",
+              "department_name": "åŽå—ä¸€éƒ¨"
+            },
+            {
+              "kpi_name": "åˆ©æ¶¦çŽ‡",
+              "department_name": "åŽå—ä¸€éƒ¨"
+            },
+            {
+              "kpi_name": "åˆåŒé‡‘é¢",
+              "department_name": "åŽå—ä¸€éƒ¨"
+            }
+          ],
+          "displayStyle": {
+            "type": "table",
+            "title": null,
+            "x": null,
+            "y": null
+          }
+        },
+        {
+          "columns": [
+            "department_name",
+            "kpi_name"
+          ],
+          "rowCount": 20,
+          "sampleRows": [
+            {
+              "kpi_name": "å›žæ¬¾çŽ‡",
+              "department_name": "åŽå—ä¸€éƒ¨"
+            },
+            {
+              "kpi_name": "åˆ©æ¶¦çŽ‡",
+              "department_name": "åŽå—ä¸€éƒ¨"
+            },
+            {
+              "kpi_name": "åˆåŒé‡‘é¢",
+              "department_name": "åŽå—ä¸€éƒ¨"
+            }
+          ],
+          "displayStyle": {
+            "type": "table",
+            "title": "部门和KPI列表",
+            "x": "",
+            "y": []
+          }
+        }
+      ],
+      "retryMessages": [],
+      "report": "#数据分析报告按2025Q3、2025Q4两个季度筛选，并保留同一部门、同一 KPI在两个季度均出现 `actual_value < target_value`的记录，查询成功返回2个部门、20条“部门-KPI”记录。\n\n**直接回答**：华南一部、西部一部在2025年第三季度和2025年第四季度连续两个季度存在同一项 KPI未达标。\n\n##查询结果| department_name | kpi_name |\n|---|---|\n|华南一部 |回款率 |\n|华南一部 |利润率 |\n|华南一部 |合同金额 |\n|华南一部 |客单价 |\n|华南一部 |成交客户数 |\n|华南一部 |应收余额 |\n|华南一部 |销售额 |\n|华南一部 |订单数 |\n|华南一部 |预算执行率 |\n|华南一部 |逾期率 |\n|西部一部 |回款率 |\n|西部一部 |利润率 |\n|西部一部 |合同金额 |\n|西部一部 |客单价 |\n|西部一部 |成交客户数 |\n|西部一部 |应收余额 |\n|西部一部 |销售额 |\n|西部一部 |订单数 |\n|西部一部 |预算执行率 |\n|西部一部 |逾期率 |\n\n##数据口径与查询依据-指标公式或聚合方式：未达标判定为 `kv.actual_value < kt.target_value`；连续两个季度未达标指同一 `department_id`和同一 `kpi_id`下，`COUNT(DISTINCT kv.period) =2`，即2025Q3、2025Q4均存在未达标记录。\n-时间范围及日期字段：`kv.period` / `kt.period`筛选 `IN ('2025Q3','2025Q4')`；本次查询未限定具体日期，仅按季度标识筛选。\n-组织/客户等维度归属：按部门维度归属，关联 `org_department.id = kv.department_id`；本次查询未限定客户维度。\n-状态或排除条件：仅保留 `kv.actual_value < kt.target_value`的记录；未设置其他状态过滤条件。\n-实际使用的表和关联字段：\n - `kpi_value kv`\n - `kpi_target kt`\n - `kpi_definition kd`\n - `org_department d`\n -关联条件：`kt.kpi_id = kv.kpi_id AND kt.department_id = kv.department_id AND kt.period = kv.period`\n -维度关联：`kd.id = kv.kpi_id`，`d.id = kv.department_id`\n-返回列：`d.name AS department",
+      "finalAnswer": "",
+      "hasChart": false
+    },
+    {
+      "id": "M2-Q15",
+      "question": "2025年第四季度销售额环比第三季度增长率是多少？",
+      "category": "核心指标查询",
+      "conversationId": "m3-core-M2-Q15",
+      "passed": true,
+      "durationSeconds": 140.569,
+      "complete": true,
+      "streamError": null,
+      "errors": [],
+      "nodes": [
+        {
+          "stepId": "IntentRecognitionNode-1",
+          "nodeName": "IntentRecognitionNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "EvidenceRecallNode-2",
+          "nodeName": "EvidenceRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "QueryEnhanceNode-3",
+          "nodeName": "QueryEnhanceNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SchemaRecallNode-4",
+          "nodeName": "SchemaRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "TableRelationNode-5",
+          "nodeName": "TableRelationNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "FeasibilityAssessmentNode-6",
+          "nodeName": "FeasibilityAssessmentNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "PlannerNode-7",
+          "nodeName": "PlannerNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlGenerateNode-8",
+          "nodeName": "SqlGenerateNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SemanticConsistencyNode-9",
+          "nodeName": "SemanticConsistencyNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlExecuteNode-10",
+          "nodeName": "SqlExecuteNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "ReportGeneratorNode-11",
+          "nodeName": "ReportGeneratorNode",
+          "attempt": 1
+        }
+      ],
+      "evidence": [
+        "证据1: 2025年第四季度销售额环比第三季度增长率是多少？",
+        "证据2: 2025年第四季度各部门各项KPI完成率是多少？",
+        "证据3: 2025年每个月的销售额趋势如何？",
+        "证据4: 2025年各部门销售额排名是什么？",
+        "证据5: 2025年全年销售额是多少？",
+        "证据6: 2025年各行业的销售额和客户数是多少？",
+        "证据7: 2025年销售额最高的十个客户是谁？",
+        "证据8: 2025年第四季度哪些部门的KPI没有达标？"
+      ],
+      "sql": [
+        "WITH quarterly_sales AS (\n  SELECT QUARTER(order_date) AS quarter_no,\n         SUM(total_amount) AS sales_amount\n  FROM sales_order\n  WHERE status = 'APPROVED'\n    AND order_date >= '2025-07-01'\n    AND order_date < '2026-01-01'\n  GROUP BY QUARTER(order_date)\n)\nSELECT q4.sales_amount AS q4_sales_amount,\n       q3.sales_amount AS q3_sales_amount,\n       (q4.sales_amount - q3.sales_amount) / NULLIF(q3.sales_amount, 0) AS quarter_over_quarter_growth_rate\nFROM quarterly_sales q3\nJOIN quarterly_sales q4 ON q3.quarter_no = 3 AND q4.quarter_no = 4"
+      ],
+      "resultSets": [
+        {
+          "columns": [
+            "q4_sales_amount",
+            "q3_sales_amount",
+            "quarter_over_quarter_growth_rate"
+          ],
+          "rowCount": 1,
+          "sampleRows": [
+            {
+              "q3_sales_amount": "22761668.20",
+              "quarter_over_quarter_growth_rate": "0.149960",
+              "q4_sales_amount": "26175000.00"
+            }
+          ],
+          "displayStyle": {
+            "type": "table",
+            "title": null,
+            "x": null,
+            "y": null
+          }
+        },
+        {
+          "columns": [
+            "q4_sales_amount",
+            "q3_sales_amount",
+            "quarter_over_quarter_growth_rate"
+          ],
+          "rowCount": 1,
+          "sampleRows": [
+            {
+              "q3_sales_amount": "22761668.20",
+              "quarter_over_quarter_growth_rate": "0.149960",
+              "q4_sales_amount": "26175000.00"
+            }
+          ],
+          "displayStyle": {
+            "type": "table",
+            "title": "季度销售额与环比增长率",
+            "x": "",
+            "y": []
+          }
+        }
+      ],
+      "retryMessages": [],
+      "report": "2025年第四季度销售额环比第三季度增长率为 **14.996%**（即0.149960）。\n\n|指标 |数值 |\n| --- | --- |\n|2025年第三季度销售额（q3_sales_amount） |22,761,668.20 |\n|2025年第四季度销售额（q4_sales_amount） |26,175,000.00 |\n|环比增长率（quarter_over_quarter_growth_rate） |0.149960（14.996%） |\n\n##数据口径与查询依据-指标公式或聚合方式：销售额 = `SUM(total_amount)`；环比增长率 = `(q4_sales_amount - q3_sales_amount) / NULLIF(q3_sales_amount,0)`。\n-时间范围及日期字段：使用 `order_date`，过滤范围为 `2025-07-01`（含）至 `2026-01-01`（不含），覆盖2025年第三季度和第四季度。\n-组织/客户等维度归属：本次查询未限定。\n-状态或排除条件：仅统计 `status = 'APPROVED'`的订单。\n-实际使用的表和关联字段：表：`sales_order`；字段：`order_date`、`total_amount`、`status`。无关联表。",
+      "finalAnswer": "",
+      "hasChart": false
+    },
+    {
+      "id": "M2-Q16",
+      "question": "2025年各行业的销售额和客户数是多少？",
+      "category": "核心指标查询",
+      "conversationId": "m3-core-M2-Q16",
+      "passed": true,
+      "durationSeconds": 55.504,
+      "complete": true,
+      "streamError": null,
+      "errors": [],
+      "nodes": [
+        {
+          "stepId": "IntentRecognitionNode-1",
+          "nodeName": "IntentRecognitionNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "EvidenceRecallNode-2",
+          "nodeName": "EvidenceRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "QueryEnhanceNode-3",
+          "nodeName": "QueryEnhanceNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SchemaRecallNode-4",
+          "nodeName": "SchemaRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "TableRelationNode-5",
+          "nodeName": "TableRelationNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "FeasibilityAssessmentNode-6",
+          "nodeName": "FeasibilityAssessmentNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "PlannerNode-7",
+          "nodeName": "PlannerNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlGenerateNode-8",
+          "nodeName": "SqlGenerateNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SemanticConsistencyNode-9",
+          "nodeName": "SemanticConsistencyNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlExecuteNode-10",
+          "nodeName": "SqlExecuteNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "ReportGeneratorNode-11",
+          "nodeName": "ReportGeneratorNode",
+          "attempt": 1
+        }
+      ],
+      "evidence": [
+        "证据1: 2025年各行业的销售额和客户数是多少？",
+        "证据2: 2025年销售额最高的十个客户是谁？",
+        "证据3: 2025年各部门销售额排名是什么？",
+        "证据4: 2025年全年销售额是多少？",
+        "证据5: 2025年每个月的销售额趋势如何？",
+        "证据6: 2025年第四季度销售额环比第三季度增长率是多少？",
+        "证据7: 2025年各部门新产生应收的回款率排名是什么？",
+        "证据8: 2025年新产生应收的整体回款率是多少？"
+      ],
+      "sql": [
+        "SELECT c.industry AS industry, SUM(so.total_amount) AS sales_amount, COUNT(DISTINCT c.id) AS customer_count FROM sales_order so JOIN customer c ON c.id = so.customer_id WHERE so.status = 'APPROVED' AND so.order_date >= '2025-01-01' AND so.order_date < '2026-01-01' GROUP BY c.industry ORDER BY sales_amount DESC"
+      ],
+      "resultSets": [
+        {
+          "columns": [
+            "industry",
+            "sales_amount",
+            "customer_count"
+          ],
+          "rowCount": 5,
+          "sampleRows": [
+            {
+              "industry": "MANUFACTURING",
+              "sales_amount": "19316206.26",
+              "customer_count": "100"
+            },
+            {
+              "industry": "RETAIL",
+              "sales_amount": "19103542.76",
+              "customer_count": "100"
+            },
+            {
+              "industry": "HEALTHCARE",
+              "sales_amount": "19026708.44",
+              "customer_count": "100"
+            }
+          ],
+          "displayStyle": {
+            "type": "table",
+            "title": null,
+            "x": null,
+            "y": null
+          }
+        },
+        {
+          "columns": [
+            "industry",
+            "sales_amount",
+            "customer_count"
+          ],
+          "rowCount": 5,
+          "sampleRows": [
+            {
+              "industry": "MANUFACTURING",
+              "sales_amount": "19316206.26",
+              "customer_count": "100"
+            },
+            {
+              "industry": "RETAIL",
+              "sales_amount": "19103542.76",
+              "customer_count": "100"
+            },
+            {
+              "industry": "HEALTHCARE",
+              "sales_amount": "19026708.44",
+              "customer_count": "100"
+            }
+          ],
+          "displayStyle": {
+            "type": "column",
+            "title": "各行业销售额与客户数统计",
+            "x": "industry",
+            "y": [
+              "sales_amount",
+              "customer_count"
+            ]
+          }
+        }
+      ],
+      "retryMessages": [],
+      "report": "2025年（2025-01-0100:00:00至2026-01-0100:00:00）已批准销售订单（status='APPROVED'）按行业统计结果如下：销售额最高的是 MANUFACTURING，约1931.62万元；客户数各行业均为去重后的100户。\n\n|行业 |销售额（total_amount合计） |去重客户数 |\n|---|---:|---:|\n| MANUFACTURING |19,316,206.26 |100 |\n| RETAIL |19,103,542.76 |100 |\n| HEALTHCARE |19,026,708.44 |100 |\n| SOFTWARE |18,996,269.25 |100 |\n| LOGISTICS |18,723,181.63 |100 |\n\n按销售额降序，排名前三的行业为 MANUFACTURING、RETAIL、HEALTHCARE。\n\n##数据口径与查询依据-指标公式/聚合方式：\n -销售额：`SUM(so.total_amount)`，基于已批准销售订单的金额合计。\n -客户数：`COUNT(DISTINCT c.id)`，按客户 ID去重计数。\n-时间范围：`so.order_date >= '2025-01-01' AND so.order_date < '2026-01-01'`，即2025-01-0100:00:00至2026-01-0100:00:00（左闭右开）。\n-维度归属：按客户所属行业 `c.industry`分组。\n-状态/排除条件：仅保留 `so.status = 'APPROVED'`的销售订单。\n-实际使用表与关联字段：\n - `sales_order`（别名 `so`）：`total_amount`、`order_date`、`status`、`customer_id`\n - `customer`（别名 `c`）：`id`、`industry`\n -关联关系：`c.id = so.customer_id`",
+      "finalAnswer": "",
+      "hasChart": true
+    },
+    {
+      "id": "M2-Q17",
+      "question": "2025年每个月实际收到的回款金额是多少？",
+      "category": "核心指标查询",
+      "conversationId": "m3-core-M2-Q17",
+      "passed": true,
+      "durationSeconds": 46.602,
+      "complete": true,
+      "streamError": null,
+      "errors": [],
+      "nodes": [
+        {
+          "stepId": "IntentRecognitionNode-1",
+          "nodeName": "IntentRecognitionNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "EvidenceRecallNode-2",
+          "nodeName": "EvidenceRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "QueryEnhanceNode-3",
+          "nodeName": "QueryEnhanceNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SchemaRecallNode-4",
+          "nodeName": "SchemaRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "TableRelationNode-5",
+          "nodeName": "TableRelationNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "FeasibilityAssessmentNode-6",
+          "nodeName": "FeasibilityAssessmentNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "PlannerNode-7",
+          "nodeName": "PlannerNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlGenerateNode-8",
+          "nodeName": "SqlGenerateNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SemanticConsistencyNode-9",
+          "nodeName": "SemanticConsistencyNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlExecuteNode-10",
+          "nodeName": "SqlExecuteNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "ReportGeneratorNode-11",
+          "nodeName": "ReportGeneratorNode",
+          "attempt": 1
+        }
+      ],
+      "evidence": [
+        "证据1: 2025年每个月实际收到的回款金额是多少？",
+        "证据2: 2025年新产生应收的整体回款率是多少？",
+        "证据3: 2025年各部门新产生应收的回款率排名是什么？",
+        "证据4: 截至2025年12月31日逾期应收余额是多少？",
+        "证据5: 截至2025年12月31日逾期应收余额最高的十个客户是谁？",
+        "证据6: 截至2025年12月31日各部门逾期应收余额排名是什么？",
+        "证据7: 2025年每个月的销售额趋势如何？",
+        "证据8: 2025年12月各部门预算执行率是多少？"
+      ],
+      "sql": [
+        "SELECT DATE_FORMAT(payment_date, '%Y-%m') AS month, SUM(amount) AS payment_amount FROM payment WHERE payment_date >= '2025-01-01' AND payment_date < '2026-01-01' GROUP BY DATE_FORMAT(payment_date, '%Y-%m') ORDER BY month"
+      ],
+      "resultSets": [
+        {
+          "columns": [
+            "month",
+            "payment_amount"
+          ],
+          "rowCount": 12,
+          "sampleRows": [
+            {
+              "month": "2025-01",
+              "payment_amount": "7501589.84"
+            },
+            {
+              "month": "2025-02",
+              "payment_amount": "6338675.57"
+            },
+            {
+              "month": "2025-03",
+              "payment_amount": "8147832.32"
+            }
+          ],
+          "displayStyle": {
+            "type": "table",
+            "title": null,
+            "x": null,
+            "y": null
+          }
+        },
+        {
+          "columns": [
+            "month",
+            "payment_amount"
+          ],
+          "rowCount": 12,
+          "sampleRows": [
+            {
+              "month": "2025-01",
+              "payment_amount": "7501589.84"
+            },
+            {
+              "month": "2025-02",
+              "payment_amount": "6338675.57"
+            },
+            {
+              "month": "2025-03",
+              "payment_amount": "8147832.32"
+            }
+          ],
+          "displayStyle": {
+            "type": "line",
+            "title": "2025年每月实际回款金额",
+            "x": "month",
+            "y": [
+              "payment_amount"
+            ]
+          }
+        }
+      ],
+      "retryMessages": [],
+      "report": "2025年每月实际回款金额已通过 `payment`表按 `payment_date`月份汇总得出。12个月均有回款记录，具体金额如下表所示。\n\n|月份 |实际回款金额（元） |\n|---|---:|\n|2025-01 |7,501,589.84 |\n|2025-02 |6,338,675.57 |\n|2025-03 |8,147,832.32 |\n|2025-04 |7,170,366.97 |\n|2025-05 |7,129,548.46 |\n|2025-06 |7,345,353.57 |\n|2025-07 |7,560,221.75 |\n|2025-08 |7,113,136.24 |\n|2025-09 |6,564,145.71 |\n|2025-10 |8,350,082.51 |\n|2025-11 |7,083,800.19 |\n|2025-12 |2,150,978.85 |\n\n##数据口径与查询依据-指标公式/聚合方式：`payment_amount = SUM(amount)`，按 `DATE_FORMAT(payment_date, '%Y-%m')`分组。\n-时间范围及日期字段：`payment_date`在 `'2025-01-01'`（含）至 `'2026-01-01'`（不含）之间，即2025年全年。\n-组织/客户等维度归属：本次查询未限定。\n-状态或排除条件：本次查询未限定。\n-实际使用的表和关联字段：`payment`表，仅使用 `payment_date`和 `amount`字段，无关联其他表。\n\n```echarts{\n \"title\": { \"text\": \"2025年每月实际回款金额\" },\n \"tooltip\": { \"trigger\": \"axis\" },\n \"xAxis\": { \"type\": \"category\", \"data\": [\"2025-01\", \"2025-02\", \"2025-03\", \"2025-04\", \"2025-05\", \"2025-06\", \"2025-07\", \"2025-08\", \"2025-09\", \"2025-10\", \"2025-11\", \"2025-12\"] },\n \"yAxis\": { \"type\": \"value\", \"name\": \"回款金额（元）\" },\n \"series\": [\n {\n \"type\": \"bar\",\n \"data\": [7501589.84,6338675.57,8147832.32,7170366.97,7129548.46,7345353.57,7560221.75,7113136.24,6564145.71,8350082.51,7083800.19,2150978.85]\n }\n ]\n}\n```",
+      "finalAnswer": "",
+      "hasChart": true
+    },
+    {
+      "id": "M2-Q18",
+      "question": "截至2025年12月31日逾期应收余额最高的十个客户是谁？",
+      "category": "核心指标查询",
+      "conversationId": "m3-core-M2-Q18",
+      "passed": true,
+      "durationSeconds": 117.639,
+      "complete": true,
+      "streamError": null,
+      "errors": [],
+      "nodes": [
+        {
+          "stepId": "IntentRecognitionNode-1",
+          "nodeName": "IntentRecognitionNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "EvidenceRecallNode-2",
+          "nodeName": "EvidenceRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "QueryEnhanceNode-3",
+          "nodeName": "QueryEnhanceNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SchemaRecallNode-4",
+          "nodeName": "SchemaRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "TableRelationNode-5",
+          "nodeName": "TableRelationNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "FeasibilityAssessmentNode-6",
+          "nodeName": "FeasibilityAssessmentNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "PlannerNode-7",
+          "nodeName": "PlannerNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlGenerateNode-8",
+          "nodeName": "SqlGenerateNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SemanticConsistencyNode-9",
+          "nodeName": "SemanticConsistencyNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlExecuteNode-10",
+          "nodeName": "SqlExecuteNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "ReportGeneratorNode-11",
+          "nodeName": "ReportGeneratorNode",
+          "attempt": 1
+        }
+      ],
+      "evidence": [
+        "证据1: 截至2025年12月31日逾期应收余额最高的十个客户是谁？",
+        "证据2: 截至2025年12月31日各部门逾期应收余额排名是什么？",
+        "证据3: 截至2025年12月31日逾期应收余额是多少？",
+        "证据4: 截至2025年12月31日逾期超过60天仍未结清的应收有哪些？",
+        "证据5: 2025年销售额最高的十个客户是谁？",
+        "证据6: 2025年各部门新产生应收的回款率排名是什么？",
+        "证据7: 2025年新产生应收的整体回款率是多少？",
+        "证据8: 哪些部门在2025年第三和第四季度连续有KPI未达标？"
+      ],
+      "sql": [
+        "SELECT c.name AS customer_name, SUM(r.receivable_amount - r.received_amount) AS overdue_receivable_balance\nFROM receivable r\nJOIN sales_order so ON so.id = r.order_id\nJOIN customer c ON c.id = so.customer_id\nWHERE r.due_date < DATE '2025-12-31'\n  AND r.receivable_amount > r.received_amount\nGROUP BY c.id, c.name\nORDER BY overdue_receivable_balance DESC\nLIMIT 10"
+      ],
+      "resultSets": [
+        {
+          "columns": [
+            "customer_name",
+            "overdue_receivable_balance"
+          ],
+          "rowCount": 10,
+          "sampleRows": [
+            {
+              "overdue_receivable_balance": "35482.04",
+              "customer_name": "æ¼”ç¤ºå®¢æˆ·0318"
+            },
+            {
+              "overdue_receivable_balance": "34505.61",
+              "customer_name": "æ¼”ç¤ºå®¢æˆ·0008"
+            },
+            {
+              "overdue_receivable_balance": "28476.79",
+              "customer_name": "æ¼”ç¤ºå®¢æˆ·0003"
+            }
+          ],
+          "displayStyle": {
+            "type": "table",
+            "title": null,
+            "x": null,
+            "y": null
+          }
+        },
+        {
+          "columns": [
+            "customer_name",
+            "overdue_receivable_balance"
+          ],
+          "rowCount": 10,
+          "sampleRows": [
+            {
+              "overdue_receivable_balance": "35482.04",
+              "customer_name": "æ¼”ç¤ºå®¢æˆ·0318"
+            },
+            {
+              "overdue_receivable_balance": "34505.61",
+              "customer_name": "æ¼”ç¤ºå®¢æˆ·0008"
+            },
+            {
+              "overdue_receivable_balance": "28476.79",
+              "customer_name": "æ¼”ç¤ºå®¢æˆ·0003"
+            }
+          ],
+          "displayStyle": {
+            "type": "bar",
+            "title": "逾期应收余额前十客户",
+            "x": "customer_name",
+            "y": [
+              "overdue_receivable_balance"
+            ]
+          }
+        }
+      ],
+      "retryMessages": [],
+      "report": "截至2025年12月31日（按到期日早于该日期判断），逾期应收余额最高的十个客户及其逾期应收余额如下：\n\n|排名 |客户名称 |逾期应收余额 |\n|------|----------|--------------|\n|1 | æ¼”ç¤ºå®¢æˆ·0318 |35482.04 |\n|2 | æ¼”ç¤ºå®¢æˆ·0008 |34505.61 |\n|3 | æ¼”ç¤ºå®¢æˆ·0003 |28476.79 |\n|4 | æ¼”ç¤ºå®¢æˆ·0090 |27208.08 |\n|5 | æ¼”ç¤ºå®¢æˆ·0186 |26409.66 |\n|6 | æ¼”ç¤ºå®¢æˆ·0204 |26115.40 |\n|7 | æ¼”ç¤ºå®¢æˆ·0006 |25723.31 |\n|8 | æ¼”ç¤ºå®¢æˆ·0253 |24791.35 |\n|9 | æ¼”ç¤ºå®¢æˆ·0151 |24305.42 |\n|10 | æ¼”ç¤ºå®¢æˆ·0430 |23922.10 |\n\n>注：客户名称字段返回值为乱码，上表按查询结果原样展示，未做任何修改。\n\n##数据口径与查询依据- **指标公式**：逾期应收余额 = `SUM(receivable.receivable_amount - receivable.received_amount)`。\n- **过滤条件**：仅保留 `receivable.receivable_amount > receivable.received_amount`且 `receivable.due_date < DATE '2025-12-31'`的记录。\n- **时间范围及日期字段**：到期日（`receivable.due_date`）早于2025-12-31；本次查询未限定其他时间范围。\n- **维度归属**：按客户端标识 `customer.id`、`customer.name`分组；本次查询未限定客户范围。\n- **状态与排除条件**：排除已收齐（`received_amount >= receivable_amount`）及未到期（`due_date >=2025-12-31`）的应收记录。\n- **实际使用表与关联字段**：\n -表：`receivable`（别名 r）、`sales_order`（别名 so）、`customer`（别名 c）。\n -关联关系：`so.id = r.order_id`，`c.id = so.customer_id`。\n -使用字段：`r.receivable_amount`、`r.received_amount`、`r.due_date`、`r.order_id`、`so.id`、`so.customer_id`、`c.id`、`c.name`。",
+      "finalAnswer": "",
+      "hasChart": true
+    },
+    {
+      "id": "M3-Q19",
+      "question": "华东一部2025年10月至12月销售额是否连续下降？请按月列出。",
+      "category": "异常分析",
+      "conversationId": "m3-core-M3-Q19",
+      "passed": true,
+      "durationSeconds": 216.075,
+      "complete": true,
+      "streamError": null,
+      "errors": [],
+      "nodes": [
+        {
+          "stepId": "IntentRecognitionNode-1",
+          "nodeName": "IntentRecognitionNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "EvidenceRecallNode-2",
+          "nodeName": "EvidenceRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "QueryEnhanceNode-3",
+          "nodeName": "QueryEnhanceNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SchemaRecallNode-4",
+          "nodeName": "SchemaRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "TableRelationNode-5",
+          "nodeName": "TableRelationNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "FeasibilityAssessmentNode-6",
+          "nodeName": "FeasibilityAssessmentNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "PlannerNode-7",
+          "nodeName": "PlannerNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlGenerateNode-8",
+          "nodeName": "SqlGenerateNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SemanticConsistencyNode-9",
+          "nodeName": "SemanticConsistencyNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlExecuteNode-10",
+          "nodeName": "SqlExecuteNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "ReportGeneratorNode-11",
+          "nodeName": "ReportGeneratorNode",
+          "attempt": 1
+        }
+      ],
+      "evidence": [
+        "证据1: 2025年每个月的销售额趋势如何？",
+        "证据2: 2025年各部门销售额排名是什么？",
+        "证据3: 2025年第四季度销售额环比第三季度增长率是多少？",
+        "证据4: 2025年全年销售额是多少？",
+        "证据5: 2025年每个月实际收到的回款金额是多少？",
+        "证据6: 2025年12月各部门预算执行率是多少？",
+        "证据7: 2025年各行业的销售额和客户数是多少？",
+        "证据8: 2025年销售额最高的十个客户是谁？"
+      ],
+      "sql": [
+        "WITH aggregated AS (\n  SELECT\n    COALESCE(SUM(CASE WHEN so.order_date >= '2025-10-01' AND so.order_date < '2025-11-01' THEN so.total_amount END), 0) AS sales_oct,\n    COALESCE(SUM(CASE WHEN so.order_date >= '2025-11-01' AND so.order_date < '2025-12-01' THEN so.total_amount END), 0) AS sales_nov,\n    COALESCE(SUM(CASE WHEN so.order_date >= '2025-12-01' AND so.order_date < '2026-01-01' THEN so.total_amount END), 0) AS sales_dec\n  FROM sales_order so\n  JOIN org_department d ON d.id = so.department_id\n  WHERE d.name = '华东一部'\n    AND so.status = 'APPROVED'\n    AND so.order_date >= '2025-10-01'\n    AND so.order_date < '2026-01-01'\n)\nSELECT\n  sales_oct,\n  sales_nov,\n  sales_dec,\n  CASE WHEN sales_oct > sales_nov AND sales_nov > sales_dec THEN '是' ELSE '否' END AS is_continuous_decline\nFROM aggregated"
+      ],
+      "resultSets": [
+        {
+          "columns": [
+            "sales_oct",
+            "sales_nov",
+            "sales_dec",
+            "is_continuous_decline"
+          ],
+          "rowCount": 1,
+          "sampleRows": [
+            {
+              "sales_dec": "0.00",
+              "sales_oct": "0.00",
+              "sales_nov": "0.00",
+              "is_continuous_decline": "否"
+            }
+          ],
+          "displayStyle": {
+            "type": "table",
+            "title": null,
+            "x": null,
+            "y": null
+          }
+        },
+        {
+          "columns": [
+            "sales_oct",
+            "sales_nov",
+            "sales_dec",
+            "is_continuous_decline"
+          ],
+          "rowCount": 1,
+          "sampleRows": [
+            {
+              "sales_dec": "0.00",
+              "sales_oct": "0.00",
+              "sales_nov": "0.00",
+              "is_continuous_decline": "否"
+            }
+          ],
+          "displayStyle": {
+            "type": "table",
+            "title": "华东一部2025年第四季度已批准销售订单月度销售额",
+            "x": "",
+            "y": []
+          }
+        }
+      ],
+      "retryMessages": [],
+      "report": "# 查询结果\n\n已完成问题“统计华东一部在2025年10月1日至2025年12月31日期间已批准（APPROVED）销售订单的销售额，按月（10月、11月、12月）汇总，并判断这三个月销售额是否连续下降（即10月销售额 > 11月销售额 > 12月销售额），按月列出销售额。”的数据查询。模型未返回报告正文，以下保留真实执行结果：\n\n```text\n{step_1={\"column\":[\"sales_oct\",\"sales_nov\",\"sales_dec\",\"is_continuous_decline\"],\"data\":[{\"sales_dec\":\"0.00\",\"sales_oct\":\"0.00\",\"sales_nov\":\"0.00\",\"is_continuous_decline\":\"否\"}],\"errorMsg\":null}}\n```\n\n\n## 数据口径与查询依据\n\n以下内容由系统根据本次实际执行计划和 SQL 生成，不包含未查询的业务推断。\n\n- **步骤 1口径/聚合要求**：从 sales_order 表 JOIN org_department 表（org_department.id = sales_order.department_id），筛选 org_department.name = '华东一部'、sales_order.status = 'APPROVED'、sales_order.order_date >= '2025-10-01' 且 sales_order.order_date < '2026-01-01'。使用条件聚合计算：sales_oct = COALESCE(SUM(CASE WHEN sales_order.order_date >= '2025-10-01' AND sales_order.order_date < '2025-11-01' THEN sales_order.total_amount END), 0)；sales_nov = COALESCE(SUM(CASE WHEN sales_order.order_date >= '2025-11-01' AND sales_order.order_date < '2025-12-01' THEN sales_order.total_amount END), 0)；sales_dec = COALESCE(SUM(CASE WHEN sales_order.order_date >= '2025-12-01' AND sales_order.order_date < '2026-01-01' THEN sales_order.total_amount END), 0)。另计算 is_continuous_decline = CASE WHEN sales_oct > sales_nov AND sales_nov > sales_dec THEN '是' ELSE '否' END。返回单行，期望输出列：sales_oct, sales_nov, sales_dec, is_continuous_decline。",
+      "finalAnswer": "",
+      "hasChart": false
+    },
+    {
+      "id": "M3-Q20",
+      "question": "2025年12月哪些部门和费用类别预算执行率超过100%？",
+      "category": "异常分析",
+      "conversationId": "m3-core-M3-Q20",
+      "passed": true,
+      "durationSeconds": 107.446,
+      "complete": true,
+      "streamError": null,
+      "errors": [],
+      "nodes": [
+        {
+          "stepId": "IntentRecognitionNode-1",
+          "nodeName": "IntentRecognitionNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "EvidenceRecallNode-2",
+          "nodeName": "EvidenceRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "QueryEnhanceNode-3",
+          "nodeName": "QueryEnhanceNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SchemaRecallNode-4",
+          "nodeName": "SchemaRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "TableRelationNode-5",
+          "nodeName": "TableRelationNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "FeasibilityAssessmentNode-6",
+          "nodeName": "FeasibilityAssessmentNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "PlannerNode-7",
+          "nodeName": "PlannerNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlGenerateNode-8",
+          "nodeName": "SqlGenerateNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SemanticConsistencyNode-9",
+          "nodeName": "SemanticConsistencyNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlExecuteNode-10",
+          "nodeName": "SqlExecuteNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "ReportGeneratorNode-11",
+          "nodeName": "ReportGeneratorNode",
+          "attempt": 1
+        }
+      ],
+      "evidence": [
+        "证据1: 2025年12月各部门预算执行率是多少？",
+        "证据2: 2025年12月哪些部门和费用类别超预算了？",
+        "证据3: 截至2025年12月31日各部门逾期应收余额排名是什么？",
+        "证据4: 2025年第四季度各部门各项KPI完成率是多少？",
+        "证据5: 2025年各部门新产生应收的回款率排名是什么？",
+        "证据6: 2025年新产生应收的整体回款率是多少？",
+        "证据7: 截至2025年12月31日逾期应收余额最高的十个客户是谁？",
+        "证据8: 哪些部门在2025年第三和第四季度连续有KPI未达标？"
+      ],
+      "sql": [
+        "WITH expense_monthly AS (\n  SELECT department_id, DATE_FORMAT(expense_date, '%Y-%m') AS period, category, SUM(amount) AS expense_amount\n  FROM expense\n  WHERE status = 'APPROVED'\n  GROUP BY department_id, DATE_FORMAT(expense_date, '%Y-%m'), category\n)\nSELECT d.name AS department_name, b.category, b.budget_amount, COALESCE(e.expense_amount, 0) AS expense_amount, COALESCE(e.expense_amount, 0) / NULLIF(b.budget_amount, 0) AS budget_execution_rate\nFROM budget b\nJOIN org_department d ON d.id = b.department_id\nLEFT JOIN expense_monthly e ON e.department_id = b.department_id AND e.period = b.period AND e.category = b.category\nWHERE b.period = '2025-12'\n  AND COALESCE(e.expense_amount, 0) / NULLIF(b.budget_amount, 0) > 1\nORDER BY budget_execution_rate DESC"
+      ],
+      "resultSets": [
+        {
+          "columns": [
+            "department_name",
+            "category",
+            "budget_amount",
+            "expense_amount",
+            "budget_execution_rate"
+          ],
+          "rowCount": 1,
+          "sampleRows": [
+            {
+              "expense_amount": "185000.00",
+              "department_name": "åŽå—ä¸€éƒ¨",
+              "budget_execution_rate": "1.250000",
+              "category": "MARKETING",
+              "budget_amount": "148000.00"
+            }
+          ],
+          "displayStyle": {
+            "type": "table",
+            "title": null,
+            "x": null,
+            "y": null
+          }
+        },
+        {
+          "columns": [
+            "department_name",
+            "category",
+            "budget_amount",
+            "expense_amount",
+            "budget_execution_rate"
+          ],
+          "rowCount": 1,
+          "sampleRows": [
+            {
+              "expense_amount": "185000.00",
+              "department_name": "åŽå—ä¸€éƒ¨",
+              "budget_execution_rate": "1.250000",
+              "category": "MARKETING",
+              "budget_amount": "148000.00"
+            }
+          ],
+          "displayStyle": {
+            "type": "table",
+            "title": "2025年12月预算执行率超100%的部门与费用类别",
+            "x": "",
+            "y": []
+          }
+        }
+      ],
+      "retryMessages": [],
+      "report": "# 查询结果\n\n已完成问题“查询2025年12月各部门各费用类别中，预算执行率超过100%的部门和费用类别”的数据查询。模型未返回报告正文，以下保留真实执行结果：\n\n```text\n{step_1={\"column\":[\"department_name\",\"category\",\"budget_amount\",\"expense_amount\",\"budget_execution_rate\"],\"data\":[{\"expense_amount\":\"185000.00\",\"department_name\":\"åŽå—ä¸€éƒ¨\",\"budget_execution_rate\":\"1.250000\",\"category\":\"MARKETING\",\"budget_amount\":\"148000.00\"}],\"errorMsg\":null}}\n```\n\n\n## 数据口径与查询依据\n\n以下内容由系统根据本次实际执行计划和 SQL 生成，不包含未查询的业务推断。\n\n- **步骤 1口径/聚合要求**：查询2025年12月预算执行率超过100%的部门和费用类别。使用表 budget、expense、org_department。先按 expense 中 status='APPROVED' 的记录，以 department_id、DATE_FORMAT(expense_date, '%Y-%m') AS period、category 分组汇总 SUM(amount) AS expense_amount；再通过 budget b JOIN org_department d ON d.id=b.department_id，LEFT JOIN 上述费用汇总 e ON e.department_id=b.department_id AND e.period=b.period AND e.category=b.category；过滤 b.period='2025-12'，且 COALESCE(e.expense_amount,0)/NULLIF(b.budget_amount,0) > 1；返回列：d.name AS department_name、b.category、b.budget_amount、COALESCE(e.expense_amount,0) AS expense_amount、COALESCE(e.expense_amount,0)/NULLIF(b.budget_amount,0) AS budget_execution_rate，按 budget_execution_rate DESC 排序。",
+      "finalAnswer": "",
+      "hasChart": false
+    }
+  ],
+  "multiTurnRuns": [
+    {
+      "id": "M3-F01",
+      "question": "只看华东一部，再按月份展示。",
+      "category": "部门与月份下钻",
+      "conversationId": "m3-drilldown-M2-Q03",
+      "passed": true,
+      "durationSeconds": 63.924,
+      "complete": true,
+      "streamError": null,
+      "errors": [],
+      "nodes": [
+        {
+          "stepId": "IntentRecognitionNode-1",
+          "nodeName": "IntentRecognitionNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "EvidenceRecallNode-2",
+          "nodeName": "EvidenceRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "QueryEnhanceNode-3",
+          "nodeName": "QueryEnhanceNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SchemaRecallNode-4",
+          "nodeName": "SchemaRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "TableRelationNode-5",
+          "nodeName": "TableRelationNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "FeasibilityAssessmentNode-6",
+          "nodeName": "FeasibilityAssessmentNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "PlannerNode-7",
+          "nodeName": "PlannerNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlGenerateNode-8",
+          "nodeName": "SqlGenerateNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SemanticConsistencyNode-9",
+          "nodeName": "SemanticConsistencyNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlExecuteNode-10",
+          "nodeName": "SqlExecuteNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "ReportGeneratorNode-11",
+          "nodeName": "ReportGeneratorNode",
+          "attempt": 1
+        }
+      ],
+      "evidence": [
+        "证据1: 2025年每个月的销售额趋势如何？",
+        "证据2: 2025年各部门销售额排名是什么？",
+        "证据3: 2025年全年销售额是多少？",
+        "证据4: 2025年第四季度销售额环比第三季度增长率是多少？",
+        "证据5: 2025年各行业的销售额和客户数是多少？",
+        "证据6: 2025年每个月实际收到的回款金额是多少？",
+        "证据7: 2025年销售额最高的十个客户是谁？",
+        "证据8: 2025年第四季度各部门各项KPI完成率是多少？"
+      ],
+      "sql": [
+        "SELECT DATE_FORMAT(so.order_date, '%Y-%m') AS month, SUM(so.total_amount) AS sales_amount FROM sales_order so JOIN org_department d ON d.id = so.department_id WHERE so.status = 'APPROVED' AND so.order_date >= '2025-01-01' AND so.order_date < '2026-01-01' AND d.name = '华东一部' GROUP BY DATE_FORMAT(so.order_date, '%Y-%m') ORDER BY month"
+      ],
+      "resultSets": [
+        {
+          "columns": [
+            "month",
+            "sales_amount"
+          ],
+          "rowCount": 0,
+          "sampleRows": [],
+          "displayStyle": {
+            "type": "table",
+            "title": null,
+            "x": null,
+            "y": null
+          }
+        },
+        {
+          "columns": [
+            "month",
+            "sales_amount"
+          ],
+          "rowCount": 0,
+          "sampleRows": [],
+          "displayStyle": {
+            "type": "table",
+            "title": "2025年华东一部每月销售额",
+            "x": "",
+            "y": []
+          }
+        }
+      ],
+      "retryMessages": [],
+      "report": "2025年，在**已批准销售订单（APPROVED）**口径下，**华东一部**没有任何按月的销售额记录可展示。查询返回的 `month`与 `sales_amount`结果均为空。\n\n|月份 |销售额 |\n|---|---|\n| （无记录） | （无记录） |\n\n>本次查询在指定条件内未返回任何行，因此无法给出1月至12月的具体销售额数值；也不对缺失原因进行推测。\n\n---\n\n##数据口径与查询依据- **指标公式/聚合方式**：`SUM(sales_order.total_amount) AS sales_amount`，按月份 `DATE_FORMAT(sales_order.order_date, '%Y-%m')`分组。\n- **时间范围及日期字段**：`sales_order.order_date >= '2025-01-01'`且 `sales_order.order_date < '2026-01-01'`，即2025年全年。\n- **组织/部门维度归属**：`org_department.name = '华东一部'`。\n- **状态/排除条件**：`sales_order.status = 'APPROVED'`，即仅统计已批准销售订单。\n- **实际使用的表及关联字段**：\n -表：`sales_order`、`org_department`\n -关联字段：`org_department.id = sales_order.department_id`\n- **执行结果**：查询返回列 `month, sales_amount`，数据行数为 `0`。",
+      "finalAnswer": "",
+      "hasChart": false
+    },
+    {
+      "id": "M3-F02",
+      "question": "再下钻到逾期应收余额最高的十个客户。",
+      "category": "客户下钻",
+      "conversationId": "m3-drilldown-M2-Q10",
+      "passed": true,
+      "durationSeconds": 88.16,
+      "complete": true,
+      "streamError": null,
+      "errors": [],
+      "nodes": [
+        {
+          "stepId": "IntentRecognitionNode-1",
+          "nodeName": "IntentRecognitionNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "EvidenceRecallNode-2",
+          "nodeName": "EvidenceRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "QueryEnhanceNode-3",
+          "nodeName": "QueryEnhanceNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SchemaRecallNode-4",
+          "nodeName": "SchemaRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "TableRelationNode-5",
+          "nodeName": "TableRelationNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "FeasibilityAssessmentNode-6",
+          "nodeName": "FeasibilityAssessmentNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "PlannerNode-7",
+          "nodeName": "PlannerNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlGenerateNode-8",
+          "nodeName": "SqlGenerateNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SemanticConsistencyNode-9",
+          "nodeName": "SemanticConsistencyNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlExecuteNode-10",
+          "nodeName": "SqlExecuteNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "ReportGeneratorNode-11",
+          "nodeName": "ReportGeneratorNode",
+          "attempt": 1
+        }
+      ],
+      "evidence": [
+        "证据1: 截至2025年12月31日逾期应收余额最高的十个客户是谁？",
+        "证据2: 截至2025年12月31日各部门逾期应收余额排名是什么？",
+        "证据3: 截至2025年12月31日逾期应收余额是多少？",
+        "证据4: 截至2025年12月31日逾期超过60天仍未结清的应收有哪些？",
+        "证据5: 2025年各部门新产生应收的回款率排名是什么？",
+        "证据6: 2025年销售额最高的十个客户是谁？",
+        "证据7: 2025年新产生应收的整体回款率是多少？",
+        "证据8: 哪些部门在2025年第三和第四季度连续有KPI未达标？"
+      ],
+      "sql": [
+        "SELECT c.name AS customer_name, SUM(r.receivable_amount - r.received_amount) AS overdue_receivable_balance\nFROM receivable r\nJOIN sales_order so ON so.id = r.order_id\nJOIN customer c ON c.id = so.customer_id\nWHERE r.due_date < '2025-12-31' AND r.receivable_amount > r.received_amount\nGROUP BY c.id, c.name\nORDER BY overdue_receivable_balance DESC\nLIMIT 10"
+      ],
+      "resultSets": [
+        {
+          "columns": [
+            "customer_name",
+            "overdue_receivable_balance"
+          ],
+          "rowCount": 10,
+          "sampleRows": [
+            {
+              "overdue_receivable_balance": "35482.04",
+              "customer_name": "æ¼”ç¤ºå®¢æˆ·0318"
+            },
+            {
+              "overdue_receivable_balance": "34505.61",
+              "customer_name": "æ¼”ç¤ºå®¢æˆ·0008"
+            },
+            {
+              "overdue_receivable_balance": "28476.79",
+              "customer_name": "æ¼”ç¤ºå®¢æˆ·0003"
+            }
+          ],
+          "displayStyle": {
+            "type": "table",
+            "title": null,
+            "x": null,
+            "y": null
+          }
+        },
+        {
+          "columns": [
+            "customer_name",
+            "overdue_receivable_balance"
+          ],
+          "rowCount": 10,
+          "sampleRows": [
+            {
+              "overdue_receivable_balance": "35482.04",
+              "customer_name": "æ¼”ç¤ºå®¢æˆ·0318"
+            },
+            {
+              "overdue_receivable_balance": "34505.61",
+              "customer_name": "æ¼”ç¤ºå®¢æˆ·0008"
+            },
+            {
+              "overdue_receivable_balance": "28476.79",
+              "customer_name": "æ¼”ç¤ºå®¢æˆ·0003"
+            }
+          ],
+          "displayStyle": {
+            "type": "bar",
+            "title": "逾期应收余额最高的十个客户",
+            "x": "customer_name",
+            "y": [
+              "overdue_receivable_balance"
+            ]
+          }
+        }
+      ],
+      "retryMessages": [],
+      "report": "截至2025年12月31日，逾期应收余额最高的十个客户如下（按逾期应收余额从高到低；执行结果中的客户名称为非中文编码字符，下表按原样列出）：\n\n|排名 |客户名称 |逾期应收余额 |\n|---:|---|---:|\n|1 | æ¼”ç¤ºå®¢æˆ·0318 |35482.04 |\n|2 | æ¼”ç¤ºå®¢æˆ·0008 |34505.61 |\n|3 | æ¼”ç¤ºå®¢æˆ·0003 |28476.79 |\n|4 | æ¼”ç¤ºå®¢æˆ·0090 |27208.08 |\n|5 | æ¼”ç¤ºå®¢æˆ·0186 |26409.66 |\n|6 | æ¼”ç¤ºå®¢æˆ·0204 |26115.40 |\n|7 | æ¼”ç¤ºå®¢æˆ·0006 |25723.31 |\n|8 | æ¼”ç¤ºå®¢æˆ·0253 |24791.35 |\n|9 | æ¼”ç¤ºå®¢æˆ·0151 |24305.42 |\n|10 | æ¼”ç¤ºå®¢æˆ·0430 |23922.10 |\n\n##数据口径与查询依据-指标公式：`overdue_receivable_balance = SUM(receivable_amount - received_amount)`，按客户分组计算。\n-计算口径：仅统计 `receivable_amount > received_amount`的应收款项；不满足该条件的记录未参与余额求和。\n-时间范围：`due_date < '2025-12-31'`，即到期日早于2025年12月31日；日期字段为 `receivable.due_date`。\n-维度归属：客户名称取自 `customer.name`，客户通过 `sales_order.customer_id`关联。\n-排序与限制：按 `overdue_receivable_balance`从高到低排序，取前10名。\n-使用表及关联字段：`receivable`（r）JOIN `sales_order`（so）ON `so.id = r.order_id`；`sales_order`（so）JOIN `customer`（c）ON `c.id = so.customer_id`。\n-数据说明：本次执行结果返回10行；客户名称字段在结果中显示为非中文编码字符，上表按执行结果原样列出，未作转写或修正。",
+      "finalAnswer": "",
+      "hasChart": true
+    },
+    {
+      "id": "M3-F03",
+      "question": "只看未达标的指标，并按完成率从低到高排列。",
+      "category": "指标下钻",
+      "conversationId": "m3-drilldown-M2-Q12",
+      "passed": true,
+      "durationSeconds": 120.097,
+      "complete": true,
+      "streamError": null,
+      "errors": [],
+      "nodes": [
+        {
+          "stepId": "IntentRecognitionNode-1",
+          "nodeName": "IntentRecognitionNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "EvidenceRecallNode-2",
+          "nodeName": "EvidenceRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "QueryEnhanceNode-3",
+          "nodeName": "QueryEnhanceNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SchemaRecallNode-4",
+          "nodeName": "SchemaRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "TableRelationNode-5",
+          "nodeName": "TableRelationNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "FeasibilityAssessmentNode-6",
+          "nodeName": "FeasibilityAssessmentNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "PlannerNode-7",
+          "nodeName": "PlannerNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlGenerateNode-8",
+          "nodeName": "SqlGenerateNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SemanticConsistencyNode-9",
+          "nodeName": "SemanticConsistencyNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlExecuteNode-10",
+          "nodeName": "SqlExecuteNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "ReportGeneratorNode-11",
+          "nodeName": "ReportGeneratorNode",
+          "attempt": 1
+        }
+      ],
+      "evidence": [
+        "证据1: 2025年第四季度各部门各项KPI完成率是多少？",
+        "证据2: 2025年第四季度哪些部门的KPI没有达标？",
+        "证据3: 哪些部门在2025年第三和第四季度连续有KPI未达标？",
+        "证据4: 截至2025年12月31日各部门逾期应收余额排名是什么？",
+        "证据5: 2025年12月各部门预算执行率是多少？",
+        "证据6: 2025年各部门新产生应收的回款率排名是什么？",
+        "证据7: 2025年各部门销售额排名是什么？",
+        "证据8: 2025年12月哪些部门和费用类别超预算了？"
+      ],
+      "sql": [
+        "SELECT d.name AS department_name, kd.name AS kpi_name, kt.target_value, kv.actual_value, kv.actual_value / NULLIF(kt.target_value, 0) AS kpi_completion_rate FROM kpi_value kv JOIN kpi_target kt ON kt.kpi_id = kv.kpi_id AND kt.department_id = kv.department_id AND kt.period = kv.period JOIN kpi_definition kd ON kd.id = kv.kpi_id JOIN org_department d ON d.id = kv.department_id WHERE kv.period = '2025Q4' AND kv.actual_value < kt.target_value ORDER BY kpi_completion_rate ASC, department_name ASC, kpi_name ASC"
+      ],
+      "resultSets": [
+        {
+          "columns": [
+            "department_name",
+            "kpi_name",
+            "target_value",
+            "actual_value",
+            "kpi_completion_rate"
+          ],
+          "rowCount": 20,
+          "sampleRows": [
+            {
+              "kpi_completion_rate": "0.800000",
+              "kpi_name": "å›žæ¬¾çŽ‡",
+              "target_value": "105.30",
+              "department_name": "åŽå—ä¸€éƒ¨",
+              "actual_value": "84.24"
+            },
+            {
+              "kpi_completion_rate": "0.800000",
+              "kpi_name": "åˆ©æ¶¦çŽ‡",
+              "target_value": "29.25",
+              "department_name": "åŽå—ä¸€éƒ¨",
+              "actual_value": "23.40"
+            },
+            {
+              "kpi_completion_rate": "0.800000",
+              "kpi_name": "åˆåŒé‡‘é¢",
+              "target_value": "2340000.00",
+              "department_name": "åŽå—ä¸€éƒ¨",
+              "actual_value": "1872000.00"
+            }
+          ],
+          "displayStyle": {
+            "type": "table",
+            "title": null,
+            "x": null,
+            "y": null
+          }
+        }
+      ],
+      "retryMessages": [],
+      "report": "# 查询结果\n\n已完成问题“查询 2025 年第四季度（2025Q4）各部门各项 KPI 的完成率，只看未达标的指标（即实际值低于目标值的 KPI），列出部门名称、KPI 名称、目标值、实际值和 KPI 完成率，并按 KPI 完成率从低到高排列。”的数据查询。模型未返回报告正文，以下保留真实执行结果：\n\n```text\n{step_1={\"column\":[\"department_name\",\"kpi_name\",\"target_value\",\"actual_value\",\"kpi_completion_rate\"],\"data\":[{\"kpi_completion_rate\":\"0.800000\",\"kpi_name\":\"å›žæ¬¾çŽ‡\",\"target_value\":\"105.30\",\"department_name\":\"åŽå—ä¸€éƒ¨\",\"actual_value\":\"84.24\"},{\"kpi_completion_rate\":\"0.800000\",\"kpi_name\":\"åˆ©æ¶¦çŽ‡\",\"target_value\":\"29.25\",\"department_name\":\"åŽå—ä¸€éƒ¨\",\"actual_value\":\"23.40\"},{\"kpi_completion_rate\":\"0.800000\",\"kpi_name\":\"åˆåŒé‡‘é¢\",\"target_value\":\"2340000.00\",\"department_name\":\"åŽå—ä¸€éƒ¨\",\"actual_value\":\"1872000.00\"},{\"kpi_completion_rate\":\"0.800000\",\"kpi_name\":\"å®¢å•ä»·\",\"target_value\":\"5850.00\",\"department_name\":\"åŽå—ä¸€éƒ¨\",\"actual_value\":\"4680.00\"},{\"kpi_completion_rate\":\"0.800000\",\"kpi_name\":\"æˆäº¤å®¢æˆ·æ•°\",\"target_value\":\"234.00\",\"department_name\":\"åŽå—ä¸€éƒ¨\",\"actual_value\":\"187.20\"},{\"kpi_completion_rate\":\"0.800000\",\"kpi_name\":\"åº”æ”¶ä½™é¢\",\"target_value\":\"234000.00\",\"department_name\":\"åŽå—ä¸€éƒ¨\",\"actual_value\":\"187200.00\"},{\"kpi_completion_rate\":\"0.800000\",\"kpi_name\":\"é”€å”®é¢\",\"target_value\":\"1170000.00\",\"department_name\":\"åŽå—ä¸€éƒ¨\",\"actual_value\":\"936000.00\"},{\"kpi_completion_rate\":\"0.800000\",\"kpi_name\":\"è®¢å•æ•°\",\"target_value\":\"585.00\",\"department_name\":\"åŽå—ä¸€éƒ¨\",\"actual_value\":\"468.00\"},{\"kpi_completion_rate\":\"0.800000\",\"kpi_name\":\"é¢„ç®—æ‰§è¡ŒçŽ‡\",\"target_value\":\"99.45\",\"department_name\":\"åŽå—ä¸€éƒ¨\",\"actual_value\":\"79.56\"},{\"kpi_completion_rate\":\"0.800000\",\"kpi_name\":\"é€¾æœŸçŽ‡\",\"target_value\":\"5.85\",\"department_name\":\"åŽå—ä¸€éƒ¨\",\"actual_value\":\"4.68\"},{\"kpi_completion_rate\":\"0.800000\",\"kpi_name\":\"å›žæ¬¾çŽ‡\",\"target_value\":\"108.90\",\"department_name\":\"è¥¿éƒ¨ä¸€éƒ¨\",\"actual_value\":\"87.12\"},{\"kpi_completion_rate\":\"0.800000\",\"kpi_name\":\"åˆ©æ¶¦çŽ‡\",\"target_value\":\"30.25\",\"department_name\":\"è¥¿éƒ¨ä¸€éƒ¨\",\"actual_value\":\"24.20\"},{\"kpi_completion_rate\":\"0.800000\",\"kpi_name\":\"åˆåŒé‡‘é¢\",\"target_value\":\"2420000.00\",\"department_name\":\"è¥¿éƒ¨ä¸€éƒ¨\",\"actual_value\":\"1936000.00\"},{\"kpi_completion_rate\":\"0.800000\",\"kpi_name\":\"å®¢å•ä»·\",\"target_value\":\"6050.00\",\"department_name\":\"è¥¿éƒ¨ä¸€éƒ¨\",\"actual_value\":\"4840.00\"},{\"kpi_completion_rate\":\"0.800000\",\"kpi_name\":\"æˆäº¤å®¢æˆ·æ•°\",\"target_value\":\"242.00\",\"department_name\":\"è¥¿éƒ¨ä¸€éƒ¨\",\"actual_value\":\"193.60\"},{\"kpi_completion_rate\":\"0.800000\",\"kpi_name\":\"åº”æ”¶ä½™é¢\",\"target_value\":\"242000.00\",\"department_name\":\"è¥¿éƒ¨ä¸€éƒ¨\",\"actual_value\":\"193600.00\"},{\"kpi_completion_rate\":\"0.800000\",\"kpi_name\":\"é”€å”®é¢\",\"target_value\":\"1210000.00\",\"department_name\":\"è¥¿éƒ¨ä¸€éƒ¨\",\"actual_value\":\"968000.00\"},{\"kpi_completion_rate\":\"0.800000\",\"kpi_name\":\"è®¢å•æ•°\",\"target_value\":\"605.00\",\"department_name\":\"è¥¿éƒ¨ä¸€éƒ¨\",\"actual_value\":\"484.00\"},{\"kpi_completion_rate\":\"0.800000\",\"kpi_name\":\"é¢„ç®—æ‰§è¡ŒçŽ‡\",\"target_value\":\"102.85\",\"department_name\":\"è¥¿éƒ¨ä¸€éƒ¨\",\"actual_value\":\"82.28\"},{\"kpi_completion_rate\":\"0.800000\",\"kpi_name\":\"é€¾æœŸçŽ‡\",\"target_value\":\"6.05\",\"department_name\":\"è¥¿éƒ¨ä¸€éƒ¨\",\"actual_value\":\"4.84\"}],\"errorMsg\":null}}\n```\n\n\n## 数据口径与查询依据\n\n以下内容由系统根据本次实际执行计划和 SQL 生成，不包含未查询的业务推断。\n\n- **步骤 1口径/聚合要求**：查询 2025Q4 各部门未达标的 KPI。从 kpi_value kv 关联 kpi_target kt，关联条件为 kt.kpi_id = kv.kpi_id 且 kt.department_id = kv.department_id 且 kt.period = kv.period；再关联 kpi_definition kd ON kd.id = kv.kpi_id；关联 org_department d ON d.id = kv.department_id。过滤条件为 kv.period = '2025Q4' 且 kv.actual_value < kt.target_value。返回列：d.name AS department_name、kd.name AS kpi_name、kt.target_value、kv.actual_value、kv.actual_value / NULLIF(kt.target_value, 0) AS kpi_completion_rate。按 kpi_completion_rate 升序排列，可附加 department_name、kpi_name 作为稳定排序。",
+      "finalAnswer": "",
+      "hasChart": false
+    }
+  ],
+  "intentRuns": [
+    {
+      "id": "M3-I01",
+      "question": "你好，你是谁？",
+      "category": null,
+      "conversationId": "m3-intent-M3-I01",
+      "passed": true,
+      "durationSeconds": 1.416,
+      "complete": true,
+      "streamError": null,
+      "errors": [],
+      "nodes": [
+        {
+          "stepId": "IntentRecognitionNode-1",
+          "nodeName": "IntentRecognitionNode",
+          "attempt": 1
+        }
+      ],
+      "evidence": [],
+      "sql": [],
+      "resultSets": [],
+      "retryMessages": [],
+      "report": "",
+      "finalAnswer": "你好！我是数据分析助手，可以帮你查询、统计和分析已连接的数据。有什么需要帮助的吗？",
+      "hasChart": false,
+      "expected": "chat",
+      "classifiedAsData": false
+    },
+    {
+      "id": "M3-I02",
+      "question": "请写一首关于秋天的诗。",
+      "category": null,
+      "conversationId": "m3-intent-M3-I02",
+      "passed": true,
+      "durationSeconds": 1.126,
+      "complete": true,
+      "streamError": null,
+      "errors": [],
+      "nodes": [
+        {
+          "stepId": "IntentRecognitionNode-1",
+          "nodeName": "IntentRecognitionNode",
+          "attempt": 1
+        }
+      ],
+      "evidence": [],
+      "sql": [],
+      "resultSets": [],
+      "retryMessages": [],
+      "report": "",
+      "finalAnswer": "我可以帮你写诗，不过如果你是问已连接数据，我也可以做查询和分析。",
+      "hasChart": false,
+      "expected": "unsupported",
+      "classifiedAsData": false
+    },
+    {
+      "id": "M3-I03",
+      "question": "销售额按什么口径统计？",
+      "category": null,
+      "conversationId": "m3-intent-M3-I03",
+      "passed": true,
+      "durationSeconds": 74.332,
+      "complete": true,
+      "streamError": null,
+      "errors": [],
+      "nodes": [
+        {
+          "stepId": "IntentRecognitionNode-1",
+          "nodeName": "IntentRecognitionNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "EvidenceRecallNode-2",
+          "nodeName": "EvidenceRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "QueryEnhanceNode-3",
+          "nodeName": "QueryEnhanceNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SchemaRecallNode-4",
+          "nodeName": "SchemaRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "TableRelationNode-5",
+          "nodeName": "TableRelationNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "FeasibilityAssessmentNode-6",
+          "nodeName": "FeasibilityAssessmentNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "PlannerNode-7",
+          "nodeName": "PlannerNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlGenerateNode-8",
+          "nodeName": "SqlGenerateNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SemanticConsistencyNode-9",
+          "nodeName": "SemanticConsistencyNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlExecuteNode-10",
+          "nodeName": "SqlExecuteNode",
+          "attempt": 1
+        }
+      ],
+      "evidence": [
+        "证据1: 2025年各部门销售额排名是什么？",
+        "证据2: 2025年第四季度销售额环比第三季度增长率是多少？",
+        "证据3: 2025年各行业的销售额和客户数是多少？",
+        "证据4: 2025年全年销售额是多少？",
+        "证据5: 2025年每个月的销售额趋势如何？",
+        "证据6: 2025年销售额最高的十个客户是谁？",
+        "证据7: 2025年12月各部门预算执行率是多少？",
+        "证据8: 2025年第四季度各部门各项KPI完成率是多少？"
+      ],
+      "sql": [
+        "SELECT COALESCE(SUM(total_amount), 0) AS sales_amount FROM sales_order WHERE status = 'APPROVED'"
+      ],
+      "resultSets": [
+        {
+          "columns": [
+            "sales_amount"
+          ],
+          "rowCount": 1,
+          "sampleRows": [
+            {
+              "sales_amount": "185883808.79"
+            }
+          ],
+          "displayStyle": {
+            "type": "table",
+            "title": null,
+            "x": null,
+            "y": null
+          }
+        }
+      ],
+      "retryMessages": [],
+      "report": "",
+      "finalAnswer": "",
+      "hasChart": false,
+      "expected": "data",
+      "classifiedAsData": true
+    },
+    {
+      "id": "M3-I04",
+      "question": "华东一部最近三个月表现异常吗？",
+      "category": null,
+      "conversationId": "m3-intent-M3-I04",
+      "passed": true,
+      "durationSeconds": 62.234,
+      "complete": true,
+      "streamError": null,
+      "errors": [],
+      "nodes": [
+        {
+          "stepId": "IntentRecognitionNode-1",
+          "nodeName": "IntentRecognitionNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "EvidenceRecallNode-2",
+          "nodeName": "EvidenceRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "QueryEnhanceNode-3",
+          "nodeName": "QueryEnhanceNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SchemaRecallNode-4",
+          "nodeName": "SchemaRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "TableRelationNode-5",
+          "nodeName": "TableRelationNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "FeasibilityAssessmentNode-6",
+          "nodeName": "FeasibilityAssessmentNode",
+          "attempt": 1
+        }
+      ],
+      "evidence": [
+        "证据1: 哪些部门在2025年第三和第四季度连续有KPI未达标？"
+      ],
+      "sql": [],
+      "resultSets": [],
+      "retryMessages": [],
+      "report": "",
+      "finalAnswer": "需要澄清“华东一部表现是否异常”的评估口径：请明确具体指标（如KPI完成率、销售额、回款率、费用等）以及异常判断的比较基准（如对比目标值、历史同期或部门间水平）。当前召回信息尚不足以唯一确定该判定口径。",
+      "hasChart": false,
+      "expected": "data",
+      "classifiedAsData": true
+    }
+  ]
+}

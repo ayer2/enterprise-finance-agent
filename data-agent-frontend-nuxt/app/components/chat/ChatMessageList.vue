@@ -1,23 +1,16 @@
-/*
- * Copyright 2026 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+/* * Copyright 2026 the original author or authors. * * Licensed under the
+Apache License, Version 2.0 (the "License"); * you may not use this file except
+in compliance with the License. * You may obtain a copy of the License at * *
+https://www.apache.org/licenses/LICENSE-2.0 * * Unless required by applicable
+law or agreed to in writing, software * distributed under the License is
+distributed on an "AS IS" BASIS, * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. * See the License for the specific language governing
+permissions and * limitations under the License. */
 
 <template>
 	<div ref="listRef" class="message-list custom-scrollbar">
 		<!-- Welcome state when no session -->
-		<ChatWelcome v-if="!store.currentSession" />
+		<ChatWelcome v-if="showWelcome" />
 
 		<!-- Messages -->
 		<template v-else>
@@ -109,7 +102,16 @@
 								class="status-banner status-banner--error"
 							>
 								<v-icon size="16" class="mr-2">mdi-alert-circle</v-icon>
-								{{ message.content }}
+								<span>{{ message.content }}</span>
+								<v-btn
+									size="x-small"
+									variant="outlined"
+									color="error"
+									class="ml-3"
+									:disabled="store.isStreaming"
+									@click="store.retryLastQuery()"
+									>重新尝试</v-btn
+								>
 							</div>
 
 							<!-- Plain AI text (render as markdown) -->
@@ -117,6 +119,11 @@
 								<div class="md-body" v-html="renderMarkdown(message.content)" />
 							</v-card>
 						</div>
+						<ChatMessageFeedback
+							v-if="isPlainAnswer(message)"
+							:message-id="message.id"
+							:value="feedbackValue(message.id)"
+						/>
 					</div>
 
 					<!-- ── Report card below completed timeline ────────── -->
@@ -141,6 +148,10 @@
 								/>
 							</v-card>
 						</div>
+						<ChatMessageFeedback
+							:message-id="message.id"
+							:value="feedbackValue(message.id)"
+						/>
 					</div>
 				</template>
 
@@ -202,6 +213,7 @@ import { renderMarkdownContent } from '~/utils/markdown';
 import { useEchartsRenderer } from '~/composables/useEchartsRenderer';
 import { useChatStore } from '~/stores/chat';
 import { extractReportContent } from '~/utils/reportTimeline';
+import { parseMessageFeedbackMetadata } from '~/utils/messageFeedback';
 import type { ResultData } from '~/services/resultSet/index';
 import type { ChatMessage } from '~/services/chat/index';
 import ChatWelcome from './ChatWelcome.vue';
@@ -209,6 +221,7 @@ import ChatResultSet from './ChatResultSet.vue';
 import ChatMarkdownReport from './ChatMarkdownReport.vue';
 import ChatWorkflowTimeline from './ChatWorkflowTimeline.vue';
 import ChatStreamingReport from './ChatStreamingReport.vue';
+import ChatMessageFeedback from './ChatMessageFeedback.vue';
 
 const TIMELINE_ABSORBED_TYPES = new Set([
 	'result-set',
@@ -220,6 +233,12 @@ const store = useChatStore();
 const listRef = ref<HTMLElement | null>(null);
 const { renderECharts } = useEchartsRenderer();
 
+const showWelcome = computed(
+	() =>
+		!store.currentSession ||
+		(!store.currentMessages.length && !store.isStreaming),
+);
+
 const filteredMessages = computed<ChatMessage[]>(() => {
 	const msgs = store.currentMessages;
 	if (!msgs.length) return msgs;
@@ -228,6 +247,7 @@ const filteredMessages = computed<ChatMessage[]>(() => {
 	for (let i = 0; i < msgs.length; i++) {
 		const msg = msgs[i];
 		if (!msg) continue;
+		if (msg.messageType === 'feedback') continue;
 		if (
 			msg.role === 'assistant' &&
 			TIMELINE_ABSORBED_TYPES.has(msg.messageType)
@@ -245,6 +265,22 @@ const filteredMessages = computed<ChatMessage[]>(() => {
 	}
 	return result;
 });
+
+function isPlainAnswer(message: ChatMessage) {
+	return message.role === 'assistant' && message.messageType === 'text';
+}
+
+function feedbackValue(
+	messageId?: number,
+): 'HELPFUL' | 'NOT_HELPFUL' | undefined {
+	if (!messageId) return undefined;
+	for (const message of [...store.currentMessages].reverse()) {
+		if (message.messageType !== 'feedback' || !message.metadata) continue;
+		const metadata = parseMessageFeedbackMetadata(message.metadata);
+		if (metadata?.targetMessageId === messageId) return metadata.value;
+	}
+	return undefined;
+}
 
 const SANITIZE_OPTIONS = {
 	ADD_TAGS: ['div'],
@@ -624,6 +660,7 @@ watch(
 	.user-card,
 	.ai-card,
 	.status-banner {
+		flex-wrap: wrap;
 		max-width: calc(100% - 38px);
 	}
 }

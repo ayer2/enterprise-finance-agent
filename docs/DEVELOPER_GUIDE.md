@@ -161,7 +161,25 @@ public class AgentVectorStoreService {
 | `spring.ai.alibaba.data-agent.enable-sql-result-chart` | 是否启用SQL执行结果图表判断 | true   |
 | `spring.ai.alibaba.data-agent.enrich-sql-result-timeout` | 执行SQL结果图表化超时时间，单位毫秒 | 3000   |
 
-### 2. 嵌入模型批处理策略 (Embedding Batch)
+### 2. SQL 安全配置
+
+配置前缀：`spring.ai.alibaba.data-agent.sql-security`
+
+| 配置项 | 说明 | 默认值 |
+|--------|------|--------|
+| `enabled` | 是否启用 SQL AST 安全校验、范围控制和结果脱敏 | true |
+| `max-rows` | JDBC 最大返回行数，不能替代业务 SQL 中的聚合与分页 | 500 |
+| `query-timeout-seconds` | JDBC 查询超时秒数 | 15 |
+| `allowed-columns.<table>` | 每张已绑定业务表可查询的字段白名单 | 见 `application.yml` |
+| `dangerous-functions` | 即使出现在 `SELECT` 中也必须拒绝的函数集合 | `sleep` 等 |
+| `sensitive-columns` | 返回结果中需要脱敏的字段名 | `email`、`phone` 等 |
+| `department-scoped-tables` | `DEPARTMENT` 角色必须注入部门条件的表 | 经营业务表 |
+
+SQL 安全校验只接受一条 `SELECT`，并拒绝 DML、DDL、存储过程、危险函数、`SELECT INTO`、锁定查询和未经确认的高成本/敏感查询。表权限取 Agent 当前绑定的数据表，字段权限取上述配置。`DEPARTMENT` 角色还必须提供非空部门 ID；该请求上下文是合成演示环境的权限模型，不等同于生产身份目录或完整 RBAC。
+
+数据库账号仍必须遵守最小权限原则。演示环境的 Agent 使用 `enterprise_agent_ro`，只授予 `enterprise_demo.*` 的 `SELECT`；应用层校验不能替代数据库只读授权。
+
+### 3. 嵌入模型批处理策略 (Embedding Batch)
 
 配置前缀: `spring.ai.alibaba.data-agent.embedding-batch`
 
@@ -172,7 +190,7 @@ public class AgentVectorStoreService {
 | `reserve-percentage` | 预留百分比 (用于缓冲空间) | 0.2 |
 | `max-text-count` | 每批次最大文本数量 (DashScope限制为10) | 10 |
 
-### 3. 向量库配置 (Vector Store)
+### 4. 向量库配置 (Vector Store)
 
 配置前缀: `spring.ai.alibaba.data-agent.vector-store`
 
@@ -352,7 +370,7 @@ export ELASTICSEARCH_URIS=http://127.0.0.1:9200
 }
 ```
 
-### 4. 文本切分配置 (Text Splitter)
+### 5. 文本切分配置 (Text Splitter)
 
 配置前缀: `spring.ai.alibaba.data-agent.text-splitter`
 
@@ -419,7 +437,7 @@ export ELASTICSEARCH_URIS=http://127.0.0.1:9200
 | `paragraph-overlap-chars` | 段落重叠字符数（保留前一个分块的最后 N 个字符，而非段落数量） | 200 |
 
 
-### 5. 代码执行器配置 (Code Executor)
+### 6. 代码执行器配置 (Code Executor)
 
 配置前缀: `spring.ai.alibaba.data-agent.code-executor`
 
@@ -463,7 +481,7 @@ export ELASTICSEARCH_URIS=http://127.0.0.1:9200
 [高级功能 - Python 执行环境配置](ADVANCED_FEATURES.md#-python-执行环境配置)；实现边界见
 [SAA 1.1.2.2 Python 沙盒接入方案](superpowers/specs/2026-07-28-saa-python-sandbox-integration-design.md)。
 
-### 6. 文件存储配置 (File Storage)
+### 7. 文件存储配置 (File Storage)
 
 配置前缀: `spring.ai.alibaba.data-agent.file`
 
@@ -475,7 +493,7 @@ export ELASTICSEARCH_URIS=http://127.0.0.1:9200
 | `image-size` | 图片大小上限 (字节) | 2097152 (2MB) |
 | `path-prefix` | 对象存储路径前缀 | "" |
 
-### 7. 阿里云 OSS 配置 (OSS Storage)
+### 8. 阿里云 OSS 配置 (OSS Storage)
 
 配置前缀: `spring.ai.alibaba.data-agent.file.oss`
 
@@ -488,7 +506,7 @@ export ELASTICSEARCH_URIS=http://127.0.0.1:9200
 | `custom-domain` | 自定义域名 | - |
 
 
-### 8. 数据库初始化配置 (Database Initialization)
+### 9. 数据库初始化配置 (Database Initialization)
 
 配置前缀: `spring.sql.init`
 
@@ -498,13 +516,13 @@ export ELASTICSEARCH_URIS=http://127.0.0.1:9200
 | `schema-locations` | 表结构脚本路径 | classpath:sql/schema.sql | |
 | `data-locations` | 数据脚本路径 | classpath:sql/data.sql | |
 
-### 9. 模型依赖手动管理 (Manual Model Dependency)
+### 10. 模型依赖手动管理 (Manual Model Dependency)
 
 如果您选择不使用 Spring AI Alibaba Starter 而是手动引入 OpenAI 或其他厂商的 Starter：
 - 请确保移除默认的 Starter 依赖，避免冲突。
 - 您可能需要手动配置 `ChatClient`, `ChatModel` 和 `EmbeddingModel` 的 Bean。
 
-### 10. 报告资源配置 (Report Resources)
+### 11. 报告资源配置 (Report Resources)
 
 配置前缀: `spring.ai.alibaba.data-agent.report-template`
 
@@ -513,7 +531,7 @@ export ELASTICSEARCH_URIS=http://127.0.0.1:9200
 | `marked-url` | Marked.js 路径 (Markdown渲染库) | https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/marked/12.0.0/marked.min.js |
 | `echarts-url` | ECharts 路径 (图表库) | https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/echarts/5.5.0/echarts.min.js |
 
-### 11. Langfuse 可观测性配置 (Langfuse Observability)
+### 12. Langfuse 可观测性配置 (Langfuse Observability)
 
 配置前缀: `spring.ai.alibaba.data-agent.langfuse`
 

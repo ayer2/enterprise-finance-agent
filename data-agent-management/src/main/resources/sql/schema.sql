@@ -245,6 +245,25 @@ create table if not exists agent_datasource_tables
     comment '某个智能体某个数据源所选中的数据表';
 
 
+CREATE TABLE IF NOT EXISTS sql_audit_log (
+  id BIGINT NOT NULL AUTO_INCREMENT,
+  agent_id BIGINT NOT NULL,
+  thread_id VARCHAR(100),
+  actor_id VARCHAR(100) NOT NULL,
+  data_role VARCHAR(50) NOT NULL,
+  question TEXT,
+  sql_text MEDIUMTEXT NOT NULL,
+  duration_ms BIGINT NOT NULL DEFAULT 0,
+  result_count INT,
+  status VARCHAR(30) NOT NULL,
+  failure_reason VARCHAR(1000),
+  created_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  INDEX idx_sql_audit_agent_time (agent_id, created_time),
+  INDEX idx_sql_audit_actor_time (actor_id, created_time),
+  INDEX idx_sql_audit_status (status)
+) ENGINE=InnoDB COMMENT='SQL security and execution audit log';
+
 -- 模型配置表
 CREATE TABLE IF NOT EXISTS `model_config` (
                                               `id` int(11) NOT NULL AUTO_INCREMENT,

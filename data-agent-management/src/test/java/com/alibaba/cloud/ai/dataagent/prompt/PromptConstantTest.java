@@ -22,6 +22,7 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -47,6 +48,15 @@ class PromptConstantTest {
 
 		assertThat(rendered).as(promptName).contains(values.values().toArray(String[]::new));
 		variables.forEach(variable -> assertThat(rendered).as(promptName).doesNotContain("{" + variable + "}"));
+	}
+
+	@Test
+	void reportGeneratorPrompt_requiresMetricDefinitionAndQueryEvidence() {
+		String rendered = PromptConstant.getReportGeneratorPlainPromptTemplate()
+			.render(Map.of("user_requirements_and_plan", "plan", "analysis_steps_and_data", "data",
+					"summary_and_recommendations", "summary", "optimization_section", "none", "json_example", "{}"));
+
+		assertThat(rendered).contains("## 数据口径与查询依据", "指标公式或聚合方式", "实际使用的表和关联字段");
 	}
 
 	private static Stream<Arguments> promptContracts() {

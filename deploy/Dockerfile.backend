@@ -1,0 +1,26 @@
+FROM maven:3.9.9-eclipse-temurin-17 AS build
+
+WORKDIR /workspace
+COPY pom.xml ./pom.xml
+COPY CI ./CI
+COPY data-agent-management/pom.xml ./data-agent-management/pom.xml
+COPY data-agent-management/src ./data-agent-management/src
+RUN --mount=type=cache,target=/root/.m2 \
+    mvn -B -pl data-agent-management -am package -Dmaven.test.skip=true \
+      -Dspotless.check.skip=true -Dspotless.apply.skip=true
+
+FROM eclipse-temurin:17-jre-jammy
+
+RUN apt-get update \
+    && apt-get install --yes --no-install-recommends curl \
+    && rm -rf /var/lib/apt/lists/* \
+    && useradd --create-home --uid 10001 dataagent \
+    && mkdir -p /app/uploads /app/vectorstore \
+    && chown -R dataagent:dataagent /app
+
+WORKDIR /app
+COPY --from=build --chown=dataagent:dataagent /workspace/data-agent-management/target/spring-ai-alibaba-data-agent-management-1.0.0-SNAPSHOT.jar /app/app.jar
+
+USER dataagent
+EXPOSE 8065
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]

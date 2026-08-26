@@ -1,0 +1,3017 @@
+{
+  "dataset": {
+    "name": "enterprise_demo",
+    "seed": 20260824,
+    "asOfDate": "2025-12-31",
+    "timezone": "Asia/Shanghai"
+  },
+  "provenance": {
+    "casesSha256": "aa936678181530fafbd29d4126a3054e1faa15fef0c6ad447d8153ebe03e5a57",
+    "generatorConfigSha256": "729f0eb1887af0c6b99d0d4263fe3793bd75258e126c6641e5318105249a6886"
+  },
+  "referenceResults": {
+    "M6-S01": {
+      "columns": [
+        "approved_order_count"
+      ],
+      "rows": [
+        {
+          "approved_order_count": "9488"
+        }
+      ],
+      "rowCount": 1
+    },
+    "M6-S02": {
+      "columns": [
+        "month",
+        "payment_amount"
+      ],
+      "rows": [
+        {
+          "month": "2025-01",
+          "payment_amount": "7501589.84"
+        },
+        {
+          "month": "2025-02",
+          "payment_amount": "6338675.57"
+        },
+        {
+          "month": "2025-03",
+          "payment_amount": "8147832.32"
+        },
+        {
+          "month": "2025-04",
+          "payment_amount": "7170366.97"
+        },
+        {
+          "month": "2025-05",
+          "payment_amount": "7129548.46"
+        },
+        {
+          "month": "2025-06",
+          "payment_amount": "7345353.57"
+        },
+        {
+          "month": "2025-07",
+          "payment_amount": "7560221.75"
+        },
+        {
+          "month": "2025-08",
+          "payment_amount": "7113136.24"
+        },
+        {
+          "month": "2025-09",
+          "payment_amount": "6564145.71"
+        },
+        {
+          "month": "2025-10",
+          "payment_amount": "8350082.51"
+        },
+        {
+          "month": "2025-11",
+          "payment_amount": "7083800.19"
+        },
+        {
+          "month": "2025-12",
+          "payment_amount": "2150978.85"
+        }
+      ],
+      "rowCount": 12
+    },
+    "M6-S03": {
+      "columns": [
+        "region",
+        "customer_count"
+      ],
+      "rows": [
+        {
+          "region": "EAST",
+          "customer_count": "125"
+        },
+        {
+          "region": "NORTH",
+          "customer_count": "125"
+        },
+        {
+          "region": "SOUTH",
+          "customer_count": "125"
+        },
+        {
+          "region": "WEST",
+          "customer_count": "125"
+        }
+      ],
+      "rowCount": 4
+    },
+    "M6-S04": {
+      "columns": [
+        "category",
+        "budget_amount"
+      ],
+      "rows": [
+        {
+          "category": "MARKETING",
+          "budget_amount": "1244000.00"
+        },
+        {
+          "category": "OPERATIONS",
+          "budget_amount": "1404000.00"
+        },
+        {
+          "category": "SALES",
+          "budget_amount": "1164000.00"
+        },
+        {
+          "category": "TRAVEL",
+          "budget_amount": "1324000.00"
+        }
+      ],
+      "rowCount": 4
+    },
+    "M6-S05": {
+      "columns": [
+        "category",
+        "expense_amount"
+      ],
+      "rows": [
+        {
+          "category": "MARKETING",
+          "expense_amount": "1058503.80"
+        },
+        {
+          "category": "OPERATIONS",
+          "expense_amount": "1168700.90"
+        },
+        {
+          "category": "SALES",
+          "expense_amount": "939143.59"
+        },
+        {
+          "category": "TRAVEL",
+          "expense_amount": "1095621.56"
+        }
+      ],
+      "rowCount": 4
+    },
+    "M6-S06": {
+      "columns": [
+        "overdue_receivable_balance"
+      ],
+      "rows": [
+        {
+          "overdue_receivable_balance": "2941084.66"
+        }
+      ],
+      "rowCount": 1
+    },
+    "M6-S07": {
+      "columns": [
+        "status",
+        "contract_count",
+        "contract_amount"
+      ],
+      "rows": [
+        {
+          "status": "ACTIVE",
+          "contract_count": "800",
+          "contract_amount": "1226298531.00"
+        }
+      ],
+      "rowCount": 1
+    },
+    "M6-S08": {
+      "columns": [
+        "code",
+        "name",
+        "unit"
+      ],
+      "rows": [
+        {
+          "code": "AVG_ORDER_VALUE",
+          "name": "客单价",
+          "unit": "CNY"
+        },
+        {
+          "code": "BUDGET_EXECUTION",
+          "name": "预算执行率",
+          "unit": "PERCENT"
+        },
+        {
+          "code": "COLLECTION_RATE",
+          "name": "回款率",
+          "unit": "PERCENT"
+        },
+        {
+          "code": "CONTRACT_AMOUNT",
+          "name": "合同金额",
+          "unit": "CNY"
+        },
+        {
+          "code": "CUSTOMER_COUNT",
+          "name": "成交客户数",
+          "unit": "COUNT"
+        },
+        {
+          "code": "ORDER_COUNT",
+          "name": "订单数",
+          "unit": "COUNT"
+        },
+        {
+          "code": "OVERDUE_RATE",
+          "name": "逾期率",
+          "unit": "PERCENT"
+        },
+        {
+          "code": "PROFIT_MARGIN",
+          "name": "利润率",
+          "unit": "PERCENT"
+        },
+        {
+          "code": "RECEIVABLE_BALANCE",
+          "name": "应收余额",
+          "unit": "CNY"
+        },
+        {
+          "code": "SALES_REVENUE",
+          "name": "销售额",
+          "unit": "CNY"
+        }
+      ],
+      "rowCount": 10
+    },
+    "M6-J01": {
+      "columns": [
+        "department_name",
+        "sales_amount"
+      ],
+      "rows": [
+        {
+          "department_name": "西部二部",
+          "sales_amount": "12330612.50"
+        },
+        {
+          "department_name": "华东一部",
+          "sales_amount": "12074184.28"
+        },
+        {
+          "department_name": "华北二部",
+          "sales_amount": "12071067.90"
+        },
+        {
+          "department_name": "西部一部",
+          "sales_amount": "11907986.25"
+        },
+        {
+          "department_name": "华南一部",
+          "sales_amount": "11899918.53"
+        },
+        {
+          "department_name": "华南二部",
+          "sales_amount": "11665798.14"
+        },
+        {
+          "department_name": "华北一部",
+          "sales_amount": "11619830.06"
+        },
+        {
+          "department_name": "华东二部",
+          "sales_amount": "11596510.68"
+        }
+      ],
+      "rowCount": 8
+    },
+    "M6-J02": {
+      "columns": [
+        "customer_name",
+        "sales_amount"
+      ],
+      "rows": [
+        {
+          "customer_name": "演示客户0077",
+          "sales_amount": "320720.10"
+        },
+        {
+          "customer_name": "演示客户0249",
+          "sales_amount": "309335.81"
+        },
+        {
+          "customer_name": "演示客户0266",
+          "sales_amount": "308505.58"
+        },
+        {
+          "customer_name": "演示客户0174",
+          "sales_amount": "307393.70"
+        },
+        {
+          "customer_name": "演示客户0202",
+          "sales_amount": "306697.81"
+        },
+        {
+          "customer_name": "演示客户0239",
+          "sales_amount": "303824.93"
+        },
+        {
+          "customer_name": "演示客户0257",
+          "sales_amount": "301575.08"
+        },
+        {
+          "customer_name": "演示客户0068",
+          "sales_amount": "291788.20"
+        },
+        {
+          "customer_name": "演示客户0243",
+          "sales_amount": "290641.56"
+        },
+        {
+          "customer_name": "演示客户0106",
+          "sales_amount": "289797.35"
+        }
+      ],
+      "rowCount": 10
+    },
+    "M6-J03": {
+      "columns": [
+        "department_name",
+        "collection_rate"
+      ],
+      "rows": [
+        {
+          "department_name": "华东一部",
+          "collection_rate": "0.894236"
+        },
+        {
+          "department_name": "华东二部",
+          "collection_rate": "0.888077"
+        },
+        {
+          "department_name": "华北二部",
+          "collection_rate": "0.883163"
+        },
+        {
+          "department_name": "华北一部",
+          "collection_rate": "0.882243"
+        },
+        {
+          "department_name": "华南二部",
+          "collection_rate": "0.882155"
+        },
+        {
+          "department_name": "华南一部",
+          "collection_rate": "0.878814"
+        },
+        {
+          "department_name": "西部二部",
+          "collection_rate": "0.875507"
+        },
+        {
+          "department_name": "西部一部",
+          "collection_rate": "0.869706"
+        }
+      ],
+      "rowCount": 8
+    },
+    "M6-J04": {
+      "columns": [
+        "department_name",
+        "category",
+        "budget_amount",
+        "expense_amount",
+        "budget_execution_rate"
+      ],
+      "rows": [
+        {
+          "department_name": "华南一部",
+          "category": "MARKETING",
+          "budget_amount": "148000.00",
+          "expense_amount": "185000.00",
+          "budget_execution_rate": "1.250000"
+        }
+      ],
+      "rowCount": 1
+    },
+    "M6-J05": {
+      "columns": [
+        "department_name",
+        "overdue_receivable_balance"
+      ],
+      "rows": [
+        {
+          "department_name": "华东一部",
+          "overdue_receivable_balance": "405285.96"
+        },
+        {
+          "department_name": "西部一部",
+          "overdue_receivable_balance": "400819.80"
+        },
+        {
+          "department_name": "西部二部",
+          "overdue_receivable_balance": "391238.70"
+        },
+        {
+          "department_name": "华北一部",
+          "overdue_receivable_balance": "372108.71"
+        },
+        {
+          "department_name": "华南二部",
+          "overdue_receivable_balance": "365738.46"
+        },
+        {
+          "department_name": "华北二部",
+          "overdue_receivable_balance": "365556.97"
+        },
+        {
+          "department_name": "华南一部",
+          "overdue_receivable_balance": "361825.75"
+        },
+        {
+          "department_name": "华东二部",
+          "overdue_receivable_balance": "278510.31"
+        }
+      ],
+      "rowCount": 8
+    },
+    "M6-J06": {
+      "columns": [
+        "receivable_id",
+        "customer_name",
+        "department_name",
+        "due_date",
+        "overdue_days",
+        "outstanding_amount"
+      ],
+      "rows": [
+        {
+          "receivable_id": "240",
+          "customer_name": "演示客户0205",
+          "department_name": "华南一部",
+          "due_date": "2024-02-01",
+          "overdue_days": "699",
+          "outstanding_amount": "9480.90"
+        },
+        {
+          "receivable_id": "400",
+          "customer_name": "演示客户0113",
+          "department_name": "华北一部",
+          "due_date": "2024-02-08",
+          "overdue_days": "692",
+          "outstanding_amount": "3482.81"
+        },
+        {
+          "receivable_id": "359",
+          "customer_name": "演示客户0437",
+          "department_name": "华南二部",
+          "due_date": "2024-02-09",
+          "overdue_days": "691",
+          "outstanding_amount": "4940.14"
+        },
+        {
+          "receivable_id": "145",
+          "customer_name": "演示客户0431",
+          "department_name": "华东二部",
+          "due_date": "2024-02-21",
+          "overdue_days": "679",
+          "outstanding_amount": "9114.54"
+        },
+        {
+          "receivable_id": "236",
+          "customer_name": "演示客户0020",
+          "department_name": "华南一部",
+          "due_date": "2024-02-22",
+          "overdue_days": "678",
+          "outstanding_amount": "11539.56"
+        },
+        {
+          "receivable_id": "1184",
+          "customer_name": "演示客户0003",
+          "department_name": "华北一部",
+          "due_date": "2024-03-03",
+          "overdue_days": "668",
+          "outstanding_amount": "5383.03"
+        },
+        {
+          "receivable_id": "1105",
+          "customer_name": "演示客户0284",
+          "department_name": "华南二部",
+          "due_date": "2024-03-04",
+          "overdue_days": "667",
+          "outstanding_amount": "16126.89"
+        },
+        {
+          "receivable_id": "844",
+          "customer_name": "演示客户0028",
+          "department_name": "华东一部",
+          "due_date": "2024-03-17",
+          "overdue_days": "654",
+          "outstanding_amount": "7246.39"
+        },
+        {
+          "receivable_id": "1182",
+          "customer_name": "演示客户0229",
+          "department_name": "华北一部",
+          "due_date": "2024-03-24",
+          "overdue_days": "647",
+          "outstanding_amount": "11968.60"
+        },
+        {
+          "receivable_id": "1040",
+          "customer_name": "演示客户0057",
+          "department_name": "华南二部",
+          "due_date": "2024-03-25",
+          "overdue_days": "646",
+          "outstanding_amount": "4182.49"
+        },
+        {
+          "receivable_id": "763",
+          "customer_name": "演示客户0287",
+          "department_name": "华东一部",
+          "due_date": "2024-03-29",
+          "overdue_days": "642",
+          "outstanding_amount": "2144.63"
+        },
+        {
+          "receivable_id": "2097",
+          "customer_name": "演示客户0069",
+          "department_name": "西部一部",
+          "due_date": "2024-03-31",
+          "overdue_days": "640",
+          "outstanding_amount": "4330.61"
+        },
+        {
+          "receivable_id": "1880",
+          "customer_name": "演示客户0215",
+          "department_name": "华南二部",
+          "due_date": "2024-04-02",
+          "overdue_days": "638",
+          "outstanding_amount": "2198.01"
+        },
+        {
+          "receivable_id": "1619",
+          "customer_name": "演示客户0237",
+          "department_name": "华东二部",
+          "due_date": "2024-04-06",
+          "overdue_days": "634",
+          "outstanding_amount": "13921.34"
+        },
+        {
+          "receivable_id": "1793",
+          "customer_name": "演示客户0363",
+          "department_name": "华南二部",
+          "due_date": "2024-04-06",
+          "overdue_days": "634",
+          "outstanding_amount": "1608.95"
+        },
+        {
+          "receivable_id": "1742",
+          "customer_name": "演示客户0043",
+          "department_name": "华南一部",
+          "due_date": "2024-04-16",
+          "overdue_days": "624",
+          "outstanding_amount": "1208.39"
+        },
+        {
+          "receivable_id": "1986",
+          "customer_name": "演示客户0318",
+          "department_name": "华北二部",
+          "due_date": "2024-04-22",
+          "overdue_days": "618",
+          "outstanding_amount": "1532.17"
+        },
+        {
+          "receivable_id": "2178",
+          "customer_name": "演示客户0236",
+          "department_name": "西部二部",
+          "due_date": "2024-04-27",
+          "overdue_days": "613",
+          "outstanding_amount": "4606.65"
+        },
+        {
+          "receivable_id": "2761",
+          "customer_name": "演示客户0286",
+          "department_name": "华北二部",
+          "due_date": "2024-05-02",
+          "overdue_days": "608",
+          "outstanding_amount": "14718.54"
+        },
+        {
+          "receivable_id": "2878",
+          "customer_name": "演示客户0333",
+          "department_name": "西部一部",
+          "due_date": "2024-05-07",
+          "overdue_days": "603",
+          "outstanding_amount": "951.58"
+        },
+        {
+          "receivable_id": "3002",
+          "customer_name": "演示客户0417",
+          "department_name": "西部二部",
+          "due_date": "2024-05-08",
+          "overdue_days": "602",
+          "outstanding_amount": "3682.82"
+        },
+        {
+          "receivable_id": "2491",
+          "customer_name": "演示客户0127",
+          "department_name": "华南一部",
+          "due_date": "2024-05-21",
+          "overdue_days": "589",
+          "outstanding_amount": "8396.19"
+        },
+        {
+          "receivable_id": "2628",
+          "customer_name": "演示客户0151",
+          "department_name": "华南二部",
+          "due_date": "2024-05-24",
+          "overdue_days": "586",
+          "outstanding_amount": "12187.22"
+        },
+        {
+          "receivable_id": "2765",
+          "customer_name": "演示客户0434",
+          "department_name": "华北二部",
+          "due_date": "2024-05-26",
+          "overdue_days": "584",
+          "outstanding_amount": "10334.98"
+        },
+        {
+          "receivable_id": "3437",
+          "customer_name": "演示客户0466",
+          "department_name": "华北一部",
+          "due_date": "2024-05-31",
+          "overdue_days": "579",
+          "outstanding_amount": "1400.15"
+        },
+        {
+          "receivable_id": "3588",
+          "customer_name": "演示客户0430",
+          "department_name": "西部一部",
+          "due_date": "2024-06-01",
+          "overdue_days": "578",
+          "outstanding_amount": "9745.43"
+        },
+        {
+          "receivable_id": "3057",
+          "customer_name": "演示客户0200",
+          "department_name": "华东一部",
+          "due_date": "2024-06-12",
+          "overdue_days": "567",
+          "outstanding_amount": "6509.78"
+        },
+        {
+          "receivable_id": "3469",
+          "customer_name": "演示客户0198",
+          "department_name": "华北一部",
+          "due_date": "2024-06-12",
+          "overdue_days": "567",
+          "outstanding_amount": "5437.83"
+        },
+        {
+          "receivable_id": "3705",
+          "customer_name": "演示客户0292",
+          "department_name": "西部二部",
+          "due_date": "2024-06-13",
+          "overdue_days": "566",
+          "outstanding_amount": "9620.71"
+        },
+        {
+          "receivable_id": "3262",
+          "customer_name": "演示客户0136",
+          "department_name": "华南一部",
+          "due_date": "2024-06-14",
+          "overdue_days": "565",
+          "outstanding_amount": "1737.60"
+        },
+        {
+          "receivable_id": "3195",
+          "customer_name": "演示客户0298",
+          "department_name": "华东二部",
+          "due_date": "2024-06-15",
+          "overdue_days": "564",
+          "outstanding_amount": "10014.95"
+        },
+        {
+          "receivable_id": "3364",
+          "customer_name": "演示客户0169",
+          "department_name": "华南二部",
+          "due_date": "2024-06-16",
+          "overdue_days": "563",
+          "outstanding_amount": "5239.66"
+        },
+        {
+          "receivable_id": "3058",
+          "customer_name": "演示客户0237",
+          "department_name": "华东一部",
+          "due_date": "2024-06-17",
+          "overdue_days": "562",
+          "outstanding_amount": "3307.79"
+        },
+        {
+          "receivable_id": "3409",
+          "customer_name": "演示客户0008",
+          "department_name": "华北一部",
+          "due_date": "2024-06-21",
+          "overdue_days": "558",
+          "outstanding_amount": "7237.13"
+        },
+        {
+          "receivable_id": "3648",
+          "customer_name": "演示客户0398",
+          "department_name": "西部一部",
+          "due_date": "2024-06-24",
+          "overdue_days": "555",
+          "outstanding_amount": "7783.60"
+        },
+        {
+          "receivable_id": "3547",
+          "customer_name": "演示客户0254",
+          "department_name": "华北二部",
+          "due_date": "2024-06-27",
+          "overdue_days": "552",
+          "outstanding_amount": "17787.87"
+        },
+        {
+          "receivable_id": "3975",
+          "customer_name": "演示客户0303",
+          "department_name": "华南一部",
+          "due_date": "2024-07-03",
+          "overdue_days": "546",
+          "outstanding_amount": "5789.38"
+        },
+        {
+          "receivable_id": "4225",
+          "customer_name": "演示客户0226",
+          "department_name": "华北一部",
+          "due_date": "2024-07-08",
+          "overdue_days": "541",
+          "outstanding_amount": "14625.05"
+        },
+        {
+          "receivable_id": "3959",
+          "customer_name": "演示客户0437",
+          "department_name": "华南一部",
+          "due_date": "2024-07-08",
+          "overdue_days": "541",
+          "outstanding_amount": "10897.22"
+        },
+        {
+          "receivable_id": "4444",
+          "customer_name": "演示客户0232",
+          "department_name": "西部二部",
+          "due_date": "2024-07-11",
+          "overdue_days": "538",
+          "outstanding_amount": "10116.83"
+        },
+        {
+          "receivable_id": "3797",
+          "customer_name": "演示客户0292",
+          "department_name": "华东一部",
+          "due_date": "2024-07-11",
+          "overdue_days": "538",
+          "outstanding_amount": "5937.85"
+        },
+        {
+          "receivable_id": "4308",
+          "customer_name": "演示客户0319",
+          "department_name": "华北二部",
+          "due_date": "2024-07-16",
+          "overdue_days": "533",
+          "outstanding_amount": "3857.48"
+        },
+        {
+          "receivable_id": "4154",
+          "customer_name": "演示客户0225",
+          "department_name": "华北一部",
+          "due_date": "2024-07-16",
+          "overdue_days": "533",
+          "outstanding_amount": "2627.60"
+        },
+        {
+          "receivable_id": "4010",
+          "customer_name": "演示客户0257",
+          "department_name": "华南一部",
+          "due_date": "2024-07-23",
+          "overdue_days": "526",
+          "outstanding_amount": "1037.13"
+        },
+        {
+          "receivable_id": "5226",
+          "customer_name": "演示客户0445",
+          "department_name": "西部二部",
+          "due_date": "2024-08-16",
+          "overdue_days": "502",
+          "outstanding_amount": "7964.26"
+        },
+        {
+          "receivable_id": "4969",
+          "customer_name": "演示客户0096",
+          "department_name": "华北一部",
+          "due_date": "2024-08-18",
+          "overdue_days": "500",
+          "outstanding_amount": "10709.86"
+        },
+        {
+          "receivable_id": "4995",
+          "customer_name": "演示客户0143",
+          "department_name": "华北一部",
+          "due_date": "2024-08-26",
+          "overdue_days": "492",
+          "outstanding_amount": "12068.16"
+        },
+        {
+          "receivable_id": "5632",
+          "customer_name": "演示客户0239",
+          "department_name": "华南二部",
+          "due_date": "2024-09-01",
+          "overdue_days": "486",
+          "outstanding_amount": "9038.25"
+        },
+        {
+          "receivable_id": "5955",
+          "customer_name": "演示客户0029",
+          "department_name": "西部二部",
+          "due_date": "2024-09-08",
+          "overdue_days": "479",
+          "outstanding_amount": "11199.31"
+        },
+        {
+          "receivable_id": "5360",
+          "customer_name": "演示客户0006",
+          "department_name": "华东一部",
+          "due_date": "2024-09-12",
+          "overdue_days": "475",
+          "outstanding_amount": "8782.76"
+        },
+        {
+          "receivable_id": "5422",
+          "customer_name": "演示客户0122",
+          "department_name": "华东二部",
+          "due_date": "2024-09-15",
+          "overdue_days": "472",
+          "outstanding_amount": "1291.65"
+        },
+        {
+          "receivable_id": "5766",
+          "customer_name": "演示客户0226",
+          "department_name": "华北二部",
+          "due_date": "2024-09-18",
+          "overdue_days": "469",
+          "outstanding_amount": "1319.68"
+        },
+        {
+          "receivable_id": "6620",
+          "customer_name": "演示客户0102",
+          "department_name": "西部一部",
+          "due_date": "2024-10-07",
+          "overdue_days": "450",
+          "outstanding_amount": "8680.21"
+        },
+        {
+          "receivable_id": "6703",
+          "customer_name": "演示客户0158",
+          "department_name": "西部二部",
+          "due_date": "2024-10-11",
+          "overdue_days": "446",
+          "outstanding_amount": "2041.50"
+        },
+        {
+          "receivable_id": "6676",
+          "customer_name": "演示客户0348",
+          "department_name": "西部一部",
+          "due_date": "2024-10-15",
+          "overdue_days": "442",
+          "outstanding_amount": "7836.59"
+        },
+        {
+          "receivable_id": "7250",
+          "customer_name": "演示客户0009",
+          "department_name": "华北二部",
+          "due_date": "2024-11-07",
+          "overdue_days": "419",
+          "outstanding_amount": "5197.67"
+        },
+        {
+          "receivable_id": "7400",
+          "customer_name": "演示客户0325",
+          "department_name": "西部一部",
+          "due_date": "2024-11-18",
+          "overdue_days": "408",
+          "outstanding_amount": "4036.69"
+        },
+        {
+          "receivable_id": "8276",
+          "customer_name": "演示客户0349",
+          "department_name": "西部二部",
+          "due_date": "2024-12-03",
+          "overdue_days": "393",
+          "outstanding_amount": "7114.17"
+        },
+        {
+          "receivable_id": "8127",
+          "customer_name": "演示客户0066",
+          "department_name": "西部一部",
+          "due_date": "2024-12-05",
+          "overdue_days": "391",
+          "outstanding_amount": "2167.07"
+        },
+        {
+          "receivable_id": "7885",
+          "customer_name": "演示客户0083",
+          "department_name": "华南二部",
+          "due_date": "2024-12-12",
+          "overdue_days": "384",
+          "outstanding_amount": "12146.36"
+        },
+        {
+          "receivable_id": "7552",
+          "customer_name": "演示客户0104",
+          "department_name": "华东一部",
+          "due_date": "2024-12-19",
+          "overdue_days": "377",
+          "outstanding_amount": "7578.00"
+        },
+        {
+          "receivable_id": "8124",
+          "customer_name": "演示客户0255",
+          "department_name": "西部一部",
+          "due_date": "2024-12-21",
+          "overdue_days": "375",
+          "outstanding_amount": "12004.25"
+        },
+        {
+          "receivable_id": "8028",
+          "customer_name": "演示客户0107",
+          "department_name": "华北二部",
+          "due_date": "2024-12-26",
+          "overdue_days": "370",
+          "outstanding_amount": "11094.76"
+        },
+        {
+          "receivable_id": "8822",
+          "customer_name": "演示客户0445",
+          "department_name": "华北二部",
+          "due_date": "2025-01-02",
+          "overdue_days": "363",
+          "outstanding_amount": "6472.07"
+        },
+        {
+          "receivable_id": "8486",
+          "customer_name": "演示客户0285",
+          "department_name": "华南一部",
+          "due_date": "2025-01-02",
+          "overdue_days": "363",
+          "outstanding_amount": "3017.20"
+        },
+        {
+          "receivable_id": "8982",
+          "customer_name": "演示客户0090",
+          "department_name": "西部二部",
+          "due_date": "2025-01-17",
+          "overdue_days": "348",
+          "outstanding_amount": "12525.32"
+        },
+        {
+          "receivable_id": "8786",
+          "customer_name": "演示客户0102",
+          "department_name": "华北二部",
+          "due_date": "2025-01-20",
+          "overdue_days": "345",
+          "outstanding_amount": "7221.99"
+        },
+        {
+          "receivable_id": "9620",
+          "customer_name": "演示客户0186",
+          "department_name": "西部一部",
+          "due_date": "2025-02-13",
+          "overdue_days": "321",
+          "outstanding_amount": "8902.58"
+        },
+        {
+          "receivable_id": "10345",
+          "customer_name": "演示客户0071",
+          "department_name": "西部一部",
+          "due_date": "2025-03-09",
+          "overdue_days": "297",
+          "outstanding_amount": "16001.04"
+        },
+        {
+          "receivable_id": "10180",
+          "customer_name": "演示客户0037",
+          "department_name": "华北一部",
+          "due_date": "2025-03-09",
+          "overdue_days": "297",
+          "outstanding_amount": "5110.33"
+        },
+        {
+          "receivable_id": "9978",
+          "customer_name": "演示客户0253",
+          "department_name": "华南一部",
+          "due_date": "2025-03-10",
+          "overdue_days": "296",
+          "outstanding_amount": "11345.66"
+        },
+        {
+          "receivable_id": "9871",
+          "customer_name": "演示客户0498",
+          "department_name": "华东二部",
+          "due_date": "2025-03-12",
+          "overdue_days": "294",
+          "outstanding_amount": "13004.87"
+        },
+        {
+          "receivable_id": "10302",
+          "customer_name": "演示客户0043",
+          "department_name": "华北二部",
+          "due_date": "2025-03-12",
+          "overdue_days": "294",
+          "outstanding_amount": "8021.54"
+        },
+        {
+          "receivable_id": "10031",
+          "customer_name": "演示客户0295",
+          "department_name": "华南一部",
+          "due_date": "2025-03-20",
+          "overdue_days": "286",
+          "outstanding_amount": "10923.23"
+        },
+        {
+          "receivable_id": "9927",
+          "customer_name": "演示客户0318",
+          "department_name": "华东二部",
+          "due_date": "2025-03-25",
+          "overdue_days": "281",
+          "outstanding_amount": "15208.46"
+        },
+        {
+          "receivable_id": "10075",
+          "customer_name": "演示客户0245",
+          "department_name": "华南二部",
+          "due_date": "2025-03-27",
+          "overdue_days": "279",
+          "outstanding_amount": "11107.76"
+        },
+        {
+          "receivable_id": "10168",
+          "customer_name": "演示客户0245",
+          "department_name": "华北一部",
+          "due_date": "2025-03-28",
+          "overdue_days": "278",
+          "outstanding_amount": "5959.22"
+        },
+        {
+          "receivable_id": "10463",
+          "customer_name": "演示客户0155",
+          "department_name": "西部二部",
+          "due_date": "2025-03-30",
+          "overdue_days": "276",
+          "outstanding_amount": "11820.73"
+        },
+        {
+          "receivable_id": "10862",
+          "customer_name": "演示客户0231",
+          "department_name": "华南二部",
+          "due_date": "2025-04-10",
+          "overdue_days": "265",
+          "outstanding_amount": "10917.72"
+        },
+        {
+          "receivable_id": "10826",
+          "customer_name": "演示客户0088",
+          "department_name": "华南二部",
+          "due_date": "2025-04-10",
+          "overdue_days": "265",
+          "outstanding_amount": "9759.08"
+        },
+        {
+          "receivable_id": "10730",
+          "customer_name": "演示客户0166",
+          "department_name": "华南一部",
+          "due_date": "2025-04-13",
+          "overdue_days": "262",
+          "outstanding_amount": "4005.22"
+        },
+        {
+          "receivable_id": "10520",
+          "customer_name": "演示客户0382",
+          "department_name": "华东一部",
+          "due_date": "2025-04-16",
+          "overdue_days": "259",
+          "outstanding_amount": "6004.25"
+        },
+        {
+          "receivable_id": "11374",
+          "customer_name": "演示客户0429",
+          "department_name": "华东二部",
+          "due_date": "2025-05-04",
+          "overdue_days": "241",
+          "outstanding_amount": "9089.05"
+        },
+        {
+          "receivable_id": "11276",
+          "customer_name": "演示客户0081",
+          "department_name": "华东一部",
+          "due_date": "2025-05-10",
+          "overdue_days": "235",
+          "outstanding_amount": "2378.77"
+        },
+        {
+          "receivable_id": "11431",
+          "customer_name": "演示客户0175",
+          "department_name": "华东二部",
+          "due_date": "2025-05-14",
+          "overdue_days": "231",
+          "outstanding_amount": "5062.23"
+        },
+        {
+          "receivable_id": "11662",
+          "customer_name": "演示客户0084",
+          "department_name": "华北一部",
+          "due_date": "2025-05-21",
+          "overdue_days": "224",
+          "outstanding_amount": "9668.95"
+        },
+        {
+          "receivable_id": "12659",
+          "customer_name": "演示客户0377",
+          "department_name": "西部一部",
+          "due_date": "2025-06-05",
+          "overdue_days": "209",
+          "outstanding_amount": "12040.43"
+        },
+        {
+          "receivable_id": "12693",
+          "customer_name": "演示客户0072",
+          "department_name": "西部一部",
+          "due_date": "2025-06-06",
+          "overdue_days": "208",
+          "outstanding_amount": "15678.64"
+        },
+        {
+          "receivable_id": "12519",
+          "customer_name": "演示客户0390",
+          "department_name": "华北二部",
+          "due_date": "2025-06-08",
+          "overdue_days": "206",
+          "outstanding_amount": "4339.75"
+        },
+        {
+          "receivable_id": "12099",
+          "customer_name": "演示客户0318",
+          "department_name": "华东一部",
+          "due_date": "2025-06-09",
+          "overdue_days": "205",
+          "outstanding_amount": "11939.68"
+        },
+        {
+          "receivable_id": "12251",
+          "customer_name": "演示客户0023",
+          "department_name": "华南一部",
+          "due_date": "2025-06-12",
+          "overdue_days": "202",
+          "outstanding_amount": "3962.01"
+        },
+        {
+          "receivable_id": "12778",
+          "customer_name": "演示客户0165",
+          "department_name": "西部二部",
+          "due_date": "2025-06-15",
+          "overdue_days": "199",
+          "outstanding_amount": "11578.85"
+        },
+        {
+          "receivable_id": "12358",
+          "customer_name": "演示客户0315",
+          "department_name": "华南二部",
+          "due_date": "2025-06-20",
+          "overdue_days": "194",
+          "outstanding_amount": "4049.88"
+        },
+        {
+          "receivable_id": "12235",
+          "customer_name": "演示客户0157",
+          "department_name": "华南一部",
+          "due_date": "2025-06-21",
+          "overdue_days": "193",
+          "outstanding_amount": "7982.70"
+        },
+        {
+          "receivable_id": "12609",
+          "customer_name": "演示客户0205",
+          "department_name": "华北二部",
+          "due_date": "2025-06-22",
+          "overdue_days": "192",
+          "outstanding_amount": "8858.21"
+        },
+        {
+          "receivable_id": "12045",
+          "customer_name": "演示客户0461",
+          "department_name": "华东一部",
+          "due_date": "2025-06-24",
+          "overdue_days": "190",
+          "outstanding_amount": "7645.42"
+        },
+        {
+          "receivable_id": "13464",
+          "customer_name": "演示客户0248",
+          "department_name": "西部一部",
+          "due_date": "2025-07-04",
+          "overdue_days": "180",
+          "outstanding_amount": "6438.89"
+        },
+        {
+          "receivable_id": "13008",
+          "customer_name": "演示客户0263",
+          "department_name": "华南一部",
+          "due_date": "2025-07-06",
+          "overdue_days": "178",
+          "outstanding_amount": "5699.89"
+        },
+        {
+          "receivable_id": "13523",
+          "customer_name": "演示客户0290",
+          "department_name": "西部二部",
+          "due_date": "2025-07-11",
+          "overdue_days": "173",
+          "outstanding_amount": "10612.76"
+        },
+        {
+          "receivable_id": "13521",
+          "customer_name": "演示客户0216",
+          "department_name": "西部二部",
+          "due_date": "2025-07-22",
+          "overdue_days": "162",
+          "outstanding_amount": "15154.82"
+        },
+        {
+          "receivable_id": "13586",
+          "customer_name": "演示客户0017",
+          "department_name": "华东一部",
+          "due_date": "2025-08-16",
+          "overdue_days": "137",
+          "outstanding_amount": "3210.44"
+        },
+        {
+          "receivable_id": "13625",
+          "customer_name": "演示客户0008",
+          "department_name": "华东一部",
+          "due_date": "2025-08-18",
+          "overdue_days": "135",
+          "outstanding_amount": "14939.72"
+        },
+        {
+          "receivable_id": "13840",
+          "customer_name": "演示客户0010",
+          "department_name": "华南二部",
+          "due_date": "2025-08-23",
+          "overdue_days": "130",
+          "outstanding_amount": "5292.13"
+        },
+        {
+          "receivable_id": "13957",
+          "customer_name": "演示客户0172",
+          "department_name": "华北一部",
+          "due_date": "2025-08-23",
+          "overdue_days": "130",
+          "outstanding_amount": "1903.60"
+        },
+        {
+          "receivable_id": "14837",
+          "customer_name": "演示客户0099",
+          "department_name": "华北二部",
+          "due_date": "2025-09-07",
+          "overdue_days": "115",
+          "outstanding_amount": "4529.48"
+        },
+        {
+          "receivable_id": "14628",
+          "customer_name": "演示客户0167",
+          "department_name": "华南二部",
+          "due_date": "2025-09-17",
+          "overdue_days": "105",
+          "outstanding_amount": "7206.31"
+        },
+        {
+          "receivable_id": "14797",
+          "customer_name": "演示客户0497",
+          "department_name": "华北二部",
+          "due_date": "2025-09-20",
+          "overdue_days": "102",
+          "outstanding_amount": "9768.06"
+        },
+        {
+          "receivable_id": "14527",
+          "customer_name": "演示客户0023",
+          "department_name": "华南一部",
+          "due_date": "2025-09-24",
+          "overdue_days": "98",
+          "outstanding_amount": "15287.83"
+        },
+        {
+          "receivable_id": "14959",
+          "customer_name": "演示客户0068",
+          "department_name": "西部一部",
+          "due_date": "2025-09-27",
+          "overdue_days": "95",
+          "outstanding_amount": "7937.42"
+        },
+        {
+          "receivable_id": "15728",
+          "customer_name": "演示客户0073",
+          "department_name": "西部二部",
+          "due_date": "2025-10-02",
+          "overdue_days": "90",
+          "outstanding_amount": "7105.24"
+        },
+        {
+          "receivable_id": "15469",
+          "customer_name": "演示客户0228",
+          "department_name": "华北一部",
+          "due_date": "2025-10-04",
+          "overdue_days": "88",
+          "outstanding_amount": "8483.10"
+        },
+        {
+          "receivable_id": "15075",
+          "customer_name": "演示客户0263",
+          "department_name": "华东一部",
+          "due_date": "2025-10-05",
+          "overdue_days": "87",
+          "outstanding_amount": "2278.30"
+        },
+        {
+          "receivable_id": "15305",
+          "customer_name": "演示客户0172",
+          "department_name": "华南一部",
+          "due_date": "2025-10-08",
+          "overdue_days": "84",
+          "outstanding_amount": "6158.33"
+        },
+        {
+          "receivable_id": "15623",
+          "customer_name": "演示客户0003",
+          "department_name": "西部一部",
+          "due_date": "2025-10-17",
+          "overdue_days": "75",
+          "outstanding_amount": "13775.02"
+        },
+        {
+          "receivable_id": "15421",
+          "customer_name": "演示客户0330",
+          "department_name": "华北一部",
+          "due_date": "2025-10-20",
+          "overdue_days": "72",
+          "outstanding_amount": "13826.99"
+        },
+        {
+          "receivable_id": "15680",
+          "customer_name": "演示客户0123",
+          "department_name": "西部一部",
+          "due_date": "2025-10-21",
+          "overdue_days": "71",
+          "outstanding_amount": "9717.46"
+        },
+        {
+          "receivable_id": "15335",
+          "customer_name": "演示客户0204",
+          "department_name": "华南二部",
+          "due_date": "2025-10-22",
+          "overdue_days": "70",
+          "outstanding_amount": "16101.08"
+        },
+        {
+          "receivable_id": "15437",
+          "customer_name": "演示客户0196",
+          "department_name": "华北一部",
+          "due_date": "2025-10-25",
+          "overdue_days": "67",
+          "outstanding_amount": "7266.49"
+        },
+        {
+          "receivable_id": "15448",
+          "customer_name": "演示客户0177",
+          "department_name": "华北一部",
+          "due_date": "2025-10-28",
+          "overdue_days": "64",
+          "outstanding_amount": "8291.60"
+        },
+        {
+          "receivable_id": "16189",
+          "customer_name": "演示客户0265",
+          "department_name": "华北一部",
+          "due_date": "2025-10-31",
+          "overdue_days": "61",
+          "outstanding_amount": "9033.08"
+        }
+      ],
+      "rowCount": 120
+    },
+    "M6-J07": {
+      "columns": [
+        "department_name",
+        "kpi_name",
+        "target_value",
+        "actual_value"
+      ],
+      "rows": [
+        {
+          "department_name": "华东一部",
+          "kpi_name": "利润率",
+          "target_value": "28.75",
+          "actual_value": "31.14"
+        },
+        {
+          "department_name": "华东一部",
+          "kpi_name": "合同金额",
+          "target_value": "2300000.00",
+          "actual_value": "2559900.00"
+        },
+        {
+          "department_name": "华东一部",
+          "kpi_name": "回款率",
+          "target_value": "103.50",
+          "actual_value": "116.02"
+        },
+        {
+          "department_name": "华东一部",
+          "kpi_name": "客单价",
+          "target_value": "5750.00",
+          "actual_value": "6054.75"
+        },
+        {
+          "department_name": "华东一部",
+          "kpi_name": "应收余额",
+          "target_value": "230000.00",
+          "actual_value": "254610.00"
+        },
+        {
+          "department_name": "华东一部",
+          "kpi_name": "成交客户数",
+          "target_value": "230.00",
+          "actual_value": "247.02"
+        },
+        {
+          "department_name": "华东一部",
+          "kpi_name": "订单数",
+          "target_value": "575.00",
+          "actual_value": "649.18"
+        },
+        {
+          "department_name": "华东一部",
+          "kpi_name": "逾期率",
+          "target_value": "5.75",
+          "actual_value": "6.14"
+        },
+        {
+          "department_name": "华东一部",
+          "kpi_name": "销售额",
+          "target_value": "1150000.00",
+          "actual_value": "1251200.00"
+        },
+        {
+          "department_name": "华东一部",
+          "kpi_name": "预算执行率",
+          "target_value": "97.75",
+          "actual_value": "103.42"
+        },
+        {
+          "department_name": "华东二部",
+          "kpi_name": "利润率",
+          "target_value": "29.00",
+          "actual_value": "31.15"
+        },
+        {
+          "department_name": "华东二部",
+          "kpi_name": "合同金额",
+          "target_value": "2320000.00",
+          "actual_value": "2538080.00"
+        },
+        {
+          "department_name": "华东二部",
+          "kpi_name": "回款率",
+          "target_value": "104.40",
+          "actual_value": "124.24"
+        },
+        {
+          "department_name": "华东二部",
+          "kpi_name": "客单价",
+          "target_value": "5800.00",
+          "actual_value": "6438.00"
+        },
+        {
+          "department_name": "华东二部",
+          "kpi_name": "应收余额",
+          "target_value": "232000.00",
+          "actual_value": "270976.00"
+        },
+        {
+          "department_name": "华东二部",
+          "kpi_name": "成交客户数",
+          "target_value": "232.00",
+          "actual_value": "269.35"
+        },
+        {
+          "department_name": "华东二部",
+          "kpi_name": "订单数",
+          "target_value": "580.00",
+          "actual_value": "613.64"
+        },
+        {
+          "department_name": "华东二部",
+          "kpi_name": "逾期率",
+          "target_value": "5.80",
+          "actual_value": "6.08"
+        },
+        {
+          "department_name": "华东二部",
+          "kpi_name": "销售额",
+          "target_value": "1160000.00",
+          "actual_value": "1402440.00"
+        },
+        {
+          "department_name": "华东二部",
+          "kpi_name": "预算执行率",
+          "target_value": "98.60",
+          "actual_value": "106.19"
+        },
+        {
+          "department_name": "华北一部",
+          "kpi_name": "利润率",
+          "target_value": "29.75",
+          "actual_value": "31.98"
+        },
+        {
+          "department_name": "华北一部",
+          "kpi_name": "合同金额",
+          "target_value": "2380000.00",
+          "actual_value": "2541840.00"
+        },
+        {
+          "department_name": "华北一部",
+          "kpi_name": "回款率",
+          "target_value": "107.10",
+          "actual_value": "118.02"
+        },
+        {
+          "department_name": "华北一部",
+          "kpi_name": "客单价",
+          "target_value": "5950.00",
+          "actual_value": "7151.90"
+        },
+        {
+          "department_name": "华北一部",
+          "kpi_name": "应收余额",
+          "target_value": "238000.00",
+          "actual_value": "258944.00"
+        },
+        {
+          "department_name": "华北一部",
+          "kpi_name": "成交客户数",
+          "target_value": "238.00",
+          "actual_value": "277.98"
+        },
+        {
+          "department_name": "华北一部",
+          "kpi_name": "订单数",
+          "target_value": "595.00",
+          "actual_value": "695.56"
+        },
+        {
+          "department_name": "华北一部",
+          "kpi_name": "逾期率",
+          "target_value": "5.95",
+          "actual_value": "6.97"
+        },
+        {
+          "department_name": "华北一部",
+          "kpi_name": "销售额",
+          "target_value": "1190000.00",
+          "actual_value": "1433950.00"
+        },
+        {
+          "department_name": "华北一部",
+          "kpi_name": "预算执行率",
+          "target_value": "101.15",
+          "actual_value": "122.09"
+        },
+        {
+          "department_name": "华北二部",
+          "kpi_name": "利润率",
+          "target_value": "30.00",
+          "actual_value": "31.44"
+        },
+        {
+          "department_name": "华北二部",
+          "kpi_name": "合同金额",
+          "target_value": "2400000.00",
+          "actual_value": "2484000.00"
+        },
+        {
+          "department_name": "华北二部",
+          "kpi_name": "回款率",
+          "target_value": "108.00",
+          "actual_value": "124.42"
+        },
+        {
+          "department_name": "华北二部",
+          "kpi_name": "客单价",
+          "target_value": "6000.00",
+          "actual_value": "6564.00"
+        },
+        {
+          "department_name": "华北二部",
+          "kpi_name": "应收余额",
+          "target_value": "240000.00",
+          "actual_value": "280800.00"
+        },
+        {
+          "department_name": "华北二部",
+          "kpi_name": "成交客户数",
+          "target_value": "240.00",
+          "actual_value": "273.12"
+        },
+        {
+          "department_name": "华北二部",
+          "kpi_name": "订单数",
+          "target_value": "600.00",
+          "actual_value": "612.60"
+        },
+        {
+          "department_name": "华北二部",
+          "kpi_name": "逾期率",
+          "target_value": "6.00",
+          "actual_value": "7.04"
+        },
+        {
+          "department_name": "华北二部",
+          "kpi_name": "销售额",
+          "target_value": "1200000.00",
+          "actual_value": "1386000.00"
+        },
+        {
+          "department_name": "华北二部",
+          "kpi_name": "预算执行率",
+          "target_value": "102.00",
+          "actual_value": "111.49"
+        },
+        {
+          "department_name": "华南一部",
+          "kpi_name": "利润率",
+          "target_value": "29.25",
+          "actual_value": "23.40"
+        },
+        {
+          "department_name": "华南一部",
+          "kpi_name": "合同金额",
+          "target_value": "2340000.00",
+          "actual_value": "1872000.00"
+        },
+        {
+          "department_name": "华南一部",
+          "kpi_name": "回款率",
+          "target_value": "105.30",
+          "actual_value": "84.24"
+        },
+        {
+          "department_name": "华南一部",
+          "kpi_name": "客单价",
+          "target_value": "5850.00",
+          "actual_value": "4680.00"
+        },
+        {
+          "department_name": "华南一部",
+          "kpi_name": "应收余额",
+          "target_value": "234000.00",
+          "actual_value": "187200.00"
+        },
+        {
+          "department_name": "华南一部",
+          "kpi_name": "成交客户数",
+          "target_value": "234.00",
+          "actual_value": "187.20"
+        },
+        {
+          "department_name": "华南一部",
+          "kpi_name": "订单数",
+          "target_value": "585.00",
+          "actual_value": "468.00"
+        },
+        {
+          "department_name": "华南一部",
+          "kpi_name": "逾期率",
+          "target_value": "5.85",
+          "actual_value": "4.68"
+        },
+        {
+          "department_name": "华南一部",
+          "kpi_name": "销售额",
+          "target_value": "1170000.00",
+          "actual_value": "936000.00"
+        },
+        {
+          "department_name": "华南一部",
+          "kpi_name": "预算执行率",
+          "target_value": "99.45",
+          "actual_value": "79.56"
+        },
+        {
+          "department_name": "华南二部",
+          "kpi_name": "利润率",
+          "target_value": "29.50",
+          "actual_value": "33.69"
+        },
+        {
+          "department_name": "华南二部",
+          "kpi_name": "合同金额",
+          "target_value": "2360000.00",
+          "actual_value": "2631400.00"
+        },
+        {
+          "department_name": "华南二部",
+          "kpi_name": "回款率",
+          "target_value": "106.20",
+          "actual_value": "126.80"
+        },
+        {
+          "department_name": "华南二部",
+          "kpi_name": "客单价",
+          "target_value": "5900.00",
+          "actual_value": "6608.00"
+        },
+        {
+          "department_name": "华南二部",
+          "kpi_name": "应收余额",
+          "target_value": "236000.00",
+          "actual_value": "245676.00"
+        },
+        {
+          "department_name": "华南二部",
+          "kpi_name": "成交客户数",
+          "target_value": "236.00",
+          "actual_value": "255.12"
+        },
+        {
+          "department_name": "华南二部",
+          "kpi_name": "订单数",
+          "target_value": "590.00",
+          "actual_value": "658.44"
+        },
+        {
+          "department_name": "华南二部",
+          "kpi_name": "逾期率",
+          "target_value": "5.90",
+          "actual_value": "6.16"
+        },
+        {
+          "department_name": "华南二部",
+          "kpi_name": "销售额",
+          "target_value": "1180000.00",
+          "actual_value": "1426620.00"
+        },
+        {
+          "department_name": "华南二部",
+          "kpi_name": "预算执行率",
+          "target_value": "100.30",
+          "actual_value": "119.36"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "利润率",
+          "target_value": "30.25",
+          "actual_value": "24.20"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "合同金额",
+          "target_value": "2420000.00",
+          "actual_value": "1936000.00"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "回款率",
+          "target_value": "108.90",
+          "actual_value": "87.12"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "客单价",
+          "target_value": "6050.00",
+          "actual_value": "4840.00"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "应收余额",
+          "target_value": "242000.00",
+          "actual_value": "193600.00"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "成交客户数",
+          "target_value": "242.00",
+          "actual_value": "193.60"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "订单数",
+          "target_value": "605.00",
+          "actual_value": "484.00"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "逾期率",
+          "target_value": "6.05",
+          "actual_value": "4.84"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "销售额",
+          "target_value": "1210000.00",
+          "actual_value": "968000.00"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "预算执行率",
+          "target_value": "102.85",
+          "actual_value": "82.28"
+        },
+        {
+          "department_name": "西部二部",
+          "kpi_name": "利润率",
+          "target_value": "30.50",
+          "actual_value": "31.51"
+        },
+        {
+          "department_name": "西部二部",
+          "kpi_name": "合同金额",
+          "target_value": "2440000.00",
+          "actual_value": "2720600.00"
+        },
+        {
+          "department_name": "西部二部",
+          "kpi_name": "回款率",
+          "target_value": "109.80",
+          "actual_value": "123.31"
+        },
+        {
+          "department_name": "西部二部",
+          "kpi_name": "客单价",
+          "target_value": "6100.00",
+          "actual_value": "6581.90"
+        },
+        {
+          "department_name": "西部二部",
+          "kpi_name": "应收余额",
+          "target_value": "244000.00",
+          "actual_value": "272304.00"
+        },
+        {
+          "department_name": "西部二部",
+          "kpi_name": "成交客户数",
+          "target_value": "244.00",
+          "actual_value": "288.90"
+        },
+        {
+          "department_name": "西部二部",
+          "kpi_name": "订单数",
+          "target_value": "610.00",
+          "actual_value": "658.19"
+        },
+        {
+          "department_name": "西部二部",
+          "kpi_name": "逾期率",
+          "target_value": "6.10",
+          "actual_value": "6.79"
+        },
+        {
+          "department_name": "西部二部",
+          "kpi_name": "销售额",
+          "target_value": "1220000.00",
+          "actual_value": "1394460.00"
+        },
+        {
+          "department_name": "西部二部",
+          "kpi_name": "预算执行率",
+          "target_value": "103.70",
+          "actual_value": "121.23"
+        }
+      ],
+      "rowCount": 80
+    },
+    "M6-J08": {
+      "columns": [
+        "department_name",
+        "kpi_name",
+        "target_value",
+        "actual_value"
+      ],
+      "rows": [
+        {
+          "department_name": "华南一部",
+          "kpi_name": "利润率",
+          "target_value": "29.25",
+          "actual_value": "23.40"
+        },
+        {
+          "department_name": "华南一部",
+          "kpi_name": "合同金额",
+          "target_value": "2340000.00",
+          "actual_value": "1872000.00"
+        },
+        {
+          "department_name": "华南一部",
+          "kpi_name": "回款率",
+          "target_value": "105.30",
+          "actual_value": "84.24"
+        },
+        {
+          "department_name": "华南一部",
+          "kpi_name": "客单价",
+          "target_value": "5850.00",
+          "actual_value": "4680.00"
+        },
+        {
+          "department_name": "华南一部",
+          "kpi_name": "应收余额",
+          "target_value": "234000.00",
+          "actual_value": "187200.00"
+        },
+        {
+          "department_name": "华南一部",
+          "kpi_name": "成交客户数",
+          "target_value": "234.00",
+          "actual_value": "187.20"
+        },
+        {
+          "department_name": "华南一部",
+          "kpi_name": "订单数",
+          "target_value": "585.00",
+          "actual_value": "468.00"
+        },
+        {
+          "department_name": "华南一部",
+          "kpi_name": "逾期率",
+          "target_value": "5.85",
+          "actual_value": "4.68"
+        },
+        {
+          "department_name": "华南一部",
+          "kpi_name": "销售额",
+          "target_value": "1170000.00",
+          "actual_value": "936000.00"
+        },
+        {
+          "department_name": "华南一部",
+          "kpi_name": "预算执行率",
+          "target_value": "99.45",
+          "actual_value": "79.56"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "利润率",
+          "target_value": "30.25",
+          "actual_value": "24.20"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "合同金额",
+          "target_value": "2420000.00",
+          "actual_value": "1936000.00"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "回款率",
+          "target_value": "108.90",
+          "actual_value": "87.12"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "客单价",
+          "target_value": "6050.00",
+          "actual_value": "4840.00"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "应收余额",
+          "target_value": "242000.00",
+          "actual_value": "193600.00"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "成交客户数",
+          "target_value": "242.00",
+          "actual_value": "193.60"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "订单数",
+          "target_value": "605.00",
+          "actual_value": "484.00"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "逾期率",
+          "target_value": "6.05",
+          "actual_value": "4.84"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "销售额",
+          "target_value": "1210000.00",
+          "actual_value": "968000.00"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "预算执行率",
+          "target_value": "102.85",
+          "actual_value": "82.28"
+        }
+      ],
+      "rowCount": 20
+    },
+    "M6-J09": {
+      "columns": [
+        "industry",
+        "customer_count",
+        "sales_amount"
+      ],
+      "rows": [
+        {
+          "industry": "MANUFACTURING",
+          "customer_count": "100",
+          "sales_amount": "19316206.26"
+        },
+        {
+          "industry": "RETAIL",
+          "customer_count": "100",
+          "sales_amount": "19103542.76"
+        },
+        {
+          "industry": "HEALTHCARE",
+          "customer_count": "100",
+          "sales_amount": "19026708.44"
+        },
+        {
+          "industry": "SOFTWARE",
+          "customer_count": "100",
+          "sales_amount": "18996269.25"
+        },
+        {
+          "industry": "LOGISTICS",
+          "customer_count": "100",
+          "sales_amount": "18723181.63"
+        }
+      ],
+      "rowCount": 5
+    },
+    "M6-J10": {
+      "columns": [
+        "customer_name",
+        "overdue_receivable_balance"
+      ],
+      "rows": [
+        {
+          "customer_name": "演示客户0318",
+          "overdue_receivable_balance": "35482.04"
+        },
+        {
+          "customer_name": "演示客户0008",
+          "overdue_receivable_balance": "34505.61"
+        },
+        {
+          "customer_name": "演示客户0003",
+          "overdue_receivable_balance": "28476.79"
+        },
+        {
+          "customer_name": "演示客户0090",
+          "overdue_receivable_balance": "27208.08"
+        },
+        {
+          "customer_name": "演示客户0186",
+          "overdue_receivable_balance": "26409.66"
+        },
+        {
+          "customer_name": "演示客户0204",
+          "overdue_receivable_balance": "26115.40"
+        },
+        {
+          "customer_name": "演示客户0006",
+          "overdue_receivable_balance": "25723.31"
+        },
+        {
+          "customer_name": "演示客户0253",
+          "overdue_receivable_balance": "24791.35"
+        },
+        {
+          "customer_name": "演示客户0151",
+          "overdue_receivable_balance": "24305.42"
+        },
+        {
+          "customer_name": "演示客户0430",
+          "overdue_receivable_balance": "23922.10"
+        }
+      ],
+      "rowCount": 10
+    },
+    "M6-K01": {
+      "columns": [
+        "sales_amount"
+      ],
+      "rows": [
+        {
+          "sales_amount": "95165908.34"
+        }
+      ],
+      "rowCount": 1
+    },
+    "M6-K02": {
+      "columns": [
+        "payment_amount"
+      ],
+      "rows": [
+        {
+          "payment_amount": "82455731.98"
+        }
+      ],
+      "rowCount": 1
+    },
+    "M6-K03": {
+      "columns": [
+        "receivable_balance"
+      ],
+      "rows": [
+        {
+          "receivable_balance": "11189222.09"
+        }
+      ],
+      "rowCount": 1
+    },
+    "M6-K04": {
+      "columns": [
+        "collection_rate"
+      ],
+      "rows": [
+        {
+          "collection_rate": "0.881730"
+        }
+      ],
+      "rowCount": 1
+    },
+    "M6-K05": {
+      "columns": [
+        "budget_execution_rate"
+      ],
+      "rows": [
+        {
+          "budget_execution_rate": "0.829823"
+        }
+      ],
+      "rowCount": 1
+    },
+    "M6-K06": {
+      "columns": [
+        "kpi_completion_rate"
+      ],
+      "rows": [
+        {
+          "kpi_completion_rate": "1.036602"
+        }
+      ],
+      "rowCount": 1
+    },
+    "M6-K07": {
+      "columns": [
+        "receivable_id",
+        "overdue_days",
+        "outstanding_amount"
+      ],
+      "rows": [
+        {
+          "receivable_id": "240",
+          "overdue_days": "699",
+          "outstanding_amount": "9480.90"
+        },
+        {
+          "receivable_id": "400",
+          "overdue_days": "692",
+          "outstanding_amount": "3482.81"
+        },
+        {
+          "receivable_id": "359",
+          "overdue_days": "691",
+          "outstanding_amount": "4940.14"
+        },
+        {
+          "receivable_id": "145",
+          "overdue_days": "679",
+          "outstanding_amount": "9114.54"
+        },
+        {
+          "receivable_id": "236",
+          "overdue_days": "678",
+          "outstanding_amount": "11539.56"
+        },
+        {
+          "receivable_id": "1184",
+          "overdue_days": "668",
+          "outstanding_amount": "5383.03"
+        },
+        {
+          "receivable_id": "1105",
+          "overdue_days": "667",
+          "outstanding_amount": "16126.89"
+        },
+        {
+          "receivable_id": "844",
+          "overdue_days": "654",
+          "outstanding_amount": "7246.39"
+        },
+        {
+          "receivable_id": "1182",
+          "overdue_days": "647",
+          "outstanding_amount": "11968.60"
+        },
+        {
+          "receivable_id": "1040",
+          "overdue_days": "646",
+          "outstanding_amount": "4182.49"
+        }
+      ],
+      "rowCount": 10
+    },
+    "M6-K08": {
+      "columns": [
+        "q4_sales_amount",
+        "q3_sales_amount",
+        "quarter_over_quarter_growth_rate"
+      ],
+      "rows": [
+        {
+          "q4_sales_amount": "26175000.00",
+          "q3_sales_amount": "22761668.20",
+          "quarter_over_quarter_growth_rate": "0.149960"
+        }
+      ],
+      "rowCount": 1
+    },
+    "M6-T01": {
+      "columns": [
+        "month",
+        "sales_amount"
+      ],
+      "rows": [
+        {
+          "month": "2025-01",
+          "sales_amount": "7902939.62"
+        },
+        {
+          "month": "2025-02",
+          "sales_amount": "7485639.19"
+        },
+        {
+          "month": "2025-03",
+          "sales_amount": "7884470.31"
+        },
+        {
+          "month": "2025-04",
+          "sales_amount": "7632909.07"
+        },
+        {
+          "month": "2025-05",
+          "sales_amount": "7576449.08"
+        },
+        {
+          "month": "2025-06",
+          "sales_amount": "7746832.87"
+        },
+        {
+          "month": "2025-07",
+          "sales_amount": "7669328.52"
+        },
+        {
+          "month": "2025-08",
+          "sales_amount": "7568145.10"
+        },
+        {
+          "month": "2025-09",
+          "sales_amount": "7524194.58"
+        },
+        {
+          "month": "2025-10",
+          "sales_amount": "8675000.00"
+        },
+        {
+          "month": "2025-11",
+          "sales_amount": "8725000.00"
+        },
+        {
+          "month": "2025-12",
+          "sales_amount": "8775000.00"
+        }
+      ],
+      "rowCount": 12
+    },
+    "M6-T02": {
+      "columns": [
+        "month",
+        "sales_amount"
+      ],
+      "rows": [
+        {
+          "month": "2025-10",
+          "sales_amount": "1500000.00"
+        },
+        {
+          "month": "2025-11",
+          "sales_amount": "1200000.00"
+        },
+        {
+          "month": "2025-12",
+          "sales_amount": "900000.00"
+        }
+      ],
+      "rowCount": 3
+    },
+    "M6-T03": {
+      "columns": [
+        "department_name",
+        "category",
+        "budget_execution_rate"
+      ],
+      "rows": [
+        {
+          "department_name": "华南一部",
+          "category": "MARKETING",
+          "budget_execution_rate": "1.250000"
+        }
+      ],
+      "rowCount": 1
+    },
+    "M6-T04": {
+      "columns": [
+        "missing_receivable_order_count",
+        "missing_receivable_order_amount"
+      ],
+      "rows": [
+        {
+          "missing_receivable_order_count": "950",
+          "missing_receivable_order_amount": "9363202.43"
+        }
+      ],
+      "rowCount": 1
+    },
+    "M6-T05": {
+      "columns": [
+        "department_name",
+        "kpi_name"
+      ],
+      "rows": [
+        {
+          "department_name": "华南一部",
+          "kpi_name": "利润率"
+        },
+        {
+          "department_name": "华南一部",
+          "kpi_name": "合同金额"
+        },
+        {
+          "department_name": "华南一部",
+          "kpi_name": "回款率"
+        },
+        {
+          "department_name": "华南一部",
+          "kpi_name": "客单价"
+        },
+        {
+          "department_name": "华南一部",
+          "kpi_name": "应收余额"
+        },
+        {
+          "department_name": "华南一部",
+          "kpi_name": "成交客户数"
+        },
+        {
+          "department_name": "华南一部",
+          "kpi_name": "订单数"
+        },
+        {
+          "department_name": "华南一部",
+          "kpi_name": "逾期率"
+        },
+        {
+          "department_name": "华南一部",
+          "kpi_name": "销售额"
+        },
+        {
+          "department_name": "华南一部",
+          "kpi_name": "预算执行率"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "利润率"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "合同金额"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "回款率"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "客单价"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "应收余额"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "成交客户数"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "订单数"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "逾期率"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "销售额"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "预算执行率"
+        }
+      ],
+      "rowCount": 20
+    },
+    "M6-T06": {
+      "columns": [
+        "order_no",
+        "total_amount",
+        "receivable_amount"
+      ],
+      "rows": [
+        {
+          "order_no": "DEMO-SO-0000001",
+          "total_amount": "11482.88",
+          "receivable_amount": "11582.88"
+        },
+        {
+          "order_no": "DEMO-SO-0000003",
+          "total_amount": "5798.89",
+          "receivable_amount": "5898.89"
+        },
+        {
+          "order_no": "DEMO-SO-0000004",
+          "total_amount": "9928.56",
+          "receivable_amount": "10028.56"
+        },
+        {
+          "order_no": "DEMO-SO-0000006",
+          "total_amount": "2213.82",
+          "receivable_amount": "2313.82"
+        },
+        {
+          "order_no": "DEMO-SO-0000007",
+          "total_amount": "17440.45",
+          "receivable_amount": "17540.45"
+        },
+        {
+          "order_no": "DEMO-SO-0000008",
+          "total_amount": "9652.30",
+          "receivable_amount": "9752.30"
+        },
+        {
+          "order_no": "DEMO-SO-0000009",
+          "total_amount": "9187.79",
+          "receivable_amount": "9287.79"
+        },
+        {
+          "order_no": "DEMO-SO-0000010",
+          "total_amount": "14295.84",
+          "receivable_amount": "14395.84"
+        },
+        {
+          "order_no": "DEMO-SO-0000011",
+          "total_amount": "10502.50",
+          "receivable_amount": "10602.50"
+        },
+        {
+          "order_no": "DEMO-SO-0000012",
+          "total_amount": "10454.55",
+          "receivable_amount": "10554.55"
+        },
+        {
+          "order_no": "DEMO-SO-0000013",
+          "total_amount": "1848.37",
+          "receivable_amount": "1948.37"
+        },
+        {
+          "order_no": "DEMO-SO-0000014",
+          "total_amount": "6030.65",
+          "receivable_amount": "6130.65"
+        },
+        {
+          "order_no": "DEMO-SO-0000015",
+          "total_amount": "13567.58",
+          "receivable_amount": "13667.58"
+        },
+        {
+          "order_no": "DEMO-SO-0000016",
+          "total_amount": "12573.60",
+          "receivable_amount": "12673.60"
+        },
+        {
+          "order_no": "DEMO-SO-0000017",
+          "total_amount": "6836.35",
+          "receivable_amount": "6936.35"
+        },
+        {
+          "order_no": "DEMO-SO-0000018",
+          "total_amount": "15404.21",
+          "receivable_amount": "15504.21"
+        },
+        {
+          "order_no": "DEMO-SO-0000019",
+          "total_amount": "14519.60",
+          "receivable_amount": "14619.60"
+        },
+        {
+          "order_no": "DEMO-SO-0000020",
+          "total_amount": "4886.75",
+          "receivable_amount": "4986.75"
+        },
+        {
+          "order_no": "DEMO-SO-0000021",
+          "total_amount": "15676.65",
+          "receivable_amount": "15776.65"
+        },
+        {
+          "order_no": "DEMO-SO-0000022",
+          "total_amount": "1572.33",
+          "receivable_amount": "1672.33"
+        },
+        {
+          "order_no": "DEMO-SO-0000023",
+          "total_amount": "13247.29",
+          "receivable_amount": "13347.29"
+        },
+        {
+          "order_no": "DEMO-SO-0000024",
+          "total_amount": "12416.47",
+          "receivable_amount": "12516.47"
+        },
+        {
+          "order_no": "DEMO-SO-0000025",
+          "total_amount": "9341.78",
+          "receivable_amount": "9441.78"
+        },
+        {
+          "order_no": "DEMO-SO-0000026",
+          "total_amount": "8771.54",
+          "receivable_amount": "8871.54"
+        },
+        {
+          "order_no": "DEMO-SO-0000027",
+          "total_amount": "7821.92",
+          "receivable_amount": "7921.92"
+        },
+        {
+          "order_no": "DEMO-SO-0000028",
+          "total_amount": "6073.12",
+          "receivable_amount": "6173.12"
+        },
+        {
+          "order_no": "DEMO-SO-0000029",
+          "total_amount": "5466.57",
+          "receivable_amount": "5566.57"
+        },
+        {
+          "order_no": "DEMO-SO-0000030",
+          "total_amount": "15768.05",
+          "receivable_amount": "15868.05"
+        },
+        {
+          "order_no": "DEMO-SO-0000031",
+          "total_amount": "15763.67",
+          "receivable_amount": "15863.67"
+        },
+        {
+          "order_no": "DEMO-SO-0000032",
+          "total_amount": "9009.69",
+          "receivable_amount": "9109.69"
+        },
+        {
+          "order_no": "DEMO-SO-0000033",
+          "total_amount": "5627.63",
+          "receivable_amount": "5727.63"
+        },
+        {
+          "order_no": "DEMO-SO-0000034",
+          "total_amount": "8575.24",
+          "receivable_amount": "8675.24"
+        },
+        {
+          "order_no": "DEMO-SO-0000035",
+          "total_amount": "7859.44",
+          "receivable_amount": "7959.44"
+        },
+        {
+          "order_no": "DEMO-SO-0000037",
+          "total_amount": "3600.28",
+          "receivable_amount": "3700.28"
+        },
+        {
+          "order_no": "DEMO-SO-0000038",
+          "total_amount": "1449.28",
+          "receivable_amount": "1549.28"
+        },
+        {
+          "order_no": "DEMO-SO-0000039",
+          "total_amount": "11816.26",
+          "receivable_amount": "11916.26"
+        },
+        {
+          "order_no": "DEMO-SO-0000040",
+          "total_amount": "4241.39",
+          "receivable_amount": "4341.39"
+        },
+        {
+          "order_no": "DEMO-SO-0000041",
+          "total_amount": "8922.41",
+          "receivable_amount": "9022.41"
+        },
+        {
+          "order_no": "DEMO-SO-0000042",
+          "total_amount": "13401.37",
+          "receivable_amount": "13501.37"
+        },
+        {
+          "order_no": "DEMO-SO-0000043",
+          "total_amount": "2701.38",
+          "receivable_amount": "2801.38"
+        },
+        {
+          "order_no": "DEMO-SO-0000045",
+          "total_amount": "4985.58",
+          "receivable_amount": "5085.58"
+        },
+        {
+          "order_no": "DEMO-SO-0000047",
+          "total_amount": "16511.25",
+          "receivable_amount": "16611.25"
+        },
+        {
+          "order_no": "DEMO-SO-0000048",
+          "total_amount": "15461.96",
+          "receivable_amount": "15561.96"
+        },
+        {
+          "order_no": "DEMO-SO-0000049",
+          "total_amount": "12307.94",
+          "receivable_amount": "12407.94"
+        },
+        {
+          "order_no": "DEMO-SO-0000050",
+          "total_amount": "5608.69",
+          "receivable_amount": "5708.69"
+        },
+        {
+          "order_no": "DEMO-SO-0000051",
+          "total_amount": "5045.27",
+          "receivable_amount": "5145.27"
+        },
+        {
+          "order_no": "DEMO-SO-0000052",
+          "total_amount": "9518.05",
+          "receivable_amount": "9618.05"
+        },
+        {
+          "order_no": "DEMO-SO-0000053",
+          "total_amount": "12139.99",
+          "receivable_amount": "12239.99"
+        },
+        {
+          "order_no": "DEMO-SO-0000054",
+          "total_amount": "11950.35",
+          "receivable_amount": "12050.35"
+        },
+        {
+          "order_no": "DEMO-SO-0000056",
+          "total_amount": "10945.53",
+          "receivable_amount": "11045.53"
+        }
+      ],
+      "rowCount": 50
+    },
+    "M6-F01": {
+      "columns": [
+        "month",
+        "sales_amount"
+      ],
+      "rows": [
+        {
+          "month": "2025-01",
+          "sales_amount": "958902.63"
+        },
+        {
+          "month": "2025-02",
+          "sales_amount": "873724.73"
+        },
+        {
+          "month": "2025-03",
+          "sales_amount": "915892.43"
+        },
+        {
+          "month": "2025-04",
+          "sales_amount": "944520.07"
+        },
+        {
+          "month": "2025-05",
+          "sales_amount": "949240.57"
+        },
+        {
+          "month": "2025-06",
+          "sales_amount": "1018570.48"
+        },
+        {
+          "month": "2025-07",
+          "sales_amount": "945038.79"
+        },
+        {
+          "month": "2025-08",
+          "sales_amount": "963355.49"
+        },
+        {
+          "month": "2025-09",
+          "sales_amount": "904939.09"
+        },
+        {
+          "month": "2025-10",
+          "sales_amount": "1500000.00"
+        },
+        {
+          "month": "2025-11",
+          "sales_amount": "1200000.00"
+        },
+        {
+          "month": "2025-12",
+          "sales_amount": "900000.00"
+        }
+      ],
+      "rowCount": 12
+    },
+    "M6-F02": {
+      "columns": [
+        "customer_name",
+        "overdue_receivable_balance"
+      ],
+      "rows": [
+        {
+          "customer_name": "演示客户0318",
+          "overdue_receivable_balance": "35482.04"
+        },
+        {
+          "customer_name": "演示客户0008",
+          "overdue_receivable_balance": "34505.61"
+        },
+        {
+          "customer_name": "演示客户0003",
+          "overdue_receivable_balance": "28476.79"
+        },
+        {
+          "customer_name": "演示客户0090",
+          "overdue_receivable_balance": "27208.08"
+        },
+        {
+          "customer_name": "演示客户0186",
+          "overdue_receivable_balance": "26409.66"
+        },
+        {
+          "customer_name": "演示客户0204",
+          "overdue_receivable_balance": "26115.40"
+        },
+        {
+          "customer_name": "演示客户0006",
+          "overdue_receivable_balance": "25723.31"
+        },
+        {
+          "customer_name": "演示客户0253",
+          "overdue_receivable_balance": "24791.35"
+        },
+        {
+          "customer_name": "演示客户0151",
+          "overdue_receivable_balance": "24305.42"
+        },
+        {
+          "customer_name": "演示客户0430",
+          "overdue_receivable_balance": "23922.10"
+        }
+      ],
+      "rowCount": 10
+    },
+    "M6-F03": {
+      "columns": [
+        "department_name",
+        "kpi_name",
+        "target_value",
+        "actual_value",
+        "kpi_completion_rate"
+      ],
+      "rows": [
+        {
+          "department_name": "华南一部",
+          "kpi_name": "利润率",
+          "target_value": "29.25",
+          "actual_value": "23.40",
+          "kpi_completion_rate": "0.800000"
+        },
+        {
+          "department_name": "华南一部",
+          "kpi_name": "合同金额",
+          "target_value": "2340000.00",
+          "actual_value": "1872000.00",
+          "kpi_completion_rate": "0.800000"
+        },
+        {
+          "department_name": "华南一部",
+          "kpi_name": "回款率",
+          "target_value": "105.30",
+          "actual_value": "84.24",
+          "kpi_completion_rate": "0.800000"
+        },
+        {
+          "department_name": "华南一部",
+          "kpi_name": "客单价",
+          "target_value": "5850.00",
+          "actual_value": "4680.00",
+          "kpi_completion_rate": "0.800000"
+        },
+        {
+          "department_name": "华南一部",
+          "kpi_name": "应收余额",
+          "target_value": "234000.00",
+          "actual_value": "187200.00",
+          "kpi_completion_rate": "0.800000"
+        },
+        {
+          "department_name": "华南一部",
+          "kpi_name": "成交客户数",
+          "target_value": "234.00",
+          "actual_value": "187.20",
+          "kpi_completion_rate": "0.800000"
+        },
+        {
+          "department_name": "华南一部",
+          "kpi_name": "订单数",
+          "target_value": "585.00",
+          "actual_value": "468.00",
+          "kpi_completion_rate": "0.800000"
+        },
+        {
+          "department_name": "华南一部",
+          "kpi_name": "逾期率",
+          "target_value": "5.85",
+          "actual_value": "4.68",
+          "kpi_completion_rate": "0.800000"
+        },
+        {
+          "department_name": "华南一部",
+          "kpi_name": "销售额",
+          "target_value": "1170000.00",
+          "actual_value": "936000.00",
+          "kpi_completion_rate": "0.800000"
+        },
+        {
+          "department_name": "华南一部",
+          "kpi_name": "预算执行率",
+          "target_value": "99.45",
+          "actual_value": "79.56",
+          "kpi_completion_rate": "0.800000"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "利润率",
+          "target_value": "30.25",
+          "actual_value": "24.20",
+          "kpi_completion_rate": "0.800000"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "合同金额",
+          "target_value": "2420000.00",
+          "actual_value": "1936000.00",
+          "kpi_completion_rate": "0.800000"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "回款率",
+          "target_value": "108.90",
+          "actual_value": "87.12",
+          "kpi_completion_rate": "0.800000"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "客单价",
+          "target_value": "6050.00",
+          "actual_value": "4840.00",
+          "kpi_completion_rate": "0.800000"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "应收余额",
+          "target_value": "242000.00",
+          "actual_value": "193600.00",
+          "kpi_completion_rate": "0.800000"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "成交客户数",
+          "target_value": "242.00",
+          "actual_value": "193.60",
+          "kpi_completion_rate": "0.800000"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "订单数",
+          "target_value": "605.00",
+          "actual_value": "484.00",
+          "kpi_completion_rate": "0.800000"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "逾期率",
+          "target_value": "6.05",
+          "actual_value": "4.84",
+          "kpi_completion_rate": "0.800000"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "销售额",
+          "target_value": "1210000.00",
+          "actual_value": "968000.00",
+          "kpi_completion_rate": "0.800000"
+        },
+        {
+          "department_name": "西部一部",
+          "kpi_name": "预算执行率",
+          "target_value": "102.85",
+          "actual_value": "82.28",
+          "kpi_completion_rate": "0.800000"
+        }
+      ],
+      "rowCount": 20
+    },
+    "M6-F04": {
+      "columns": [
+        "department_name",
+        "missing_receivable_order_count",
+        "missing_receivable_order_amount"
+      ],
+      "rows": [
+        {
+          "department_name": "华北一部",
+          "missing_receivable_order_count": "136",
+          "missing_receivable_order_amount": "1332065.34"
+        },
+        {
+          "department_name": "华南一部",
+          "missing_receivable_order_count": "136",
+          "missing_receivable_order_amount": "1293043.63"
+        },
+        {
+          "department_name": "华东一部",
+          "missing_receivable_order_count": "131",
+          "missing_receivable_order_amount": "1247641.07"
+        },
+        {
+          "department_name": "西部二部",
+          "missing_receivable_order_count": "119",
+          "missing_receivable_order_amount": "1213153.04"
+        },
+        {
+          "department_name": "西部一部",
+          "missing_receivable_order_count": "111",
+          "missing_receivable_order_amount": "1125095.03"
+        },
+        {
+          "department_name": "华南二部",
+          "missing_receivable_order_count": "110",
+          "missing_receivable_order_amount": "1092972.26"
+        },
+        {
+          "department_name": "华北二部",
+          "missing_receivable_order_count": "107",
+          "missing_receivable_order_amount": "1060418.15"
+        },
+        {
+          "department_name": "华东二部",
+          "missing_receivable_order_count": "100",
+          "missing_receivable_order_amount": "998813.91"
+        }
+      ],
+      "rowCount": 8
+    }
+  }
+}

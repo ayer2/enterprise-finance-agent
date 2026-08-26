@@ -1,0 +1,32 @@
+services:
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_ROOT_PASSWORD: ${ENTERPRISE_DEMO_ROOT_PASSWORD:-}
+      ENTERPRISE_DEMO_READONLY_PASSWORD: ${ENTERPRISE_DEMO_READONLY_PASSWORD:-}
+      TZ: Asia/Shanghai
+    ports:
+      - "3307:3306"
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_0900_ai_ci
+    volumes:
+      - enterprise_finance_mysql_data:/var/lib/mysql
+      - ./sql/01_schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+      - ./sql/02_seed_reference_data.sql:/docker-entrypoint-initdb.d/02_seed_reference_data.sql:ro
+      - ./generated/04_generated_data.sql:/docker-entrypoint-initdb.d/04_generated_data.sql:ro
+      - ./sql/04_create_readonly_user.sh:/docker-entrypoint-initdb.d/04_create_readonly_user.sh:ro
+      - ./sql/05_initialization_ready.sql:/docker-entrypoint-initdb.d/05_initialization_ready.sql:ro
+      - ./sql/03_validation_queries.sql:/validation/03_validation_queries.sql:ro
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "mysql -h localhost -uroot -p$$MYSQL_ROOT_PASSWORD --silent --skip-column-names --execute='SELECT ready FROM enterprise_demo.demo_generation_ready WHERE id = 1' 2>/dev/null | grep -q 1",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 60
+
+volumes:
+  enterprise_finance_mysql_data:

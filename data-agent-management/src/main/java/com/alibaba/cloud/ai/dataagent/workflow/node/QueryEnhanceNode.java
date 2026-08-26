@@ -28,8 +28,10 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import reactor.core.publisher.Flux;
 
+import java.util.List;
 import java.util.Map;
 
 import static com.alibaba.cloud.ai.dataagent.constant.Constant.*;
@@ -69,12 +71,12 @@ public class QueryEnhanceNode implements NodeAction {
 						ChatResponseUtil.createPureResponse(TextType.JSON.getStartSign())),
 				Flux.just(ChatResponseUtil.createPureResponse(TextType.JSON.getEndSign()),
 						ChatResponseUtil.createResponse("\n问题增强完成！")),
-				this::handleQueryEnhance);
+				llmOutput -> handleQueryEnhance(llmOutput, userInput));
 
 		return Map.of(QUERY_ENHANCE_NODE_OUTPUT, generator);
 	}
 
-	private Map<String, Object> handleQueryEnhance(String llmOutput) {
+	private Map<String, Object> handleQueryEnhance(String llmOutput, String userInput) {
 		// 获取处理结果
 		String enhanceResult = MarkdownParserUtil.extractRawText(llmOutput.trim());
 		log.debug("Query enhance result: {}", enhanceResult);
@@ -89,8 +91,12 @@ public class QueryEnhanceNode implements NodeAction {
 			log.error("Failed to parse query enhance result", e);
 		}
 
-		if (queryEnhanceOutputDTO == null)
-			return Map.of();
+		if (queryEnhanceOutputDTO == null || !StringUtils.hasText(queryEnhanceOutputDTO.getCanonicalQuery())) {
+			log.warn("Query enhance model returned no usable result; falling back to the original user query");
+			queryEnhanceOutputDTO = new QueryEnhanceOutputDTO();
+			queryEnhanceOutputDTO.setCanonicalQuery(userInput);
+			queryEnhanceOutputDTO.setExpandedQueries(List.of(userInput));
+		}
 		// 返回处理结果
 		return Map.of(QUERY_ENHANCE_NODE_OUTPUT, queryEnhanceOutputDTO);
 	}

@@ -1,0 +1,146 @@
+{
+  "summary": {
+    "generatedAt": "2026-08-24T21:17:05.414066+00:00",
+    "agentId": 5,
+    "corePassed": 1,
+    "coreTotal": 1,
+    "followupPassed": 0,
+    "followupTotal": 0,
+    "intentPassed": 0,
+    "intentTotal": 0,
+    "chartRuns": 0,
+    "retryRuns": 0,
+    "htmlExport": {
+      "passed": true,
+      "contentType": "text/html;charset=UTF-8",
+      "bytes": 8715
+    },
+    "passed": false
+  },
+  "coreRuns": [
+    {
+      "id": "M2-Q01",
+      "question": "2025年全年销售额是多少？",
+      "category": "核心指标查询",
+      "conversationId": "m3-core-M2-Q01",
+      "passed": true,
+      "durationSeconds": 60.242,
+      "complete": true,
+      "streamError": null,
+      "errors": [],
+      "nodes": [
+        {
+          "stepId": "IntentRecognitionNode-1",
+          "nodeName": "IntentRecognitionNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "EvidenceRecallNode-2",
+          "nodeName": "EvidenceRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "QueryEnhanceNode-3",
+          "nodeName": "QueryEnhanceNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SchemaRecallNode-4",
+          "nodeName": "SchemaRecallNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "TableRelationNode-5",
+          "nodeName": "TableRelationNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "FeasibilityAssessmentNode-6",
+          "nodeName": "FeasibilityAssessmentNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "PlannerNode-7",
+          "nodeName": "PlannerNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlGenerateNode-8",
+          "nodeName": "SqlGenerateNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SemanticConsistencyNode-9",
+          "nodeName": "SemanticConsistencyNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "SqlExecuteNode-10",
+          "nodeName": "SqlExecuteNode",
+          "attempt": 1
+        },
+        {
+          "stepId": "ReportGeneratorNode-11",
+          "nodeName": "ReportGeneratorNode",
+          "attempt": 1
+        }
+      ],
+      "evidence": [
+        "证据1: 2025年全年销售额是多少？",
+        "证据2: 2025年各部门销售额排名是什么？",
+        "证据3: 2025年各行业的销售额和客户数是多少？",
+        "证据4: 2025年每个月的销售额趋势如何？",
+        "证据5: 2025年销售额最高的十个客户是谁？",
+        "证据6: 2025年第四季度销售额环比第三季度增长率是多少？",
+        "证据7: 2025年每个月实际收到的回款金额是多少？",
+        "证据8: 2025年新产生应收的整体回款率是多少？"
+      ],
+      "sql": [
+        "SELECT COALESCE(SUM(so.total_amount), 0) AS sales_amount\nFROM sales_order so\nWHERE so.status = 'APPROVED'\n  AND so.order_date >= '2025-01-01'\n  AND so.order_date < '2026-01-01'",
+        "SELECT COALESCE(SUM(so.total_amount), 0) AS sales_amount\nFROM sales_order so\nWHERE so.status = 'APPROVED'\n\tAND so.order_date >= '2025-01-01'\n\tAND so.order_date < '2026-01-01'"
+      ],
+      "resultSets": [
+        {
+          "columns": [
+            "sales_amount"
+          ],
+          "rowCount": 1,
+          "sampleRows": [
+            {
+              "sales_amount": "95165908.34"
+            }
+          ],
+          "displayStyle": {
+            "type": "table",
+            "title": null,
+            "x": null,
+            "y": null
+          }
+        },
+        {
+          "columns": [
+            "sales_amount"
+          ],
+          "rowCount": 1,
+          "sampleRows": [
+            {
+              "sales_amount": "95165908.34"
+            }
+          ],
+          "displayStyle": {
+            "type": "table",
+            "title": "2025年已批准销售订单销售额合计",
+            "x": "",
+            "y": []
+          }
+        }
+      ],
+      "retryMessages": [],
+      "report": "2025 年全年（2025-01-01 至 2025-12-31，含首尾两天）已批准销售订单的销售额合计为 **95,165,908.34**。\n\n| 指标 | 数值 |\n|---|---|\n| 已批准销售订单销售额合计 | 95,165,908.34 |\n\n## 数据口径与查询依据\n\n- **指标公式/聚合方式**：对满足条件的 `total_amount` 求和，并使用 `COALESCE(SUM(total_amount), 0)` 作为输出。\n- **时间范围**：`order_date` 介于 2025-01-01 和 2025-12-31 之间，含首尾两天。\n- **状态条件**：`status = 'APPROVED'`（已批准）。\n- **维度归属**：本次查询未限定组织、客户等维度。\n- **使用的表和关联字段**：`sales_order` 表（别名 `so`）；单表查询，无关联字段。\n- **排除条件**：仅保留 `APPROVED` 状态订单；未限定其他排除条件。",
+      "finalAnswer": "",
+      "hasChart": false
+    }
+  ],
+  "multiTurnRuns": [],
+  "intentRuns": []
+}

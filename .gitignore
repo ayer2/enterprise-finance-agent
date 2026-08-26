@@ -35,6 +35,19 @@ target/
 # node_modules
 **/node_modules
 
+# Python caches and reproducible demo outputs
+**/__pycache__/
+*.py[cod]
+/demo/enterprise-finance/generated/
+
+# Keep canonical evaluation evidence; ignore transient reruns
+/demo/enterprise-finance/m3/evidence/*
+!/demo/enterprise-finance/m3/evidence/final-accepted.json
+/demo/enterprise-finance/m6/evidence/*
+!/demo/enterprise-finance/m6/evidence/final-accepted.json
+!/demo/enterprise-finance/m6/evidence/final-accepted.md
+!/demo/enterprise-finance/m6/evidence/reference-results.json
+
 
 # windows os
 /extensions/

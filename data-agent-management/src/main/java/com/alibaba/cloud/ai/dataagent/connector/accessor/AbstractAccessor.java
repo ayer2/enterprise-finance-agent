@@ -70,7 +70,8 @@ public abstract class AbstractAccessor implements Accessor {
 				case "scanTable":
 					return (T) ddlExecutor.scanTable(connection, param.getSchema(), param.getTable());
 				case "executeSqlAndReturnObject":
-					return (T) SqlExecutor.executeSqlAndReturnObject(connection, param.getSchema(), param.getSql());
+					return (T) SqlExecutor.executeSqlAndReturnObject(connection, param.getSchema(), param.getSql(),
+							param.getMaxRows(), param.getQueryTimeoutSeconds());
 				default:
 					throw new UnsupportedOperationException("Unknown method: " + method);
 			}

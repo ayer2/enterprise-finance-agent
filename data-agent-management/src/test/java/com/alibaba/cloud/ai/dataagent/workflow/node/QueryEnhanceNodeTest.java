@@ -138,7 +138,7 @@ class QueryEnhanceNodeTest {
 	}
 
 	@Test
-	void apply_unparseableResponse_returnsEmptyFinalState() throws Exception {
+	void apply_unparseableResponse_fallsBackToOriginalQuery() throws Exception {
 		OverAllState state = createTestState();
 		state.updateState(Map.of(INPUT_KEY, "长查询内容测试", EVIDENCE, "evidence data"));
 		when(llmService.callUser(anyString()))
@@ -147,8 +147,22 @@ class QueryEnhanceNodeTest {
 
 		NodeExecution execution = execute(queryEnhanceNode.apply(state), QUERY_ENHANCE_NODE_OUTPUT);
 
-		assertTrue(execution.finalResult().isEmpty());
+		assertEquals("长查询内容测试", output(execution).getCanonicalQuery());
+		assertEquals(List.of("长查询内容测试"), output(execution).getExpandedQueries());
 		verify(llmService, times(4)).callUser(anyString());
+	}
+
+	@Test
+	void apply_emptyModelStream_fallsBackToOriginalQuery() throws Exception {
+		OverAllState state = createTestState();
+		state.updateState(Map.of(INPUT_KEY, "查询逾期应收", EVIDENCE, "evidence data"));
+		when(llmService.callUser(anyString())).thenReturn(Flux.empty());
+
+		NodeExecution execution = execute(queryEnhanceNode.apply(state), QUERY_ENHANCE_NODE_OUTPUT);
+
+		assertEquals("查询逾期应收", output(execution).getCanonicalQuery());
+		assertEquals(List.of("查询逾期应收"), output(execution).getExpandedQueries());
+		verify(llmService).callUser(anyString());
 	}
 
 	private QueryEnhanceOutputDTO output(NodeExecution execution) {

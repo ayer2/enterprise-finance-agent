@@ -32,9 +32,9 @@ import java.util.List;
  */
 public class SqlExecutor {
 
-	public static final Integer RESULT_SET_LIMIT = 1000;
+	public static final Integer RESULT_SET_LIMIT = 500;
 
-	public static final Integer STATEMENT_TIMEOUT = 30;
+	public static final Integer STATEMENT_TIMEOUT = 15;
 
 	/**
 	 * Execute SQL query and return structured results (with column information)
@@ -45,9 +45,15 @@ public class SqlExecutor {
 	 */
 	public static ResultSetBO executeSqlAndReturnObject(Connection connection, String schema, String sql)
 			throws SQLException {
+		return executeSqlAndReturnObject(connection, schema, sql, RESULT_SET_LIMIT, STATEMENT_TIMEOUT);
+	}
+
+	public static ResultSetBO executeSqlAndReturnObject(Connection connection, String schema, String sql,
+			Integer maxRows, Integer queryTimeoutSeconds) throws SQLException {
 		try (Statement statement = connection.createStatement()) {
-			statement.setMaxRows(RESULT_SET_LIMIT);
-			statement.setQueryTimeout(STATEMENT_TIMEOUT);
+			statement.setMaxRows(maxRows != null && maxRows > 0 ? maxRows : RESULT_SET_LIMIT);
+			statement.setQueryTimeout(
+					queryTimeoutSeconds != null && queryTimeoutSeconds > 0 ? queryTimeoutSeconds : STATEMENT_TIMEOUT);
 
 			DatabaseMetaData metaData = connection.getMetaData();
 			String dialect = metaData.getDatabaseProductName();
