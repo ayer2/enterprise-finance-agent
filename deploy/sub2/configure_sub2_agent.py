@@ -39,7 +39,13 @@ class ApiError(RuntimeError):
     pass
 
 
-def request(base: str, method: str, path: str, payload: object | None = None) -> object:
+def request(
+    base: str,
+    method: str,
+    path: str,
+    payload: object | None = None,
+    timeout: int | None = None,
+) -> object:
     body = None
     headers = {"Accept": "application/json"}
     if payload is not None:
@@ -48,9 +54,9 @@ def request(base: str, method: str, path: str, payload: object | None = None) ->
     url = base.rstrip("/") + path
     req = urllib.request.Request(url, data=body, headers=headers, method=method)
     try:
-        with urllib.request.urlopen(req, timeout=60) as response:
+        with urllib.request.urlopen(req, timeout=timeout or int(os.environ.get("DATA_AGENT_TIMEOUT", "60"))) as response:
             raw = response.read()
-    except (urllib.error.HTTPError, urllib.error.URLError) as exc:
+    except (TimeoutError, urllib.error.HTTPError, urllib.error.URLError) as exc:
         detail = exc.read().decode("utf-8", "replace") if isinstance(exc, urllib.error.HTTPError) else str(exc)
         raise ApiError(f"{method} {path} failed: {detail}") from exc
     try:
@@ -195,7 +201,12 @@ def main() -> int:
         ),
         "select tables",
     )
-    unwrap(request(api, "POST", f"/api/agent/{agent_id}/datasources/init"), "schema initialization")
+    init_timeout = int(os.environ.get("SUB2_SCHEMA_INIT_TIMEOUT", "900"))
+    print(f"Initializing schema for {len(selected)} tables (timeout {init_timeout}s) ...")
+    unwrap(
+        request(api, "POST", f"/api/agent/{agent_id}/datasources/init", timeout=init_timeout),
+        "schema initialization",
+    )
     if os.environ.get("SUB2_PUBLISH", "1").lower() not in {"0", "false", "no"}:
         request(api, "POST", f"/api/agent/{agent_id}/publish")
 
