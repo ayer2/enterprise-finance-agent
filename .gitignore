@@ -28,6 +28,7 @@ target/
 
 ### .env files contain local environment variables ###
 .env
+.env.sub2
 
 # Maven ignore
 .flattened-pom.xml

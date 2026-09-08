@@ -1,0 +1,91 @@
+name: sub2-data-agent
+
+# Sub2 专用部署：只创建 DataAgent 管理库，不初始化 enterprise_demo 演示库。
+# Sub2 的 PostgreSQL/MySQL 作为运行时业务数据源，在管理页面中以只读账号配置。
+services:
+  metadata-db:
+    image: mysql:8.4
+    environment:
+      MYSQL_ROOT_PASSWORD: ${SUB2_AGENT_MYSQL_ROOT_PASSWORD:?Set SUB2_AGENT_MYSQL_ROOT_PASSWORD in .env.sub2}
+      MYSQL_DATABASE: saa_data_agent
+      TZ: Asia/Shanghai
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_0900_ai_ci
+    volumes:
+      - sub2_agent_metadata_mysql:/var/lib/mysql
+      - ./data-agent-management/src/main/resources/sql/schema.sql:/docker-entrypoint-initdb.d/10_schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "MYSQL_PWD=\"$$MYSQL_ROOT_PASSWORD\" mysqladmin ping --protocol=socket --user=root --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+    restart: unless-stopped
+    networks:
+      - sub2-agent
+
+  backend:
+    container_name: sub2-data-agent-backend
+    build:
+      context: .
+      dockerfile: deploy/Dockerfile.backend
+    image: enterprise-finance-agent/backend:sub2
+    environment:
+      DATA_AGENT_DATASOURCE_URL: jdbc:mysql://metadata-db:3306/saa_data_agent?useUnicode=true&characterEncoding=utf-8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Shanghai
+      DATA_AGENT_DATASOURCE_USERNAME: root
+      DATA_AGENT_DATASOURCE_PASSWORD: ${SUB2_AGENT_MYSQL_ROOT_PASSWORD:?Set SUB2_AGENT_MYSQL_ROOT_PASSWORD in .env.sub2}
+      DATA_AGENT_DATASOURCE_SQL_INIT: never
+      LANGFUSE_ENABLED: "false"
+      TZ: Asia/Shanghai
+      SPRING_CONFIG_ADDITIONAL_LOCATION: optional:file:/app/config/
+    ports:
+      - "${SUB2_AGENT_BACKEND_PORT:-8066}:8065"
+    volumes:
+      - sub2_agent_uploads:/app/uploads
+      - sub2_agent_vectorstore:/app/vectorstore
+      - ./deploy/sub2/application.yml:/app/config/application.yml:ro
+    depends_on:
+      metadata-db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "--silent", "http://localhost:8065/api/agent/list"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
+    restart: unless-stopped
+    networks:
+      - sub2-agent
+      - sub2-upstream
+
+  frontend:
+    build:
+      context: .
+      dockerfile: deploy/Dockerfile.frontend
+    image: enterprise-finance-agent/frontend:sub2
+    ports:
+      - "${SUB2_AGENT_FRONTEND_PORT:-3001}:8080"
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1:8080/healthz"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    restart: unless-stopped
+    networks:
+      - sub2-agent
+
+volumes:
+  sub2_agent_metadata_mysql:
+  sub2_agent_uploads:
+  sub2_agent_vectorstore:
+
+networks:
+  sub2-agent:
+    driver: bridge
+  # 由 Sub2 官方 Compose 创建。启动前通过 SUB2_UPSTREAM_NETWORK 指定实际网络名。
+  sub2-upstream:
+    name: ${SUB2_UPSTREAM_NETWORK:?Set SUB2_UPSTREAM_NETWORK to the network used by sub2api-postgres}
+    external: true

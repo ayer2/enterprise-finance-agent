@@ -1,0 +1,25 @@
+# Sub2 专用运行配置。
+# 这里只放不包含密码的默认值；数据库密码请在 DataAgent 页面保存，或通过本地未提交的配置提供。
+# 下面的字段白名单排除了 credentials、extra、api_keys.key、监控密钥和请求正文等敏感字段。
+spring:
+  ai:
+    alibaba:
+      data-agent:
+        sql-security:
+          enabled: true
+          max-rows: 500
+          query-timeout-seconds: 15
+          allowed-columns:
+            users: [id, email, role, balance, concurrency, status, created_at, updated_at]
+            groups: [id, name, description, rate_multiplier, is_exclusive, status, created_at, updated_at]
+            accounts: [id, name, platform, type, proxy_id, concurrency, priority, status, error_message, last_used_at, created_at, updated_at]
+            api_keys: [id, user_id, name, group_id, status, created_at, updated_at]
+            account_groups: [account_id, group_id, priority, created_at]
+            usage_logs: [id, user_id, api_key_id, account_id, request_id, model, input_tokens, output_tokens, cache_creation_tokens, cache_read_tokens, input_cost, output_cost, cache_creation_cost, cache_read_cost, total_cost, actual_cost, stream, duration_ms, created_at]
+            channels: [id, name, description, status, created_at, updated_at]
+            channel_groups: [id, channel_id, group_id, created_at]
+            channel_model_pricing: [id, channel_id, input_price, output_price, cache_write_price, cache_read_price, image_output_price, created_at, updated_at]
+            channel_monitors: [id, name, provider, endpoint, primary_model, group_name, enabled, interval_seconds, last_checked_at, created_by, created_at, updated_at]
+            channel_monitor_histories: [id, monitor_id, model, status, latency_ms, ping_latency_ms, message, checked_at]
+            ops_error_logs: [id, request_id, client_request_id, user_id, api_key_id, account_id, group_id, platform, model, request_path, stream, error_phase, error_type, severity, status_code, is_business_limited, error_source, error_owner, account_status, upstream_status_code, provider_error_code, provider_error_type, network_error_type, retry_after_seconds, duration_ms, time_to_first_token_ms, auth_latency_ms, routing_latency_ms, upstream_latency_ms, response_latency_ms, is_retryable, retry_count, created_at]
+            ops_system_metrics: [id, created_at, window_minutes, platform, group_id, success_count, error_count_total, business_limited_count, error_count_sla, upstream_error_count_excl_429_529, upstream_429_count, upstream_529_count, token_consumed, qps, tps, duration_p50_ms, duration_p90_ms, duration_p95_ms, duration_p99_ms, duration_avg_ms, duration_max_ms, ttft_p50_ms, ttft_p90_ms, ttft_p95_ms, ttft_p99_ms, ttft_avg_ms, ttft_max_ms, cpu_usage_percent, memory_used_mb, memory_total_mb, memory_usage_percent]

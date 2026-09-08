@@ -83,6 +83,19 @@ Compose 会自动完成以下工作：
 - 创建仅有 `enterprise_demo.* SELECT` 权限的 `enterprise_agent_ro` 账号。
 - 构建并启动 Spring Boot 后端、Nuxt 静态前端和 Nginx SSE 反向代理。
 
+### Sub2 专用部署（不创建演示业务库）
+
+如果只需要在服务器上查询 Sub2 中转站数据，可以使用仓库中的 `compose.sub2.yaml`。它只创建 DataAgent 自己的管理库，不执行 `enterprise_demo` 的生成脚本；Sub2 仍由官方镜像独立维护，并通过 PostgreSQL/MySQL 只读数据源接入。
+
+```bash
+cp .env.sub2.example .env.sub2
+# 编辑 .env.sub2，替换 CHANGE_ME
+export SUB2_UPSTREAM_NETWORK="$(docker inspect -f '{{range $name, $network := .NetworkSettings.Networks}}{{$name}}{{end}}' sub2api-postgres)"
+docker compose --env-file .env.sub2 -f compose.sub2.yaml up -d --build
+```
+
+启动后访问 `http://服务器地址:3001`，创建 Sub2 Agent 并绑定 Sub2 数据库。字段白名单和安全注意事项见 [Sub2 接入部署](docs/SUB2接入部署.md)。
+
 ### 4. 配置模型与 Agent
 
 模型密钥不会从 `.env` 注入，也不会保存在 Git 中。首次启动后仍需在页面完成一次本地配置：
