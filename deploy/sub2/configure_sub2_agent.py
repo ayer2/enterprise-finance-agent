@@ -125,7 +125,14 @@ def main() -> int:
             api,
             "PUT",
             f"/api/datasource/{datasource_id}",
-            {"type": "postgresql", "databaseName": f"{database_name}|{schema_name}"},
+            {
+                "type": "postgresql",
+                "host": datasource.get("host"),
+                "port": datasource.get("port"),
+                "databaseName": f"{database_name}|{schema_name}",
+                "username": datasource.get("username"),
+                "status": datasource.get("status") or "active",
+            },
         )
     unwrap(request(api, "POST", f"/api/datasource/{datasource_id}/test"), "datasource test")
     print(f"Datasource ready: id={datasource_id}")
