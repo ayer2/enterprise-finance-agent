@@ -22,6 +22,7 @@ import org.apache.hc.client5.http.auth.AuthScope;
 import org.apache.hc.client5.http.auth.UsernamePasswordCredentials;
 import org.apache.hc.client5.http.impl.auth.BasicCredentialsProvider;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.core5.http.HttpHost;
 import org.springframework.ai.chat.model.ChatModel;
@@ -116,26 +117,28 @@ public class DynamicModelFactory {
 	}
 
 	private RestClient.Builder getProxiedRestClientBuilder(ModelConfigDTO config) {
-		if (config.getProxyEnabled() == null || !config.getProxyEnabled()) {
-			return RestClient.builder();
+		HttpClientBuilder httpClientBuilder = HttpClients.custom();
+		if (config.getProxyEnabled() != null && config.getProxyEnabled()) {
+			// 打印同步代理日志
+			log.info("【Proxy-Init】Model [{}] is using SYNC proxy -> {}:{}", config.getModelName(),
+					config.getProxyHost(), config.getProxyPort());
+
+			BasicCredentialsProvider credsProvider = new BasicCredentialsProvider();
+			if (StringUtils.hasText(config.getProxyUsername())) {
+				log.info("【Proxy-Auth】Enabling Basic Auth for SYNC proxy, user: {}", config.getProxyUsername());
+				credsProvider.setCredentials(new AuthScope(config.getProxyHost(), config.getProxyPort()),
+						new UsernamePasswordCredentials(config.getProxyUsername(),
+								config.getProxyPassword().toCharArray()));
+			}
+
+			httpClientBuilder.setProxy(new HttpHost(config.getProxyHost(), config.getProxyPort()))
+				.setDefaultCredentialsProvider(credsProvider);
 		}
 
-		// 打印同步代理日志
-		log.info("【Proxy-Init】Model [{}] is using SYNC proxy -> {}:{}", config.getModelName(), config.getProxyHost(),
-				config.getProxyPort());
-
-		BasicCredentialsProvider credsProvider = new BasicCredentialsProvider();
-		if (StringUtils.hasText(config.getProxyUsername())) {
-			log.info("【Proxy-Auth】Enabling Basic Auth for SYNC proxy, user: {}", config.getProxyUsername());
-			credsProvider.setCredentials(new AuthScope(config.getProxyHost(), config.getProxyPort()),
-					new UsernamePasswordCredentials(config.getProxyUsername(),
-							config.getProxyPassword().toCharArray()));
-		}
-
-		CloseableHttpClient httpClient = HttpClients.custom()
-			.setProxy(new HttpHost(config.getProxyHost(), config.getProxyPort()))
-			.setDefaultCredentialsProvider(credsProvider)
-			.build();
+		// Use the buffered Apache client for synchronous model calls. Some
+		// Cloudflare-fronted gateways close the default JDK response stream before
+		// the JSON body is fully consumed, which surfaces as JsonEOFException.
+		CloseableHttpClient httpClient = httpClientBuilder.build();
 
 		return RestClient.builder().requestFactory(new HttpComponentsClientHttpRequestFactory(httpClient));
 	}
