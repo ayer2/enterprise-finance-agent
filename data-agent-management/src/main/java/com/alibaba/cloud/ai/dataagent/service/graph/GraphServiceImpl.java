@@ -327,7 +327,9 @@ public class GraphServiceImpl implements GraphService {
 		String agentId = request.getAgentId();
 		String threadId = request.getThreadId();
 		log.info("Stream processing completed successfully for threadId: {}", threadId);
-		multiTurnContextManager.finishTurn(request.getConversationId());
+		StreamContext activeContext = streamContextMap.get(threadId);
+		String finalAnswer = activeContext != null ? activeContext.getFinalAnswer() : null;
+		multiTurnContextManager.finishTurn(request.getConversationId(), finalAnswer);
 		RunnableConfig config = RunnableConfig.builder().threadId(threadId).build();
 		boolean awaitingHumanFeedback = isAwaitingHumanFeedback(request, config);
 		if (!awaitingHumanFeedback) {

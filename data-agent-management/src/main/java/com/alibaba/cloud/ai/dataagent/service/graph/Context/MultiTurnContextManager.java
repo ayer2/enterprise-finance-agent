@@ -83,18 +83,33 @@ public class MultiTurnContextManager {
 	 * @param threadId conversation thread id
 	 */
 	public void finishTurn(String threadId) {
+		finishTurn(threadId, null);
+	}
+
+	/**
+	 * Finalize the current turn. Planner output is preferred because it is the
+	 * compact context used by downstream analysis nodes. When a turn stops at a
+	 * clarification response before a planner is produced, retain that response
+	 * so a follow-up such as "最近1小时" can be resolved against the original
+	 * question.
+	 * @param threadId conversation thread id
+	 * @param finalAnswer final assistant response, used when no planner output exists
+	 */
+	public void finishTurn(String threadId, String finalAnswer) {
 		PendingTurn pending = pendingTurns.remove(threadId);
 		if (pending == null) {
 			return;
 		}
 		String plan = StringUtils.trimToEmpty(pending.planBuilder.toString());
-		if (StringUtils.isBlank(plan)) {
+		String answer = StringUtils.trimToEmpty(finalAnswer);
+		if (StringUtils.isBlank(plan) && StringUtils.isBlank(answer)) {
 			log.debug("No planner output recorded for thread {}, skipping history update", threadId);
 			return;
 		}
 
-		String trimmedPlan = StringUtils.abbreviate(plan, properties.getMaxplanlength());
-		chatMemory.add(threadId, List.of(new UserMessage(pending.userQuestion), new AssistantMessage(trimmedPlan)));
+		String contextReply = StringUtils.isNotBlank(plan) ? plan : answer;
+		String trimmedReply = StringUtils.abbreviate(contextReply, properties.getMaxplanlength());
+		chatMemory.add(threadId, List.of(new UserMessage(pending.userQuestion), new AssistantMessage(trimmedReply)));
 	}
 
 	/**

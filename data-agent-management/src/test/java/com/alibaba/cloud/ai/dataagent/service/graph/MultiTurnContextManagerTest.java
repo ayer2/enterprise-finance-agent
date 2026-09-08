@@ -89,6 +89,16 @@ class MultiTurnContextManagerTest {
 	}
 
 	@Test
+	void finishTurn_withoutPlannerOutput_keepsClarificationForFollowUp() {
+		contextManager.beginTurn("thread-1", "查询失败率最高的模型");
+		contextManager.finishTurn("thread-1", "请确认时间范围，例如最近1小时或最近24小时");
+
+		String context = contextManager.buildContext("thread-1");
+		assertTrue(context.contains("用户: 查询失败率最高的模型"));
+		assertTrue(context.contains("AI计划: 请确认时间范围，例如最近1小时或最近24小时"));
+	}
+
+	@Test
 	void discardPending_removesPendingTurn() {
 		contextManager.beginTurn("thread-1", "Query 1");
 		contextManager.appendPlannerChunk("thread-1", "Plan");
