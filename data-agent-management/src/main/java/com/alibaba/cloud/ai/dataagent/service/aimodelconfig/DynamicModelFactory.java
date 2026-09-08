@@ -35,6 +35,7 @@ import org.springframework.ai.openai.OpenAiEmbeddingOptions;
 import org.springframework.ai.openai.api.OpenAiApi;
 import org.springframework.ai.retry.RetryUtils;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.http.client.BufferingClientHttpRequestFactory;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -140,7 +141,10 @@ public class DynamicModelFactory {
 		// the JSON body is fully consumed, which surfaces as JsonEOFException.
 		CloseableHttpClient httpClient = httpClientBuilder.build();
 
-		return RestClient.builder().requestFactory(new HttpComponentsClientHttpRequestFactory(httpClient));
+		// Buffer the complete response before Jackson deserializes it. This avoids
+		// exposing a prematurely closed gateway response stream to the converter.
+		return RestClient.builder().requestFactory(new BufferingClientHttpRequestFactory(
+				new HttpComponentsClientHttpRequestFactory(httpClient)));
 	}
 
 	private WebClient.Builder getProxiedWebClientBuilder(ModelConfigDTO config) {
