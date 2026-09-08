@@ -56,3 +56,18 @@ docker compose --env-file .env.sub2 -f compose.sub2.yaml up -d --build
 ```
 
 这不会修改 Sub2 源码或 Sub2 数据卷。
+
+## 自动配置数据源和 Agent
+
+模型配置完成后，可以在服务器上用脚本重复配置 Sub2 数据源、创建或复用 Agent、绑定数据源、选择安全表并初始化 Schema。脚本通过 DataAgent 管理 API 操作，不修改 Sub2 源码。
+
+```bash
+cd /opt/enterprise-finance-agent
+export SUB2_DB_PASSWORD='只读账号 dataagent_ro 的密码'
+# 可选：指定表名；不指定时使用 deploy/sub2/application.yml 中的安全表交集
+export SUB2_TABLES='usage_logs,ops_error_logs,ops_system_metrics,channels'
+python3 deploy/sub2/configure_sub2_agent.py
+unset SUB2_DB_PASSWORD SUB2_TABLES
+```
+
+脚本默认访问 `http://127.0.0.1:8066`，可通过 `DATA_AGENT_URL` 覆盖。数据库密码只从环境变量或交互式隐藏输入读取，不写入仓库；已有名为 `sub2api` 的数据源和 `Sub2 数据问答助手` Agent 会被复用。首次运行如果没有匹配的安全表，会列出实际表名并要求通过 `SUB2_TABLES` 明确指定，避免把敏感表自动加入语义索引。
