@@ -92,6 +92,8 @@ def main() -> int:
     if datasource is None:
         db_password = os.environ.get("SUB2_DB_PASSWORD") or getpass.getpass("Sub2 dataagent_ro password: ")
         print("Creating PostgreSQL data source sub2api ...")
+        database_name = os.environ.get("SUB2_DB_NAME", "sub2api")
+        schema_name = os.environ.get("SUB2_DB_SCHEMA", "public")
         datasource = request(
             api,
             "POST",
@@ -101,7 +103,8 @@ def main() -> int:
                 "type": "postgresql",
                 "host": os.environ.get("SUB2_DB_HOST", "sub2api-postgres"),
                 "port": int(os.environ.get("SUB2_DB_PORT", "5432")),
-                "databaseName": os.environ.get("SUB2_DB_NAME", "sub2api"),
+                # The backend encodes PostgreSQL database and schema as database|schema.
+                "databaseName": f"{database_name}|{schema_name}",
                 "username": os.environ.get("SUB2_DB_USER", "dataagent_ro"),
                 "password": db_password,
                 "status": "active",
@@ -111,6 +114,19 @@ def main() -> int:
     datasource_id = datasource.get("id") if isinstance(datasource, dict) else None
     if not isinstance(datasource_id, int):
         raise ApiError("could not resolve sub2api datasource id")
+    # Older manual entries may contain only "sub2api". The backend then treats
+    # the database name as the schema name, so normalize it without replacing
+    # the stored password.
+    if datasource.get("type") == "postgresql" and "|" not in str(datasource.get("databaseName", "")):
+        schema_name = os.environ.get("SUB2_DB_SCHEMA", "public")
+        database_name = str(datasource.get("databaseName") or os.environ.get("SUB2_DB_NAME", "sub2api"))
+        print(f"Normalizing PostgreSQL database/schema to {database_name}|{schema_name} ...")
+        datasource = request(
+            api,
+            "PUT",
+            f"/api/datasource/{datasource_id}",
+            {"type": "postgresql", "databaseName": f"{database_name}|{schema_name}"},
+        )
     unwrap(request(api, "POST", f"/api/datasource/{datasource_id}/test"), "datasource test")
     print(f"Datasource ready: id={datasource_id}")
 
