@@ -76,7 +76,6 @@ def find_exact(items: object, key: str, expected: str) -> dict | None:
 def main() -> int:
     api = os.environ.get("DATA_AGENT_URL", DEFAULT_API)
     agent_name = os.environ.get("SUB2_AGENT_NAME", DEFAULT_AGENT)
-    db_password = os.environ.get("SUB2_DB_PASSWORD") or getpass.getpass("Sub2 dataagent_ro password: ")
     requested_tables = {
         table.strip()
         for table in os.environ.get("SUB2_TABLES", "").split(",")
@@ -91,6 +90,7 @@ def main() -> int:
     datasources = request(api, "GET", "/api/datasource")
     datasource = find_exact(datasources, "name", "sub2api")
     if datasource is None:
+        db_password = os.environ.get("SUB2_DB_PASSWORD") or getpass.getpass("Sub2 dataagent_ro password: ")
         print("Creating PostgreSQL data source sub2api ...")
         datasource = request(
             api,
