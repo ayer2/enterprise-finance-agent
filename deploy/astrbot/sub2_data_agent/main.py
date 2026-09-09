@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import json
 import os
 from pathlib import Path
@@ -23,7 +24,7 @@ class Sub2DataAgentPlugin(Star):
         super().__init__(context)
         self.base_url = os.getenv("SUB2_DATA_AGENT_URL", "http://sub2-data-agent-backend:8065").rstrip("/")
         self.agent_id = os.getenv("SUB2_DATA_AGENT_ID", "1")
-        self.timeout_seconds = float(os.getenv("SUB2_DATA_AGENT_TIMEOUT", "180"))
+        self.timeout_seconds = float(os.getenv("SUB2_DATA_AGENT_TIMEOUT", "600"))
         data_dir = Path(os.getenv("ASTRBOT_DATA_DIR", "/AstrBot/data"))
         self.mapping_path = data_dir / "plugin_data" / "sub2_data_agent" / "conversations.json"
         self.conversations = self._load_conversations()
@@ -75,8 +76,14 @@ class Sub2DataAgentPlugin(Star):
         self._save_conversations()
         try:
             answer = await self._query(conversation_id, query)
+        except asyncio.TimeoutError:  # pragma: no cover - runtime/network failure path
+            yield event.plain_result(
+                f"Sub2 数据查询超时（{self.timeout_seconds:g} 秒）。请稍后重试，或缩短查询时间范围。"
+            )
+            return
         except Exception as exc:  # pragma: no cover - runtime/network failure path
-            yield event.plain_result(f"Sub2 数据查询失败：{exc}")
+            detail = str(exc).strip() or "无附加错误信息"
+            yield event.plain_result(f"Sub2 数据查询失败：{type(exc).__name__}: {detail}")
             return
         yield event.plain_result(answer)
 

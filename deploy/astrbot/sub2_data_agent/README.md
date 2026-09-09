@@ -8,4 +8,4 @@
 
 - `SUB2_DATA_AGENT_URL`：DataAgent 地址。AstrBot 与 DataAgent 同一 Docker 网络时默认使用 `http://sub2-data-agent-backend:8065`。
 - `SUB2_DATA_AGENT_ID`：Agent ID，默认为 `1`。
-- `SUB2_DATA_AGENT_TIMEOUT`：单次查询超时秒数，默认为 `180`。
+- `SUB2_DATA_AGENT_TIMEOUT`：单次查询超时秒数，默认为 `600`。
