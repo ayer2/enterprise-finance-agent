@@ -27,17 +27,16 @@ class Sub2DataAgentPlugin(Star):
         self.mapping_path = data_dir / "plugin_data" / "sub2_data_agent" / "conversations.json"
         self.conversations = self._load_conversations()
 
-    @filter.command("sub2")
-    async def sub2(self, event: AstrMessageEvent, query: str = ""):
+    @filter.event_message_type(filter.EventMessageType.ALL, priority=10)
+    async def sub2(self, event: AstrMessageEvent):
         """Use /sub2 <question> to query the Sub2 DataAgent."""
         raw = (event.message_str or "").strip()
-        query = (query or "").strip()
-        if not query:
-            command_index = raw.lower().find("/sub2")
-            if command_index >= 0:
-                query = raw[command_index + 5 :].strip()
-            elif raw and not raw.startswith("/"):
-                query = raw
+        command_index = raw.lower().find("/sub2")
+        if command_index < 0:
+            return
+        query = raw[command_index + 5 :].strip()
+        # Prevent AstrBot's normal LLM pipeline from answering the same command.
+        event.stop_event()
         if not query:
             yield event.plain_result("用法：/sub2 查询最近1小时失败率最高的模型，并说明失败原因")
             return
