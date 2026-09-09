@@ -1,0 +1,81 @@
+"""AstrBot bridge for the Sub2 DataAgent SSE workflow."""
+
+from __future__ import annotations
+
+import json
+import os
+from typing import Any
+from urllib.parse import urlencode
+
+import aiohttp
+from astrbot.api.event import AstrMessageEvent, filter
+from astrbot.api.star import Context, Star, register
+
+
+@register("sub2_data_agent", "ayer2", "查询 Sub2API 数据并返回分析结果", "1.0.0")
+class Sub2DataAgentPlugin(Star):
+    """Route /sub2 questions to the published Sub2 DataAgent."""
+
+    def __init__(self, context: Context):
+        super().__init__(context)
+        self.base_url = os.getenv("SUB2_DATA_AGENT_URL", "http://sub2-data-agent-backend:8065").rstrip("/")
+        self.agent_id = os.getenv("SUB2_DATA_AGENT_ID", "1")
+        self.timeout_seconds = float(os.getenv("SUB2_DATA_AGENT_TIMEOUT", "180"))
+
+    @filter.command("sub2")
+    async def sub2(self, event: AstrMessageEvent):
+        """Use /sub2 <question> to query the Sub2 DataAgent."""
+        raw = (event.message_str or "").strip()
+        query = raw[5:].strip() if raw.lower().startswith("/sub2") else ""
+        if not query:
+            yield event.plain_result("用法：/sub2 查询最近1小时失败率最高的模型，并说明失败原因")
+            return
+
+        conversation_id = f"astrbot:{event.unified_msg_origin}"
+        try:
+            answer = await self._query(conversation_id, query)
+        except Exception as exc:  # pragma: no cover - runtime/network failure path
+            yield event.plain_result(f"Sub2 数据查询失败：{exc}")
+            return
+        yield event.plain_result(answer)
+
+    async def _query(self, conversation_id: str, query: str) -> str:
+        params = urlencode(
+            {
+                "agentId": self.agent_id,
+                "conversationId": conversation_id,
+                "query": query,
+                "humanFeedback": "false",
+                "rejectedPlan": "false",
+                "nl2sqlOnly": "false",
+            }
+        )
+        url = f"{self.base_url}/api/stream/search?{params}"
+        timeout = aiohttp.ClientTimeout(total=self.timeout_seconds)
+        final_answer = ""
+        report_parts: list[str] = []
+        async with aiohttp.ClientSession(timeout=timeout) as session:
+            async with session.get(url, headers={"Accept": "text/event-stream"}) as response:
+                if response.status != 200:
+                    detail = (await response.text())[:300]
+                    raise RuntimeError(f"HTTP {response.status}: {detail}")
+                async for raw_line in response.content:
+                    line = raw_line.decode("utf-8", "replace").rstrip("\r\n")
+                    if not line.startswith("data:"):
+                        continue
+                    payload = line[5:].strip()
+                    if not payload or payload == "[DONE]":
+                        continue
+                    try:
+                        item: dict[str, Any] = json.loads(payload)
+                    except json.JSONDecodeError:
+                        continue
+                    event_type = item.get("eventType")
+                    text = str(item.get("text") or "")
+                    if event_type == "FINAL_ANSWER":
+                        final_answer = text.strip()
+                    elif item.get("nodeName") == "ReportGeneratorNode" and item.get("textType") == "MARK_DOWN":
+                        report_parts.append(text)
+
+        answer = final_answer or "".join(report_parts).strip()
+        return answer or "Sub2 未返回可用回答，请查看 DataAgent 后端日志。"

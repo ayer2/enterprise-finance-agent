@@ -1,0 +1,5 @@
+name: sub2_data_agent
+author: ayer2
+desc: 将 AstrBot 问题转发给 Sub2 DataAgent，查询 Sub2API 运行数据并返回分析结果。
+version: 1.0.0
+display_name: Sub2 数据问答
