@@ -4,8 +4,10 @@ from __future__ import annotations
 
 import json
 import os
+from pathlib import Path
 from typing import Any
 from urllib.parse import urlencode
+from uuid import uuid4
 
 import aiohttp
 from astrbot.api.event import AstrMessageEvent, filter
@@ -21,6 +23,9 @@ class Sub2DataAgentPlugin(Star):
         self.base_url = os.getenv("SUB2_DATA_AGENT_URL", "http://sub2-data-agent-backend:8065").rstrip("/")
         self.agent_id = os.getenv("SUB2_DATA_AGENT_ID", "1")
         self.timeout_seconds = float(os.getenv("SUB2_DATA_AGENT_TIMEOUT", "180"))
+        data_dir = Path(os.getenv("ASTRBOT_DATA_DIR", "/AstrBot/data"))
+        self.mapping_path = data_dir / "plugin_data" / "sub2_data_agent" / "conversations.json"
+        self.conversations = self._load_conversations()
 
     @filter.command("sub2")
     async def sub2(self, event: AstrMessageEvent):
@@ -31,13 +36,34 @@ class Sub2DataAgentPlugin(Star):
             yield event.plain_result("用法：/sub2 查询最近1小时失败率最高的模型，并说明失败原因")
             return
 
-        conversation_id = f"astrbot:{event.unified_msg_origin}"
+        origin = event.unified_msg_origin
+        if query in {"新会话", "新对话", "重置", "清空上下文"}:
+            self.conversations[origin] = f"astrbot:{uuid4().hex}"
+            self._save_conversations()
+            yield event.plain_result("已开启新的 Sub2 会话，之前的上下文不会带入。")
+            return
+
+        conversation_id = self.conversations.setdefault(origin, f"astrbot:{uuid4().hex}")
+        self._save_conversations()
         try:
             answer = await self._query(conversation_id, query)
         except Exception as exc:  # pragma: no cover - runtime/network failure path
             yield event.plain_result(f"Sub2 数据查询失败：{exc}")
             return
         yield event.plain_result(answer)
+
+    def _load_conversations(self) -> dict[str, str]:
+        try:
+            value = json.loads(self.mapping_path.read_text(encoding="utf-8"))
+            return value if isinstance(value, dict) else {}
+        except (FileNotFoundError, OSError, json.JSONDecodeError):
+            return {}
+
+    def _save_conversations(self) -> None:
+        self.mapping_path.parent.mkdir(parents=True, exist_ok=True)
+        self.mapping_path.write_text(
+            json.dumps(self.conversations, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
 
     async def _query(self, conversation_id: str, query: str) -> str:
         params = urlencode(
