@@ -10,6 +10,7 @@ from urllib.parse import urlencode
 from uuid import uuid4
 
 import aiohttp
+from astrbot.api import logger
 from astrbot.api.event import AstrMessageEvent, filter
 from astrbot.api.star import Context, Star, register
 
@@ -27,16 +28,38 @@ class Sub2DataAgentPlugin(Star):
         self.mapping_path = data_dir / "plugin_data" / "sub2_data_agent" / "conversations.json"
         self.conversations = self._load_conversations()
 
-    @filter.event_message_type(filter.EventMessageType.ALL, priority=1000)
-    async def sub2(self, event: AstrMessageEvent):
-        """Use /sub2 <question> to query the Sub2 DataAgent."""
+    @filter.command("sub2", priority=1000)
+    async def sub2_command(self, event: AstrMessageEvent):
+        """Handle AstrBot's parsed /sub2 command."""
         raw = self._message_text(event).strip()
+        query = self._extract_query(raw)
+        # Some adapters pass only the text after a parsed command.
+        if not query and raw and not raw.startswith("/"):
+            query = raw
+        logger.info("[Sub2] command handler matched")
+        event.stop_event()
+        async for result in self._respond(event, query):
+            yield result
+
+    @filter.event_message_type(filter.EventMessageType.ALL, priority=999)
+    async def sub2_message_fallback(self, event: AstrMessageEvent):
+        """Catch adapters that do not expose slash commands to command handlers."""
+        raw = self._message_text(event).strip()
+        if "/sub2" not in raw.lower():
+            return
+        logger.info("[Sub2] message fallback matched")
+        event.stop_event()
+        async for result in self._respond(event, self._extract_query(raw)):
+            yield result
+
+    @staticmethod
+    def _extract_query(raw: str) -> str:
         command_index = raw.lower().find("/sub2")
         if command_index < 0:
-            return
-        query = raw[command_index + 5 :].strip()
-        # Prevent AstrBot's normal LLM pipeline from answering the same command.
-        event.stop_event()
+            return ""
+        return raw[command_index + 5 :].strip()
+
+    async def _respond(self, event: AstrMessageEvent, query: str):
         if not query:
             yield event.plain_result("用法：/sub2 查询最近1小时失败率最高的模型，并说明失败原因")
             return
