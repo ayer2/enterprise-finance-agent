@@ -28,11 +28,16 @@ class Sub2DataAgentPlugin(Star):
         self.conversations = self._load_conversations()
 
     @filter.command("sub2")
-    async def sub2(self, event: AstrMessageEvent):
+    async def sub2(self, event: AstrMessageEvent, query: str = ""):
         """Use /sub2 <question> to query the Sub2 DataAgent."""
         raw = (event.message_str or "").strip()
-        command_index = raw.lower().find("/sub2")
-        query = raw[command_index + 5 :].strip() if command_index >= 0 else ""
+        query = (query or "").strip()
+        if not query:
+            command_index = raw.lower().find("/sub2")
+            if command_index >= 0:
+                query = raw[command_index + 5 :].strip()
+            elif raw and not raw.startswith("/"):
+                query = raw
         if not query:
             yield event.plain_result("用法：/sub2 查询最近1小时失败率最高的模型，并说明失败原因")
             return
