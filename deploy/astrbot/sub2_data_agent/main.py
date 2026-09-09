@@ -31,7 +31,8 @@ class Sub2DataAgentPlugin(Star):
     async def sub2(self, event: AstrMessageEvent):
         """Use /sub2 <question> to query the Sub2 DataAgent."""
         raw = (event.message_str or "").strip()
-        query = raw[5:].strip() if raw.lower().startswith("/sub2") else ""
+        command_index = raw.lower().find("/sub2")
+        query = raw[command_index + 5 :].strip() if command_index >= 0 else ""
         if not query:
             yield event.plain_result("用法：/sub2 查询最近1小时失败率最高的模型，并说明失败原因")
             return
